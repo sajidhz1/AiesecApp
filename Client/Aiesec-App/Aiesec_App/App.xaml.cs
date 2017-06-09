@@ -1,4 +1,5 @@
-﻿using Aiesec_App.Views;
+﻿using Aiesec_App.Data;
+using Aiesec_App.Views;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -8,10 +9,13 @@ namespace Aiesec_App
 {
     public partial class App : Application
     {
+        public static ItemManager Manager { get; private set; }
+
         public App()
         {
             InitializeComponent();
 
+            Manager = new ItemManager(new RestService());
             SetMainPage();
         }
 

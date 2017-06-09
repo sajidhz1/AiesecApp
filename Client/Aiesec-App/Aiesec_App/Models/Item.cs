@@ -2,18 +2,12 @@
 {
     public class Item : BaseDataObject
     {
-        string text = string.Empty;
-        public string Text
-        {
-            get { return text; }
-            set { SetProperty(ref text, value); }
-        }
+        public string Name { get; set; }
 
-        string description = string.Empty;
-        public string Description
-        {
-            get { return description; }
-            set { SetProperty(ref description, value); }
-        }
+        public string Notes { get; set; }
+
+        public bool Done { get; set; }
+
+        public string ID { get; internal set; }
     }
 }

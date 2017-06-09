@@ -16,8 +16,8 @@ namespace Aiesec_App.Views
 
             Item = new Item
             {
-                Text = "Item name",
-                Description = "This is a nice description"
+                Name = "Item name",
+                Notes = "This is a nice description"
             };
 
             BindingContext = this;
