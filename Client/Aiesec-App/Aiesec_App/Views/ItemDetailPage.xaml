@@ -4,7 +4,7 @@
              x:Class="Aiesec_App.Views.ItemDetailPage"
              Title="{Binding Title}">
 	<StackLayout Spacing="20" Padding="15">
-		<Label Text="{Binding Item.Text}" FontSize="Medium"/>
-        <Label Text="{Binding Item.Description}" FontSize="Small"/>
+		<Label Text="{Binding Item.Name}" FontSize="Medium"/>
+        <Label Text="{Binding Item.Notes}" FontSize="Small"/>
     </StackLayout>
 </ContentPage>

@@ -11,6 +11,8 @@ namespace Aiesec_App
     {
         public static ItemManager Manager { get; private set; }
 
+        public static bool IsUserLoggedIn { get; set; }
+
         public App()
         {
             InitializeComponent();
@@ -21,22 +23,14 @@ namespace Aiesec_App
 
         public static void SetMainPage()
         {
-            Current.MainPage = new TabbedPage
+            if (!IsUserLoggedIn)
             {
-                Children =
-                {
-                    new NavigationPage(new ItemsPage())
-                    {
-                        Title = "Browse",
-                        Icon = Device.OnPlatform("tab_feed.png",null,null)
-                    },
-                    new NavigationPage(new AboutPage())
-                    {
-                        Title = "About",
-                        Icon = Device.OnPlatform("tab_about.png",null,null)
-                    },
-                }
-            };
+                Current.MainPage = new NavigationPage(new LoginPage());
+            }
+            else
+            {
+                Current.MainPage = new NavigationPage(new MainPage());
+            }
         }
     }
 }
