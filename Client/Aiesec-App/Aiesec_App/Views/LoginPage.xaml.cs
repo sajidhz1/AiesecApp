@@ -48,7 +48,8 @@ namespace Aiesec_App.Views
 
         bool AreCredentialsCorrect(User user)
         {
-            return user.Username == Constants.Username && user.Password == Constants.Password;
+            //return user.Username == Constants.Username && user.Password == Constants.Password;
+            return true;
         }
     }
 }

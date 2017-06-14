@@ -28,7 +28,7 @@ namespace Aiesec_App.Services
         {
             await InitializeAsync();
 
-            var _item = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
+            var _item = items.Where((Item arg) => arg.ID == item.ID).FirstOrDefault();
             items.Remove(_item);
             items.Add(item);
 
@@ -39,7 +39,7 @@ namespace Aiesec_App.Services
         {
             await InitializeAsync();
 
-            var _item = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
+            var _item = items.Where((Item arg) => arg.ID == item.ID).FirstOrDefault();
             items.Remove(_item);
 
             return await Task.FromResult(true);
@@ -49,7 +49,7 @@ namespace Aiesec_App.Services
         {
             await InitializeAsync();
 
-            return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
+            return await Task.FromResult(items.FirstOrDefault(s => s.ID == id));
         }
 
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
@@ -76,9 +76,20 @@ namespace Aiesec_App.Services
                 return;
 
             items = new List<Item>();
-            var _items  = await App.Manager.GetItemsAsync();
 
-            foreach (Item item in _items)
+            var _serverItems  = await App.Manager.GetItemsAsync();
+            var _localItems = await App.Database.GetItemsAsync();
+
+            var _newItems  = _serverItems.Except(_localItems, new IdComparer()).ToList();
+
+            foreach (Item item in _newItems)
+            {
+                await App.Database.SaveItemAsync(item);
+            }
+
+            _localItems = await App.Database.GetItemsAsync();
+
+            foreach (Item item in _localItems)
             {
                 items.Add(item);
             }

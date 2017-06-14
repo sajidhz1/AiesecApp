@@ -1,5 +1,6 @@
 ﻿using System;
 using Aiesec_App.Helpers;
+using SQLite;
 
 namespace Aiesec_App.Models
 {
@@ -7,13 +8,15 @@ namespace Aiesec_App.Models
     {
         public BaseDataObject()
         {
-            Id = Guid.NewGuid().ToString();
+            ID = Guid.NewGuid().ToString();
         }
 
         /// <summary>
         /// Id for item
         /// </summary>
-        public string Id { get; set; }
+        /// 
+        [PrimaryKey]
+        public string ID { get; set; }
 
         /// <summary>
         /// Azure created at time stamp

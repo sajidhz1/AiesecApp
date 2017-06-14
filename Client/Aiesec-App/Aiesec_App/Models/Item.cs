@@ -8,6 +8,5 @@
 
         public bool Done { get; set; }
 
-        public string ID { get; internal set; }
     }
 }

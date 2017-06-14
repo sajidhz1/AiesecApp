@@ -9,6 +9,8 @@ namespace Aiesec_App
 {
     public partial class App : Application
     {
+        static ItemDataBase database;
+
         public static ItemManager Manager { get; private set; }
 
         public static bool IsUserLoggedIn { get; set; }
@@ -30,6 +32,18 @@ namespace Aiesec_App
             else
             {
                 Current.MainPage = new NavigationPage(new MainPage());
+            }
+        }
+
+        public static ItemDataBase Database
+        {
+            get
+            {
+                if (database == null)
+                {
+                    database = new ItemDataBase(DependencyService.Get<IFileHelper>().GetLocalFilePath("TodoSQLite.db3"));
+                }
+                return database;
             }
         }
     }
