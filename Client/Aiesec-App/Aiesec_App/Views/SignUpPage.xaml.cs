@@ -3,6 +3,9 @@ using System;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Newtonsoft.Json;
+using RestSharp;
+using Aiesec_App.Helpers;
 
 namespace Aiesec_App.Views
 {
@@ -23,7 +26,17 @@ namespace Aiesec_App.Views
                 Email = emailEntry.Text
             };
 
-            // Sign up logic goes here
+            //Sign up logic goes here should be moved 
+            var client = new RestClient("http://10.0.2.2:3000");
+            var request = new RestRequest("api/users", Method.POST);
+
+
+            request.AddParameter("email", user.Username);
+            request.AddParameter("password", user.Password);
+
+            IRestResponse response = client.Execute(request);
+
+            UserSignup usersignup = JsonConvert.DeserializeObject<UserSignup>(response.Content);
 
             var signUpSucceeded = AreDetailsValid(user);
             if (signUpSucceeded)
@@ -38,7 +51,12 @@ namespace Aiesec_App.Views
             }
             else
             {
-                messageLabel.Text = "Sign up failed";
+                MessagingCenter.Send(new MessagingCenterAlert
+                {
+                    Title = "Error",
+                    Message = "Unable to Signup",
+                    Cancel = "OK"
+                }, "message");
             }
         }
 
@@ -46,5 +64,10 @@ namespace Aiesec_App.Views
         {
             return (!string.IsNullOrWhiteSpace(user.Username) && !string.IsNullOrWhiteSpace(user.Password) && !string.IsNullOrWhiteSpace(user.Email) && user.Email.Contains("@"));
         }
+    }
+
+    public class UserSignup
+    {
+        public string user_id { get; set; }
     }
 }
