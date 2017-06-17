@@ -1,4 +1,8 @@
 var mysql = require("mysql");
+var jwt    = require('jsonwebtoken');
+var express = require("express");
+var app  = express();
+var config = require('./Config'); // get our config file
 
 function REST_ROUTER(router, connection, md5) {
     var self = this;
@@ -15,10 +19,10 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
         var table = ["user_login", "user_email", "user_password", req.body.email, md5(req.body.password)];
         query = mysql.format(query, table);
         connection.query(query, function (err, rows) {
-            if (err) {
+            if (err) {				
                 res.json({ "Error": true, "Message": "Error executing MySQL query" });
             } else {
-                res.json({ "Error": false, "Message": "User Added !" });
+                res.json({ "Error": false, "user_id": rows.insertId });
             }
         });
     });
@@ -31,7 +35,7 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
             if (err) {
                 res.json({ "Error": true, "Message": "Error" })
             } else {
-                res.json({ "Error": false, "Message": "Success", "Users": rows })
+                res.json({ "Error": false, "Message": "Success" })
             }
         });
     });
@@ -61,6 +65,49 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
             }
         });
     });
+	
+	router.post('/authenticate', function(req, res) {
+
+		var query = "SELECT * FROM ?? WHERE ??=?";
+        var table = ["user_login", "user_email", req.body.email];	
+		query = mysql.format(query, table);
+		connection.query(query, function (err, rows) {
+            if (err) {				
+                res.json({ "Error": true, "Message": "Error executing MySQL query" });
+            } else {
+                if (rows.user_id == "") {
+				  res.json({ success: false, message: 'Authentication failed. User not found.' });
+				} else{
+
+				  // check if password matches
+				  if (rows.user_password != req.body.password) {
+					res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+				  } else {
+
+				  var user = {
+					user_email: rows.user_email,
+					user_password: rows.user_password,
+					user_Id: rows.user_id,
+					user_join_date: rows.user_join_date
+				  };
+					// if user is found and password is right
+					// create a token
+					var token = jwt.sign(user , config.secret , {
+					  expiresIn : 1440 // expires in 24 hours
+					});
+
+					// return the information including token as JSON
+					res.json({
+					  success: true,
+					  token: token
+					});
+				  }   
+
+			}
+        }
+        });
+	
+	});
 }
 
 module.exports = REST_ROUTER;

@@ -5,6 +5,9 @@ var md5 = require('MD5');
 var rest = require("./REST.js");
 var app  = express();
 
+var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+
+
 function REST(){
     var self = this;
     self.connectMysql();
