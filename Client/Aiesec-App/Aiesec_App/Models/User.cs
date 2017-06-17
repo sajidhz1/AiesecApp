@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aiesec_App.Models
 {
-    class User : BaseDataObject
+    public class User : BaseDataObject
     {
         public string Username { get; set; }
 

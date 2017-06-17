@@ -16,7 +16,7 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 
     router.post("/users", function (req, res) {
         var query = "INSERT INTO ??(??,??) VALUES (?,?)";
-        var table = ["user_login", "user_email", "user_password", req.body.email, md5(req.body.password)];
+        var table = ["user_login", "user_email", "user_password", req.body.email, md5(req.body.password , config.secret)];
         query = mysql.format(query, table);
         connection.query(query, function (err, rows) {
             if (err) {				
@@ -66,6 +66,7 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
         });
     });
 	
+	//returns a id token and access token upon authentication
 	router.post('/authenticate', function(req, res) {
 
 		var query = "SELECT * FROM ?? WHERE ??=?";
@@ -75,31 +76,27 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
             if (err) {				
                 res.json({ "Error": true, "Message": "Error executing MySQL query" });
             } else {
-                if (rows.user_id == "") {
+                if (rows.length <= 0) {
 				  res.json({ success: false, message: 'Authentication failed. User not found.' });
 				} else{
 
 				  // check if password matches
-				  if (rows.user_password != req.body.password) {
+				  if (rows[0].user_password !== md5(req.body.password , config.secret)) {
 					res.json({ success: false, message: 'Authentication failed. Wrong password.' });
 				  } else {
 
 				  var user = {
 					user_email: rows.user_email,
-					user_password: rows.user_password,
 					user_Id: rows.user_id,
 					user_join_date: rows.user_join_date
 				  };
-					// if user is found and password is right
-					// create a token
-					var token = jwt.sign(user , config.secret , {
-					  expiresIn : 1440 // expires in 24 hours
-					});
 
 					// return the information including token as JSON
 					res.json({
 					  success: true,
-					  token: token
+					  id_token : createIdToken(user),
+					  access_token : createAccessToken(),
+					  user : md5(req.body.password , config.secret)
 					});
 				  }   
 
@@ -107,7 +104,34 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
         }
         });
 	
-	});
+	});	
+	
+}
+
+function genJti() {
+  let jti = '';
+  let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < 16; i++) {
+      jti += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  
+  return jti;
+}
+
+function createIdToken(user) {
+  return jwt.sign(user, config.secret, { expiresIn: 60*60*5 });
+}
+
+function createAccessToken() {
+  return jwt.sign({
+    iss: config.issuer,
+    aud: config.audience,
+    exp: Math.floor(Date.now() / 1000) + (60 * 60),
+    scope: 'full_access',
+    sub: "lalaland|gonto",
+    jti: genJti(), // unique identifier for the token
+    alg: 'HS256'
+  }, config.secret);
 }
 
 module.exports = REST_ROUTER;
