@@ -6,7 +6,8 @@ var rest = require("./REST.js");
 var app  = express();
 
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
-
+var jwToken = require('express-jwt');
+var config = require('./Config');
 
 function REST(){
     var self = this;
@@ -38,6 +39,12 @@ REST.prototype.configureExpress = function(connection) {
       app.use(bodyParser.json());
       var router = express.Router();
       app.use('/api', router);
+	  
+	  app.use('/api/protected', jwtCheck, requireScope('full_access'));	   
+	  app.get('/api/protected/random-quote', function(req, res) {
+	    res.status(200).send("test");
+	  });
+	  
       var rest_router = new rest(router,connection,md5);
       self.startServer();
 }
@@ -52,5 +59,25 @@ REST.prototype.stop = function(err) {
     console.log("ISSUE WITH MYSQL n" + err);
     process.exit(1);
 }
+
+
+var jwtCheck = jwToken({
+  secret: config.secret,
+  audience: config.audience,
+  issuer: config.issuer
+});
+
+// Check for scope
+function requireScope(scope) {
+  return function (req, res, next) {
+    var has_scopes = req.user.scope === scope;
+    if (!has_scopes) { 
+        res.sendStatus(401); 
+        return;
+    }
+    next();
+  };
+}
+
 
 new REST();

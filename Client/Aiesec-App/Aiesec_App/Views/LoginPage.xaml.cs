@@ -56,7 +56,7 @@ namespace Aiesec_App.Views
             var client = new RestClient("http://10.0.2.2:3000");
             var request = new RestRequest("api/authenticate", Method.POST);
             request.AddParameter("client_id", "{YOUR-AUTH0-CLIENT-ID");
-            request.AddParameter("email", user.Username);
+            request.AddParameter("username", user.Username);
             request.AddParameter("password", user.Password);
             //request.AddParameter("connection", "{YOUR-CONNECTION-NAME-FOR-USERNAME-PASSWORD-AUTH}");
             //request.AddParameter("grant_type", "password");
