@@ -7,12 +7,39 @@ using Newtonsoft.Json;
 using RestSharp;
 using Aiesec_App.Helpers;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.ComponentModel;
 
 namespace Aiesec_App.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SignUpPage : ContentPage
+    public partial class SignUpPage : ContentPage, INotifyPropertyChanged
     {
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get
+            {
+                return this.isLoading;
+            }
+
+            set
+            {
+                this.isLoading = value;
+                RaisePropertyChanged("IsLoading");
+            }
+        }
+
+        public void RaisePropertyChanged(string propName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public SignUpPage()
         {
             InitializeComponent();
@@ -27,10 +54,14 @@ namespace Aiesec_App.Views
                 Email = emailEntry.Text
             };
                       
-            var signUpSucceeded = AreDetailsValid(user);
-            if (signUpSucceeded)
+            var validateFieldsSucceeded = validateFields();
+            if (validateFieldsSucceeded)
             {
+                IsLoading = true;
+
                 UserSignup userSignUp =  SignUp(user);
+
+                IsLoading = false;
 
                 if (!string.IsNullOrEmpty(userSignUp.user_id))
                 {
@@ -65,6 +96,67 @@ namespace Aiesec_App.Views
             IRestResponse response = client.Execute(request);
 
             return JsonConvert.DeserializeObject<UserSignup>(response.Content);
+        }
+
+        private bool validateFields() {
+
+            if (string.IsNullOrEmpty(firstnameEntry.Text))
+            {
+                DisplayAlert("Incomplete", "First Name Required !", "Ok");
+                return false;
+            }
+            if (string.IsNullOrEmpty(lastnameEntry.Text))
+            {
+                DisplayAlert("Incomplete", "Last Name Required !", "Ok");
+                return false;
+            }
+            //if (string.IsNullOrEmpty(countryEntry.))
+            //{
+            //    DisplayAlert("Incomplete", "E Name Required !", "Ok");
+            //    return false;
+            //}
+            if (string.IsNullOrEmpty(emailEntry.Text))
+            {
+                DisplayAlert("Incomplete", "Email Required !", "Ok");
+                return false;
+            }
+            if (string.IsNullOrEmpty(usernameEntry.Text))
+            {
+                DisplayAlert("Incomplete", "Username Required !", "Ok");
+                return false;
+            }
+            if (string.IsNullOrEmpty(passwordEntry.Text))
+            {
+                DisplayAlert("Incomplete", "Password Required !", "Ok");
+                return false;
+            }
+            if (string.IsNullOrEmpty(confirmPasswordEntry.Text))
+            {
+                DisplayAlert("Incomplete", "Confirm Password Required !", "Ok");
+                return false;
+            }
+            if (!passwordEntry.Text.Equals(confirmPasswordEntry.Text))
+            {
+                DisplayAlert("Error", "Password /Confirm Password Does not Match !", "Ok");
+                return false;
+            }
+            if (!validateEmail(emailEntry.Text))
+            {
+                DisplayAlert("Error", "Invalid Email Address !", "Ok");
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool validateEmail(string email)
+        {
+            Regex regex = new Regex(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
+            + "@"
+            + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
+            Match match = regex.Match(email);
+
+            return match.Success;
         }
     }
 

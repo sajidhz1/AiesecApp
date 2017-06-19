@@ -3,6 +3,7 @@ var mysql   = require("mysql");
 var bodyParser  = require("body-parser");
 var md5 = require('MD5');
 var rest = require("./REST.js");
+var protectedRoutes = require("./ProtectedRoutes.js");
 var app  = express();
 
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
@@ -37,15 +38,15 @@ REST.prototype.configureExpress = function(connection) {
       var self = this;
       app.use(bodyParser.urlencoded({ extended: true }));
       app.use(bodyParser.json());
+	  
       var router = express.Router();
       app.use('/api', router);
+	  var rest_router = new rest(router,connection,md5);
 	  
-	  app.use('/api/protected', jwtCheck, requireScope('full_access'));	   
-	  app.get('/api/protected/random-quote', function(req, res) {
-	    res.status(200).send("test");
-	  });
+	  router = express.Router();
+	  app.use('/api/protected', jwtCheck, requireScope('full_access'));	   	 
+	  var protected_routes = new protectedRoutes(router, connection);
 	  
-      var rest_router = new rest(router,connection,md5);
       self.startServer();
 }
 
