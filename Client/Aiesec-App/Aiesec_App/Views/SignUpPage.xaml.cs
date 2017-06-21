@@ -9,75 +9,24 @@ using Aiesec_App.Helpers;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
+using Aiesec_App.ViewModels;
 
 namespace Aiesec_App.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SignUpPage : ContentPage, INotifyPropertyChanged
+    public partial class SignUpPage : ContentPage
     {
-        private bool isLoading;
-        public bool IsLoading
-        {
-            get
-            {
-                return this.isLoading;
-            }
-
-            set
-            {
-                this.isLoading = value;
-                RaisePropertyChanged("IsLoading");
-            }
-        }
-
-        public void RaisePropertyChanged(string propName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        private SignUpViewModel vm { get; }
 
         public SignUpPage()
         {
             InitializeComponent();
+            BindingContext = vm = new SignUpViewModel();
         }
 
         async void OnSignUpButtonClicked(object sender, EventArgs e)
         {
-            var user = new User()
-            {
-                Username = usernameEntry.Text,
-                Password = passwordEntry.Text,
-                Email = emailEntry.Text
-            };
-                      
-            var validateFieldsSucceeded = validateFields();
-            if (validateFieldsSucceeded)
-            {
-                IsLoading = true;
-
-                UserSignup userSignUp =  SignUp(user);
-
-                IsLoading = false;
-
-                if (!string.IsNullOrEmpty(userSignUp.user_id))
-                {
-                    var rootPage = Navigation.NavigationStack.FirstOrDefault();
-                    if (rootPage != null)
-                    {
-                        App.IsUserLoggedIn = true;
-                        Navigation.InsertPageBefore(new LoginPage(), Navigation.NavigationStack.First());
-                        await Navigation.PopToRootAsync();
-                    }
-                }
-                else
-                {
-                    await DisplayAlert("Error", "Unable to Signup", "OK");                    
-                }
-            }
+            await SignUpAsync();
         }
 
         bool AreDetailsValid(User user)
@@ -85,17 +34,57 @@ namespace Aiesec_App.Views
             return (!string.IsNullOrWhiteSpace(user.Username) && !string.IsNullOrWhiteSpace(user.Password) && !string.IsNullOrWhiteSpace(user.Email) && user.Email.Contains("@"));
         }
 
-        UserSignup SignUp(User user)
+        async Task SignUpAsync()
         {
-            //Sign up logic goes here should be moved 
-            var client = new RestClient("http://10.0.2.2:3000");
-            var request = new RestRequest("api/users", Method.POST);
-            request.AddParameter("email", user.Username);
-            request.AddParameter("password", user.Password);
+            if (vm.IsBusy)
+                return;
 
-            IRestResponse response = client.Execute(request);
+            vm.IsBusy = true;
 
-            return JsonConvert.DeserializeObject<UserSignup>(response.Content);
+            var user = new User()
+            {
+                Username = usernameEntry.Text,
+                Password = passwordEntry.Text,
+                Email = emailEntry.Text
+            };
+
+            var validateFieldsSucceeded = validateFields();
+            if (validateFieldsSucceeded)
+            {
+                try
+                {
+
+                    //Sign up logic goes here should be moved 
+                    var client = new RestClient("http://10.0.2.2:3000");
+                    var request = new RestRequest("api/users", Method.POST);
+                    request.AddParameter("email", user.Username);
+                    request.AddParameter("password", user.Password);
+
+                    IRestResponse response = await client.ExecuteTaskAsync(request);
+                    UserSignup userSignUp = JsonConvert.DeserializeObject<UserSignup>(response.Content);
+
+                    if (!string.IsNullOrEmpty(userSignUp.user_id))
+                    {
+                        var rootPage = Navigation.NavigationStack.FirstOrDefault();
+                        if (rootPage != null)
+                        {
+                            App.IsUserLoggedIn = true;
+                            Navigation.InsertPageBefore(new LoginPage(), Navigation.NavigationStack.First());
+                            await Navigation.PopToRootAsync();
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", "Unable to Signup", "OK");
+                }
+                finally
+                {
+                    vm.IsBusy = false;
+                }
+
+            }
         }
 
         private bool validateFields() {
