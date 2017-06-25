@@ -1,7 +1,4 @@
 var express = require('express');
-var mysql = require("mysql");
-var bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
 
 var router = express.Router();
 var dbUser = require('../models/userModel');
@@ -30,27 +27,6 @@ router.get('/:useremail', function (req, res) {
         res.json({
             "error": false,
             "user": user
-        });
-    }).catch(function (error) {
-        return res.json({ "error": true, "message": error })
-    });
-});
-
-router.post('/login', function (req, res) {
-    //Authenticate a user by email and password
-    var email = req.body.email;
-    var password = req.body.password;
-
-    dbUser.findUser(email).then(function (user) {
-        bcrypt.compare(password, user.user_password).then(function (result) {
-            if (result) {
-                return res.json({ "error": false, "message": "User found for given credentials" })
-            } else {
-                return res.json({ "error": false, "message": "Invalid credetials were provided!" })
-            }
-        })
-        .catch(function (error) {
-            return res.json({ "error": true, "message": "hash err" })
         });
     }).catch(function (error) {
         return res.json({ "error": true, "message": error })

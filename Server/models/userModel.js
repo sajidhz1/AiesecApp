@@ -1,5 +1,4 @@
 var mysql = require("mysql");
-var md5 = require('MD5');
 var bcrypt = require('bcrypt');
 var async = require('async');
 
@@ -41,6 +40,7 @@ module.exports = {
                     if (err) {
                         return reject(err)
                     }
+                    result[0].role = "admin";
                     return resolve(result[0])
                 })
             }).catch(function (err) {
@@ -49,5 +49,3 @@ module.exports = {
         })
     }
 }
-
-// module.exports = UserModel;

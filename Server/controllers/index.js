@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
-/**
-  * @description
-  * First route will handle the static html file delievery.
-  * Second route will handle the API calls.
-*/
+
+var auth = require('./auth.js');
+var user = require('./user.js');
+
 function stop(err) {
     console.log("ISSUE WITH MYSQL n" + err);
     process.exit(1);
@@ -13,7 +12,19 @@ function stop(err) {
 router.get('/', function (req, res) {
     res.json({ message: "Hello World" });
 });
+/*
+ * Routes that can be accessed by any one
+ */
+router.use('/api/login', auth);
 
-router.use('/user', require('./user'));
+
+/*
+ * Routes that can be accessed only by autheticated users
+ */
+router.use('/api/auth/user', user);
+
+/*
+ * Routes that can be accessed only by authenticated & authorized users
+ */
 
 module.exports = router;

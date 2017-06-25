@@ -44,7 +44,7 @@ CREATE  TABLE IF NOT EXISTS `aiesec`.`user_info` (
 CREATE  TABLE IF NOT EXISTS `aiesec`.`user_login` (
   `user_id` int(70) NOT NULL,
   `user_email` varchar(45) NOT NULL,
-  `user_password` varchar(45) DEFAULT NULL,
+  `user_password` varchar(255) DEFAULT NULL,
   `user_join_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
