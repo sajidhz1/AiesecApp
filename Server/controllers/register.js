@@ -21,17 +21,4 @@ router.post('/', function (req, res) {
     });
 });
 
-router.get('/:useremail', function (req, res) {
-    // Find a user by email
-    var email = req.params.useremail;
-    dbUser.findUser(email).then(function (user) {
-        res.json({
-            "error": false,
-            "user": user
-        });
-    }).catch(function (error) {
-        return res.json({ "error": true, "message": error })
-    });
-});
-
 module.exports = router;

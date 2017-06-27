@@ -1,4 +1,5 @@
 var jwt = require('jwt-simple');
+
 var validateUser = require('../models/userModel').findUser;
 var config = require('../Config')
 

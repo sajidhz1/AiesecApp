@@ -3,6 +3,7 @@ var bcrypt = require('bcrypt');
 var jwt = require('jwt-simple');
 
 var router = express.Router();
+
 var dbUser = require('../models/userModel');
 var config = require('../Config')
 
