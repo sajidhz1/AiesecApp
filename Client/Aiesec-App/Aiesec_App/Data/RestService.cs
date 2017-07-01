@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Aiesec_App.Data
 {
-    class RestService : IRestService<Item>
+    class RestService<T> : IRestService<T>
     {
         RestClient client;
         string authHeaderValue;
 
-        public List<Item> Items { get; private set; }
+        public List<T> Items { get; private set; }
 
         public RestService()
         {
@@ -27,9 +27,9 @@ namespace Aiesec_App.Data
        
         }
 
-        public async Task<List<Item>> RefreshDataAsync()
+        public async Task<List<T>> RefreshDataAsync()
         {
-            Items = new List<Item>();
+            Items = new List<T>();
 
             // RestUrl = http://developer.xamarin.com:8081/api/todoitems{0}
             var request = new RestRequest("api/todoitems", Method.GET);
@@ -40,7 +40,7 @@ namespace Aiesec_App.Data
                 IRestResponse response = await client.ExecuteTaskAsync(request);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    Items = JsonConvert.DeserializeObject<List<Item>>(response.Content);
+                    Items = JsonConvert.DeserializeObject<List<T>>(response.Content);
                 }
             }
             catch (Exception ex)
@@ -51,10 +51,10 @@ namespace Aiesec_App.Data
             return Items;
         }
 
-        public async Task SaveItemAsync(Item item, bool isNewItem)
+        public async Task SaveItemAsync(T item, bool isNewItem)
         {
             // RestUrl = http://developer.xamarin.com:8081/api/todoitems{0}
-            var uri = new Uri(string.Format(Constants.RestUrl, item.ID));
+          //  var uri = new Uri(string.Format(Constants.RestUrl, item.ID));
 
             //try
             //{
@@ -81,6 +81,12 @@ namespace Aiesec_App.Data
             //{
             //    Debug.WriteLine(@"				ERROR {0}", ex.Message);
             //}
+        }
+
+        public async Task SaveItemsAsync(List<T> items)
+        {
+
+
         }
 
         public async Task DeleteItemAsync(string id)
