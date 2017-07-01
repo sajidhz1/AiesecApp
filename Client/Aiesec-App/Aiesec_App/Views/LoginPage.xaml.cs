@@ -1,13 +1,9 @@
 ﻿using Aiesec_App.Data;
 using Aiesec_App.Models;
+using Aiesec_App.Views.Dialogs;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -23,7 +19,8 @@ namespace Aiesec_App.Views
 
         async void OnSignUpButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SignUpPage());
+            var signUpSelectionPage = new SignUpSelectionDialog();
+            await Navigation.PushModalAsync(signUpSelectionPage);            
         }
 
         async void OnLoginButtonClicked(object sender, EventArgs e)
@@ -34,7 +31,7 @@ namespace Aiesec_App.Views
                 Password = passwordEntry.Text
             };
 
-            var isValid = Login(user);
+            var isValid = true; // Login(user);
             if (isValid)
             {
                 App.IsUserLoggedIn = true;
@@ -113,5 +110,9 @@ namespace Aiesec_App.Views
             public string token_type { get; set; }
         }
 
+        private void About_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new AboutPage());
+        }
     }
 }
