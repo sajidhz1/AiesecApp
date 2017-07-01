@@ -5,10 +5,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Newtonsoft.Json;
 using RestSharp;
-using Aiesec_App.Helpers;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using System.ComponentModel;
 using Aiesec_App.ViewModels;
 
 namespace Aiesec_App.Views
@@ -48,7 +46,7 @@ namespace Aiesec_App.Views
                 Email = emailEntry.Text
             };
 
-            var validateFieldsSucceeded = validateFields();
+            var validateFieldsSucceeded = ValidateFields();
             if (validateFieldsSucceeded)
             {
                 try
@@ -87,7 +85,22 @@ namespace Aiesec_App.Views
             }
         }
 
-        private bool validateFields() {
+
+        protected override bool OnBackButtonPressed()
+        {
+            Device.BeginInvokeOnMainThread(async () => {
+                var result = await DisplayActionSheet("Action", "Cancel", "Discard", "Do you want to Leave this Form ?");
+                if (result.Equals("Discard"))
+                {
+                    await this.Navigation.PopModalAsync();
+                }
+               
+             });
+
+            return true;
+        }
+
+        private bool ValidateFields() {
 
             if (string.IsNullOrEmpty(firstnameEntry.Text))
             {
