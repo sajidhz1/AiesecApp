@@ -4,6 +4,7 @@
              x:Class="Aiesec_App.Views.LoginPage" Title="Login">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Sign Up" Clicked="OnSignUpButtonClicked" />
+        <ToolbarItem x:Name="About" Text="About" Icon="ic_info_outline_black_24dp.png" Clicked="About_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>

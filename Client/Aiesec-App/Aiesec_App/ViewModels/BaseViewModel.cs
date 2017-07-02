@@ -7,11 +7,7 @@ using Xamarin.Forms;
 namespace Aiesec_App.ViewModels
 {
     public class BaseViewModel : ObservableObject
-    {
-        /// <summary>
-        /// Get the azure service instance
-        /// </summary>
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+    {       
 
         bool isBusy = false;
         public bool IsBusy
@@ -31,6 +27,14 @@ namespace Aiesec_App.ViewModels
             get { return title; }
             set { SetProperty(ref title, value); }
         }
+    }
+
+    public class BaseViewModel<T> : BaseViewModel
+    {
+        /// <summary>
+        /// Get the azure service instance
+        /// </summary>
+        public IDataStore<T> DataStore => DependencyService.Get<IDataStore<T>>();
     }
 }
 

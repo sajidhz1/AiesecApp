@@ -10,7 +10,7 @@ namespace Aiesec_App.ViewModels
     {
         public SignUpViewModel()
         {
-            Title = "About";           
+            Title = "SignUp";           
         }
 
         bool isLoading;

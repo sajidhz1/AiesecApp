@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Aiesec_App.Models
 {
-    class IdComparer : IEqualityComparer<Item>
+    class IdComparer : IEqualityComparer<BaseDataObject>
     {
-        public bool Equals(Item x1, Item x2)
+        public bool Equals(BaseDataObject x1, BaseDataObject x2)
         {
             if (object.ReferenceEquals(x1, x2))
             {
@@ -22,7 +22,7 @@ namespace Aiesec_App.Models
             return x1.ID == x2.ID;
         }
 
-        public int GetHashCode(Item obj)
+        public int GetHashCode(BaseDataObject obj)
         {
             if (obj == null)
             {

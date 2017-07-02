@@ -2,10 +2,10 @@
 
 namespace Aiesec_App.ViewModels
 {
-    public class ItemDetailViewModel : BaseViewModel
+    public class ItemDetailViewModel : BaseViewModel<ComplainItem>
     {
-        public Item Item { get; set; }
-        public ItemDetailViewModel(Item item = null)
+        public ComplainItem Item { get; set; }
+        public ItemDetailViewModel(ComplainItem item = null)
         {
             Title = item.Name;
             Item = item;

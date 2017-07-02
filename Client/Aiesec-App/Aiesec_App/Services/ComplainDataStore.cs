@@ -20,8 +20,8 @@ namespace Aiesec_App.Services
             await InitializeAsync();
 
             items.Add(item);
-            await App.ItemDatabase.SaveItemAsync(item);
-            await App.Manager.SaveTaskAsync(item, true);
+            await App.ItemsDatabase.Insert(item);
+            await App.ItemsManager.SaveTaskAsync(item, true);
 
             return await Task.FromResult(true);
         }
@@ -99,17 +99,26 @@ namespace Aiesec_App.Services
 
             items = new List<ComplainItem>();
 
-            var _serverItems  = await App.Manager.GetItemsAsync();
-            var _localItems = await App.ItemDatabase.GetItemsAsync();
+            var _serverItems  = await App.ItemsManager.GetItemsAsync();
+            var _localItems = await App.ItemsDatabase.Get();
 
             var _newItems  = _serverItems.Except(_localItems, new IdComparer()).ToList();
 
             foreach (ComplainItem item in _newItems)
             {
-                await App.ItemDatabase.SaveItemAsync(item);
+                if (item.UpdatedAt.HasValue)
+                {
+                    item.UpdatedAt = new DateTimeOffset();
+                    await App.ItemsDatabase.Update(item);
+                }
+                else
+                {
+                    item.UpdatedAt = new DateTimeOffset();
+                    await App.ItemsDatabase.Insert(item);
+                }                
             }
 
-            _localItems = await App.ItemDatabase.GetItemsAsync();
+            _localItems = await App.ItemsDatabase.Get();
 
             foreach (ComplainItem item in _localItems)
             {

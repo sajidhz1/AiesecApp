@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aiesec_App.Models
 {
-    class EventItem : BaseDataObject
+    public class EventItem : BaseDataObject
     {
         public string Description { get; set; }
 
