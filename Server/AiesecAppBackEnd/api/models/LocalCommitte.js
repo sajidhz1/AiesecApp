@@ -10,10 +10,12 @@ module.exports = {
   schema: true,
   autoCreatedAt: false,
   autoUpdatedAt: false,
-  tableName: 'LocalCommitte',
+  tableName: 'localcommitte',
+  identity: 'LocalCommitte',
 
   attributes: {
     idLocalCommitte: {
+      type: 'integer',
       primaryKey: true,
       unique: true,
       required: true
@@ -37,6 +39,10 @@ module.exports = {
 
     shortDescription: {
       type: 'string',
+    },
+
+    users: {
+      collection: 'User',
     }
   }
 };
