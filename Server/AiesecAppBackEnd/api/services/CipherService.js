@@ -34,7 +34,7 @@ module.exports = {
             sails.config.jwtSettings.secret,
             {
                 algorithm: sails.config.jwtSettings.algorithm,
-                expiresInMinutes: sails.config.jwtSettings.expiresInMinutes,
+                expiresIn: sails.config.jwtSettings.expiresIn,
                 issuer: sails.config.jwtSettings.issuer,
                 audience: sails.config.jwtSettings.audience
             }

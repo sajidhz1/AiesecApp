@@ -9,8 +9,8 @@ var ExtractJwt = require('passport-jwt').ExtractJwt;
 var EXPIRES_IN_MINUTES = 60 * 24 * 7;
 var SECRET = process.env.tokenSecret || "4ukI0uIVnB3iI1yxj646fVXSE3ZVk4doZgz6fTbNg7jO41EAtl20J5F7Trtwe7OM";
 var ALGORITHM = "HS256";
-var ISSUER = "nozus.com";
-var AUDIENCE = "nozus.com";
+var ISSUER = "www.spear360.com";
+var AUDIENCE = "www.spear360.com";
 
 /**
  * Configuration object for local strategy
@@ -70,7 +70,7 @@ passport.use(
     new JwtStrategy(JWT_STRATEGY_CONFIG, _onJwtStrategyAuth));
 
 module.exports.jwtSettings = {
-    expiresInMinutes: EXPIRES_IN_MINUTES,
+    expiresIn: EXPIRES_IN_MINUTES,
     secret: SECRET,
     algorithm: ALGORITHM,
     issuer: ISSUER,

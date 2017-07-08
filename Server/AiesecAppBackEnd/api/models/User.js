@@ -18,9 +18,7 @@ module.exports = {
       type: 'integer',
       primaryKey: true,
       unique: true,
-      required: true
     },
-
     email: {
       type: 'email',
       required: true,
@@ -37,6 +35,14 @@ module.exports = {
     password: {
       type: 'string',
       required: true
+    },
+
+    createdDate: {
+      type: 'datetime'
+    },
+
+    updatedDate: {
+      type: 'datetime'
     },
 
     approved: {
@@ -56,7 +62,7 @@ module.exports = {
       defaultsTo: 0
     },
 
-    LocalCommitte_idLocalCommitte:{
+    LocalCommitte_idLocalCommitte: {
       model: 'localcommitte'
     },
 
