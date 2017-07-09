@@ -17,47 +17,85 @@ namespace Aiesec_App.Services
 
         public async Task<bool> AddItemAsync(ComplainItem item)
         {
-            await InitializeAsync();
-
-            items.Add(item);
-            await App.ItemsDatabase.Insert(item);
-            await App.ItemsManager.SaveTaskAsync(item, true);
+     
+            //if (App.IsConnected)
+            //{
+            //    bool httpStatus  = await App.ItemsManager.SaveTaskAsync(item, true);
+            //    if (httpStatus)
+            //    {
+                    int insertResult = await App.ItemsDatabase.Insert(item);
+                    if(insertResult == 1)
+                    {
+                        items.Add(item);
+                    }
+            //    }               
+                
+            //}
+            //else
+            //{
+                
+            //}       
 
             return await Task.FromResult(true);
         }
 
         public async Task<bool> UpdateItemAsync(ComplainItem item)
         {
-            await InitializeAsync();
 
-            var _item = items.Where((ComplainItem arg) => arg.ID == item.ID).FirstOrDefault();
-            items.Remove(_item);
-            items.Add(item);
+            if (App.IsConnected)
+            {
+                bool httpStatus = await App.ItemsManager.UpdateTaskAsync(item);
+                if (httpStatus)
+                {
+                    int insertResult = await App.ItemsDatabase.Update(item);
+                    if (insertResult == 1)
+                    {
+                        var _item = items.Where((ComplainItem arg) => arg.ID == item.ID).FirstOrDefault();
+                        items.Remove(_item);
+                        items.Add(item);
+                    }
+                }
 
+            }
+            else
+            {
+
+            }
             return await Task.FromResult(true);
         }
 
         public async Task<bool> DeleteItemAsync(ComplainItem item)
         {
-            await InitializeAsync();
+  
+            if (App.IsConnected)
+            {
+                bool httpStatus = await App.ItemsManager.DeleteTaskAsync(item.ID);
+                if (httpStatus)
+                {
+                    int insertResult = await App.ItemsDatabase.Delete(item);
+                    if (insertResult == 1)
+                    {
+                        var _item = items.Where((ComplainItem arg) => arg.ID == item.ID).FirstOrDefault();
+                        items.Remove(_item);
+                    }
+                }
 
-            var _item = items.Where((ComplainItem arg) => arg.ID == item.ID).FirstOrDefault();
-            items.Remove(_item);
+            }
+            else
+            {
 
+            }
             return await Task.FromResult(true);
         }
 
         public async Task<ComplainItem> GetItemAsync(string id)
         {
-            await InitializeAsync();
-
             return await Task.FromResult(items.FirstOrDefault(s => s.ID == id));
         }
 
         public async Task<IEnumerable<ComplainItem>> GetItemsAsync(bool forceRefresh = false)
         {
-            await InitializeAsync();
-
+            await SyncAsync();
             return await Task.FromResult(items);
         }
 
@@ -67,29 +105,27 @@ namespace Aiesec_App.Services
         }
 
 
-        public async Task<bool> SyncAsync()
+        public async Task SyncAsync()
         {
-            //try
-            //{
-            //    //if (!CrossConnectivity.Current.IsConnected || !Settings.NeedsSync)
-            //    //    return;
+            if (isInitialized)
+                return;
 
-            //    List<ComplainItem> itemsNotSynced = await App.Database.GetItemsNotSynced();
-            //    foreach(ComplainItem ci in itemsNotSynced)
-            //    {
-            //       ci.UpdatedAt = new DateTimeOffset();
-            //       await  App.Manager.SaveTaskAsync(ci, true);
-            //       await  App.Database.SaveItemAsync(ci);
-            //    }
+           
+            var _localItems = await App.ItemsDatabase.Get();
 
-            //    Settings.LastSync = DateTime.Now;
-            //}
-            //catch (Exception ex)
-            //{
-            //    Debug.WriteLine("Sync Failed:" + ex.Message);
-            //}
+            if (_localItems.Count <= 0)
+            {
+                await InitializeAsync();
+                _localItems = await App.ItemsDatabase.Get();
+            }
 
-            return true;
+            items = new List<ComplainItem>();
+            foreach (ComplainItem item in _localItems)
+            {
+                items.Add(item);
+            }
+
+            isInitialized = true;
         }
 
         public async Task InitializeAsync()
@@ -99,7 +135,7 @@ namespace Aiesec_App.Services
 
             items = new List<ComplainItem>();
 
-            var _serverItems  = await App.ItemsManager.GetItemsAsync();
+            var _serverItems  = await App.ItemsManager.GetItemsAsync(Constants.ToDoList);
             var _localItems = await App.ItemsDatabase.Get();
 
             var _newItems  = _serverItems.Except(_localItems, new IdComparer()).ToList();
@@ -118,12 +154,7 @@ namespace Aiesec_App.Services
                 }                
             }
 
-            _localItems = await App.ItemsDatabase.Get();
-
-            foreach (ComplainItem item in _localItems)
-            {
-                items.Add(item);
-            }
+            await SyncAsync();
 
             isInitialized = true;
         }

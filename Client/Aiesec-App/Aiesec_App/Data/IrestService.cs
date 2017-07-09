@@ -5,12 +5,16 @@ namespace Aiesec_App.Data
 {
     public interface IRestService<T>
     {
-        Task<List<T>> RefreshDataAsync();
+        Task<List<T>> RefreshDataAsync(string url);
 
-        Task SaveItemAsync(T item, bool isNewItem);
+        Task<List<T>> GetLatestAsync(string url);
 
-        Task SaveItemsAsync(List<T> items);
+        Task<bool> SaveItemAsync(T item, bool isNewItem);
 
-        Task DeleteItemAsync(string id);
+        Task<bool> SaveItemsAsync(List<T> items);
+
+        Task<bool> UpdateItemAsync(T item);
+
+        Task<bool> DeleteItemAsync(string id);
     }
 }

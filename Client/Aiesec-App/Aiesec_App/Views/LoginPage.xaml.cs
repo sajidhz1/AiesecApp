@@ -27,15 +27,15 @@ namespace Aiesec_App.Views
         {
             var user = new User
             {
-                Username = usernameEntry.Text,
-                Password = passwordEntry.Text
+                username = usernameEntry.Text,
+                password = passwordEntry.Text
             };
 
-            var isValid = true; // Login(user);
+            var isValid = true; //Login(user);
             if (isValid)
             {
                 App.IsUserLoggedIn = true;
-               Navigation.InsertPageBefore(new MainPage(), this);
+                Navigation.InsertPageBefore(new MainPage(), this);
                 await Navigation.PopAsync();
             }
             else
@@ -49,12 +49,12 @@ namespace Aiesec_App.Views
             // We are using the RestSharp library which provides many useful
             // methods and helpers when dealing with REST.
             // We first create the request and add the necessary parameters
-            var client = new RestClient("http://10.0.2.2:3000");
+            var client = new RestClient("http://10.0.2.2:1337");
             var request = new RestRequest("api/authenticate", Method.POST);
          
 
-            request.AddParameter("email", user.Username);
-            request.AddParameter("password", user.Password);
+            request.AddParameter("email", user.username);
+            request.AddParameter("password", user.password);
             //request.AddParameter("connection", "{YOUR-CONNECTION-NAME-FOR-USERNAME-PASSWORD-AUTH}");
             //request.AddParameter("grant_type", "password");
             //request.AddParameter("scope", "openid");
@@ -67,11 +67,11 @@ namespace Aiesec_App.Views
             // we have created a LoginToken class that will capture the keys we need
             LoginToken token = JsonConvert.DeserializeObject<LoginToken>(response.Content);
 
-            if (token.id_token != null)
+            if (token.token != null)
             {
-                Application.Current.Properties["id_token"] = token.id_token;
-                Application.Current.Properties["access_token"] = token.access_token;
-                GetUserData(token.access_token);
+                Application.Current.Properties["token"] = token.token;
+              //  Application.Current.Properties["access_token"] = token.access_token;
+               // GetUserData(token.access_token);
 
                 return true;
             }
@@ -105,11 +105,18 @@ namespace Aiesec_App.Views
 
         public class LoginToken
         {
-            public string id_token { get; set; }
-            public string access_token { get; set; }
-            public string token_type { get; set; }
+            public string token { get; set; }
+            public User user { get; set; }
         }
 
+        public class User
+        {
+            public string idUser { get; set; }
+            public string email { get; set; }
+            public string username { get; set; }
+            public string password { get; set; }
+            public int approved { get; set; }
+        }
         private void About_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new AboutPage());

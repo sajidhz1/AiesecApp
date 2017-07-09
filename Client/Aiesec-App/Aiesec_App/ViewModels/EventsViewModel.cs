@@ -15,11 +15,20 @@ namespace Aiesec_App.ViewModels
         public ObservableRangeCollection<EventItem> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
+        public UriImageSource EventImage { get; private set; }
+
         public EventsViewModel()
         {
             Title = "Events";
             Items = new ObservableRangeCollection<EventItem>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadCommandAsync());
+
+
+
+            EventImage = new UriImageSource
+            {
+                Uri = new Uri("https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg")
+            };
         }
 
         private async Task ExecuteLoadCommandAsync()

@@ -1,5 +1,6 @@
 ﻿using Aiesec_App.Data;
 using Aiesec_App.Models;
+using Aiesec_App.Services;
 using Aiesec_App.Views;
 using SQLite;
 using Xamarin.Forms;
@@ -20,10 +21,13 @@ namespace Aiesec_App
 
         public static bool IsUserLoggedIn { get; set; }
 
+        static INetworkConnection networkConnection;
+
         public App()
         {
             InitializeComponent();
 
+            networkConnection = DependencyService.Get<INetworkConnection>();
             ItemsManager = new Manager<ComplainItem>(new RestService<ComplainItem>());
             EventsManager = new Manager<EventItem>(new RestService<EventItem>());
 
@@ -76,6 +80,15 @@ namespace Aiesec_App
                 }
                 return database;
             }
+        }
+
+        public static bool IsConnected
+        {
+            get
+            {
+                networkConnection.CheckNetworkConnection();
+                return networkConnection.IsConnected;
+            }          
         }
     }
 }

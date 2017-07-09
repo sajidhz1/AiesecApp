@@ -53,23 +53,31 @@ namespace Aiesec_App.Views
                 {
 
                     //Sign up logic goes here should be moved 
-                    var client = new RestClient("http://10.0.2.2:3000");
-                    var request = new RestRequest("api/users", Method.POST);
-                    request.AddParameter("email", user.Username);
+                    var client = new RestClient("http://10.0.2.2:1337");
+                    var request = new RestRequest("auth/signup", Method.POST);
+                    request.AddParameter("email", user.Email);
+                    request.AddParameter("username", user.Username);
                     request.AddParameter("password", user.Password);
+                    request.AddParameter("userType", 1);
+                    request.AddParameter("LocalCommitte_idLocalCommitte", 1);
 
                     IRestResponse response = await client.ExecuteTaskAsync(request);
                     UserSignup userSignUp = JsonConvert.DeserializeObject<UserSignup>(response.Content);
 
-                    if (!string.IsNullOrEmpty(userSignUp.user_id))
-                    {
-                        var rootPage = Navigation.NavigationStack.FirstOrDefault();
-                        if (rootPage != null)
+                        if (!string.IsNullOrEmpty(userSignUp.user_id))
                         {
-                            App.IsUserLoggedIn = true;
-                            Navigation.InsertPageBefore(new LoginPage(), Navigation.NavigationStack.First());
-                            await Navigation.PopToRootAsync();
+                            var rootPage = Navigation.NavigationStack.FirstOrDefault();
+                            if (rootPage != null)
+                            {
+                                App.IsUserLoggedIn = true;
+                                Navigation.InsertPageBefore(new LoginPage(), Navigation.NavigationStack.First());
+                                await Navigation.PopToRootAsync();
+                            }
                         }
+                    
+                    else
+                    {
+                        await DisplayAlert("Error", response.Content, "OK");
                     }
 
                 }

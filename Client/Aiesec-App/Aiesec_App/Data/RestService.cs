@@ -23,16 +23,16 @@ namespace Aiesec_App.Data
             var authData = string.Format("{0}:{1}", Constants.Username, Constants.Password);
             authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authData));
 
-            client = new RestClient("http://developer.xamarin.com:8081");
+            client = new RestClient(Constants.RestUrl);
        
         }
 
-        public async Task<List<T>> RefreshDataAsync()
+        public async Task<List<T>> RefreshDataAsync(string apiUrl)
         {
             Items = new List<T>();
 
             // RestUrl = http://developer.xamarin.com:8081/api/todoitems{0}
-            var request = new RestRequest("api/todoitems", Method.GET);
+            var request = new RestRequest(apiUrl, Method.GET);
             request.AddParameter("Authorization", string.Format("Basic " + authHeaderValue), ParameterType.HttpHeader);
 
             try
@@ -108,6 +108,52 @@ namespace Aiesec_App.Data
             //{
             //    Debug.WriteLine(@"				ERROR {0}", ex.Message);
             //}
+        }
+
+
+
+        public async Task<List<T>> GetLatestAsync(string url)
+        {
+            Items = new List<T>();
+
+            // RestUrl = http://developer.xamarin.com:8081/api/todoitems{0}
+            var request = new RestRequest(url, Method.GET);
+            request.AddParameter("Table", nameof(T));
+
+            try
+            {
+                IRestResponse response = await client.ExecuteTaskAsync(request);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    Items = JsonConvert.DeserializeObject<List<T>>(response.Content);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"				ERROR {0}", ex.Message);
+            }
+
+            return Items;
+        }
+
+        Task<bool> IRestService<T>.SaveItemAsync(T item, bool isNewItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> IRestService<T>.SaveItemsAsync(List<T> items)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateItemAsync(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> IRestService<T>.DeleteItemAsync(string id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

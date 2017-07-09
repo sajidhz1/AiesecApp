@@ -40,7 +40,6 @@
     </Compile>
     <Compile Include="Constants.cs" />
     <Compile Include="Data\Database.cs" />
-    <Compile Include="Data\EventsManager.cs" />
     <Compile Include="Data\IDataBase.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="IFileHelper.cs" />
@@ -54,6 +53,7 @@
     <Compile Include="Models\EventItem.cs" />
     <Compile Include="Models\IdComparer.cs" />
     <Compile Include="Models\ComplainItem.cs" />
+    <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EventsDataStore.cs" />
