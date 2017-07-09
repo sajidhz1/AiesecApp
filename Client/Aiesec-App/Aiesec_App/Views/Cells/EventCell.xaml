@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Aiesec_App.Views.Controls"
+             x:Class="Aiesec_App.Views.Cells.EventCell">
+    <StackLayout Spacing="0" HeightRequest="350">
+        <StackLayout.Padding>
+            <OnPlatform x:TypeArguments="Thickness" iOS="0" Android="0,4" WinPhone="0"/>
+        </StackLayout.Padding>
+        <local:CardView HeightRequest="350">
+            <Grid Padding="16" ColumnSpacing="16" BackgroundColor="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Row="0" Grid.Column="0"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    StyleId="SponsorImage"
+                    Aspect="AspectFit">
+                    <Image.Source>
+                        <UriImageSource Uri="{Binding EventImage}" 
+                            CacheValidity="3" 
+                            CachingEnabled="true"/>
+                    </Image.Source>
+                </Image>
+                <StackLayout HorizontalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="0" Spacing="0" StyleId="SponsorCell">
+                    <Label Text="{Binding Name}" Style="{DynamicResource EvolveListItemTextStyle}" StyleId="SponsorName"/>
+                    <Label Text="{Binding Notes, StringFormat='{0} Sponsor'}"   StyleId="SponsorLevel"/>
+                </StackLayout>
+
+            </Grid>
+        </local:CardView>
+    </StackLayout>
+</ContentView>
