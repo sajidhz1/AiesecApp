@@ -68,6 +68,7 @@ namespace Aiesec_App.Services
 
             foreach (EventItem item in _localItems)
             {
+                item.EventImage = "http://lorempixel.com/400/200/";
                 items.Add(item);
             }
         }
@@ -109,11 +110,7 @@ namespace Aiesec_App.Services
             _localItems = await App.EventsDatabase.Get();
 
             foreach (EventItem item in _localItems)
-            {
-                //item.EventImage = new UriImageSource
-                //{
-                //    Uri = new Uri("https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg")
-                //};
+            {                
                 items.Add(item);
             }
 
