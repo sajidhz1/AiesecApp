@@ -95,7 +95,9 @@ namespace Aiesec_App.Services
 
         public async Task<IEnumerable<ComplainItem>> GetItemsAsync(bool forceRefresh = false)
         {
-            await SyncAsync();
+            //isInitialized = forceRefresh;
+
+            await InitializeAsync();
             return await Task.FromResult(items);
         }
 
@@ -105,27 +107,18 @@ namespace Aiesec_App.Services
         }
 
 
-        public async Task SyncAsync()
+        public async Task<IEnumerable<ComplainItem>> SyncAsync()
         {
-            if (isInitialized)
-                return;
-
-           
-            var _localItems = await App.ItemsDatabase.Get();
-
-            if (_localItems.Count <= 0)
+            if (items != null)
             {
-                await InitializeAsync();
-                _localItems = await App.ItemsDatabase.Get();
+                items.Add(new ComplainItem()
+                {
+                    Name = "Test"
+                    ,
+                    Notes = "Lalaal"
+                });
             }
-
-            items = new List<ComplainItem>();
-            foreach (ComplainItem item in _localItems)
-            {
-                items.Add(item);
-            }
-
-            isInitialized = true;
+            return await Task.FromResult(items);
         }
 
         public async Task InitializeAsync()
@@ -154,7 +147,12 @@ namespace Aiesec_App.Services
                 }                
             }
 
-            await SyncAsync();
+            _localItems = await App.ItemsDatabase.Get();
+            foreach (ComplainItem item in _localItems)
+            {
+                items.Add(item);
+            }
+            
 
             isInitialized = true;
         }

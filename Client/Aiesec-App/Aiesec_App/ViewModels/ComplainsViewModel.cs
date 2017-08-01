@@ -17,7 +17,7 @@ namespace Aiesec_App.ViewModels
 
         public ComplainsViewModel()
         {
-            Title = "Browse";
+            Title = "Complains";
             Items = new ObservableRangeCollection<ComplainItem>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
@@ -55,6 +55,8 @@ namespace Aiesec_App.ViewModels
             finally
             {
                 IsBusy = false;
+                var items = await DataStore.SyncAsync();
+                Items.ReplaceRange(items);
             }
         }
     }

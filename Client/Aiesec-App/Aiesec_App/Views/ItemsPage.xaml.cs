@@ -24,7 +24,7 @@ namespace Aiesec_App.Views
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+            await Navigation.PushAsync(new ItemDetailPage(new ComplainItemDetailViewModel(item)));
 
             // Manually deselect item
             ItemsListView.SelectedItem = null;
@@ -34,6 +34,8 @@ namespace Aiesec_App.Views
         {
             await Navigation.PushAsync(new NewComplainPage());
         }
+
+        
 
         protected override void OnAppearing()
         {

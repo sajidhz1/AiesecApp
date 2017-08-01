@@ -7,7 +7,7 @@ namespace Aiesec_App.Views
 {
     public partial class ItemDetailPage : ContentPage
     {
-        ItemDetailViewModel viewModel;
+        ComplainItemDetailViewModel viewModel;
 
         // Note - The Xamarin.Forms Previewer requires a default, parameterless constructor to render a page.
         public ItemDetailPage()
@@ -15,7 +15,7 @@ namespace Aiesec_App.Views
             InitializeComponent();
         }
 
-        public ItemDetailPage(ItemDetailViewModel viewModel)
+        public ItemDetailPage(ComplainItemDetailViewModel viewModel)
         {
             InitializeComponent();
 

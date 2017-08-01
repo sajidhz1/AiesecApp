@@ -55,7 +55,7 @@ namespace Aiesec_App.Services
             return Task.FromResult(true);
         }
 
-        public async Task SyncAsync()
+        public async Task<IEnumerable<EventItem>> SyncAsync()
         {
             items = new List<EventItem>();
             var _localItems = await App.EventsDatabase.Get();
@@ -71,6 +71,7 @@ namespace Aiesec_App.Services
                 item.EventImage = "http://lorempixel.com/400/200/";
                 items.Add(item);
             }
+            return await Task.FromResult(items);
         }
     
 

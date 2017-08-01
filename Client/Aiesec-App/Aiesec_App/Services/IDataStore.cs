@@ -13,6 +13,6 @@ namespace Aiesec_App.Services
 
         Task InitializeAsync();
         Task<bool> PullLatestAsync();
-        Task SyncAsync();
+        Task<IEnumerable<T>> SyncAsync();
     }
 }

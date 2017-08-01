@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Aiesec_App.Views.Cells;"
              x:Class="Aiesec_App.Views.EventsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Item" Clicked="AddEvent_Clicked" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
                 <ListView x:Name="EventsListView"
