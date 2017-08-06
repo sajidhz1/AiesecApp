@@ -7,8 +7,35 @@
 
 module.exports = {
 
-  attributes: {
+  schema: true,
+  autoCreatedAt: false,
+  autoUpdatedAt: false,
+  tableName: 'exchangeparticipant',
+  identity: 'ExchangeParticipant',
 
+  attributes: {
+    idExchangeParticipant: {
+      type: 'integer',
+      primaryKey: true,
+      unique: true,
+      required: true
+    },
+
+    User_idUser: {
+      model: 'User',
+      unique: true,
+      required: true
+    },
+
+    Country_idCountry: {
+      model: 'Country',
+      required: true
+    },
+
+    Project_idProject: {
+      model: 'Project',
+      required: true
+    }
   }
 };
 

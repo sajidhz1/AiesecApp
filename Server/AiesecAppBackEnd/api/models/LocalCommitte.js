@@ -39,10 +39,6 @@ module.exports = {
 
     shortDescription: {
       type: 'string',
-    },
-
-    users: {
-      collection: 'User',
     }
   }
 };

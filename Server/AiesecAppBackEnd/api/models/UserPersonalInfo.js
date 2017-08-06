@@ -1,5 +1,5 @@
 /**
- * Country.js
+ * UserPersonalInfo.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -10,37 +10,51 @@ module.exports = {
   schema: true,
   autoCreatedAt: false,
   autoUpdatedAt: false,
-  tableName: 'country',
-  identity: 'Country',
+  tableName: 'userpersonalinfo',
+  identity: 'UserPersonalInfo',
 
   attributes: {
-
-    idCountry: {
+    idUserPersonalInfo: {
       type: 'integer',
       primaryKey: true,
       unique: true,
       required: true
     },
 
-    name: {
+    User_idUser: {
+      model: 'User',
+      required: true,
+      unique: true
+    },
+
+    firstName: {
       type: 'string',
-      unique: true,
       required: true
     },
 
-    countryCode: {
+    lastName: {
       type: 'string',
-      unique: true,
       required: true
     },
 
-    description: {
-      type: 'string',
+    sex: {
+      type: 'string'
     },
 
-    locationCoordinates: {
-      type: 'string',
+    shortBio: {
+      type: 'string'
+    },
+
+    currentResidence: {
+      string: 'string',
+      required: true
+    },
+
+    mobileNumber: {
+      string: 'string',
+      required: true
     }
+     
   }
 };
 
