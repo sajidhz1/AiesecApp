@@ -1,5 +1,5 @@
 /**
- * LocalCommitte.js
+ * ComplainReply.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -10,35 +10,44 @@ module.exports = {
   schema: true,
   autoCreatedAt: false,
   autoUpdatedAt: false,
-  tableName: 'localcommitte',
-  identity: 'LocalCommitte',
+  tableName: 'complainreply',
+  identity: 'ComplainReply',
 
   attributes: {
-    idLocalCommitte: {
+    idComplainReply: {
       type: 'integer',
       primaryKey: true,
       unique: true,
       required: true
     },
 
-    lcCode: {
-      type: 'string',
-      unique: true,
+    Complain_idComplain:{
+      model: 'Complain',
       required: true
     },
 
-    officialAddress: {
+    User_idUser: {
+      model: 'User',
+      required: true
+    },
+
+    replyText:{
       type: 'string',
       required: true
     },
 
-    contactNumber: {
-      type: 'string',
-      required: true
+    createdDate: {
+      type: 'datetime'
     },
 
-    shortDescription: {
-      type: 'string',
+    updatedDate: {
+      type: 'datetime'
+    },
+
+    expired: {
+      type: 'boolean',
+      required: true,
+      defaultsTo: false
     }
   }
 };
