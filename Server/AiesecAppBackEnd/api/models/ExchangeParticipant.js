@@ -1,5 +1,5 @@
 /**
- * LocalCommitte.js
+ * ExchangeParticipant.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -10,35 +10,31 @@ module.exports = {
   schema: true,
   autoCreatedAt: false,
   autoUpdatedAt: false,
-  tableName: 'localcommitte',
-  identity: 'LocalCommitte',
+  tableName: 'exchangeparticipant',
+  identity: 'ExchangeParticipant',
 
   attributes: {
-    idLocalCommitte: {
+    idExchangeParticipant: {
       type: 'integer',
       primaryKey: true,
       unique: true,
       required: true
     },
 
-    lcCode: {
-      type: 'string',
+    User_idUser: {
+      model: 'User',
       unique: true,
       required: true
     },
 
-    officialAddress: {
-      type: 'string',
+    Country_idCountry: {
+      model: 'Country',
       required: true
     },
 
-    contactNumber: {
-      type: 'string',
+    Project_idProject: {
+      model: 'Project',
       required: true
-    },
-
-    shortDescription: {
-      type: 'string',
     }
   }
 };

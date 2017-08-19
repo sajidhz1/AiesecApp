@@ -1,5 +1,5 @@
 /**
- * LocalCommitte.js
+ * Country.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -10,34 +10,35 @@ module.exports = {
   schema: true,
   autoCreatedAt: false,
   autoUpdatedAt: false,
-  tableName: 'localcommitte',
-  identity: 'LocalCommitte',
+  tableName: 'country',
+  identity: 'Country',
 
   attributes: {
-    idLocalCommitte: {
+
+    idCountry: {
       type: 'integer',
       primaryKey: true,
       unique: true,
       required: true
     },
 
-    lcCode: {
+    name: {
       type: 'string',
       unique: true,
       required: true
     },
 
-    officialAddress: {
+    countryCode: {
       type: 'string',
+      unique: true,
       required: true
     },
 
-    contactNumber: {
+    description: {
       type: 'string',
-      required: true
     },
 
-    shortDescription: {
+    locationCoordinates: {
       type: 'string',
     }
   }

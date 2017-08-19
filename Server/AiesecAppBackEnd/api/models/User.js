@@ -18,7 +18,9 @@ module.exports = {
       type: 'integer',
       primaryKey: true,
       unique: true,
+      required: true
     },
+    
     email: {
       type: 'email',
       required: true,
@@ -57,13 +59,13 @@ module.exports = {
     },
 
     expired: {
-      type: 'integer',
+      type: 'boolean',
       required: true,
-      defaultsTo: 0
+      defaultsTo: false
     },
 
     LocalCommitte_idLocalCommitte: {
-      model: 'localcommitte'
+      model: 'Localcommitte'
     },
 
     toJSON: function () {
