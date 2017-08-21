@@ -1,5 +1,5 @@
 /**
- * Country.js
+ * AdminUser.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -10,12 +10,11 @@ module.exports = {
   schema: true,
   autoCreatedAt: false,
   autoUpdatedAt: false,
-  tableName: 'country',
-  identity: 'Country',
+  tableName: 'adminuser',
+  identity: 'AdminUser',
 
   attributes: {
-
-    idCountry: {
+    AdminUserRole_idAdminUserRole: {
       type: 'integer',
       primaryKey: true,
       unique: true,
@@ -23,24 +22,24 @@ module.exports = {
       autoIncrement: true
     },
 
-    name: {
-      type: 'string',
-      unique: true,
+    User_idUser: {
+      model: 'User',
+      primaryKey: true,
       required: true
     },
 
-    countryCode: {
-      type: 'string',
-      unique: true,
-      required: true
+    createdDate: {
+      type: 'datetime'
     },
 
-    description: {
-      type: 'string',
+    updatedDate: {
+      type: 'datetime'
     },
 
-    locationCoordinates: {
-      type: 'string',
+    expired: {
+      type: 'boolean',
+      required: true,
+      defaultsTo: false
     }
   }
 };

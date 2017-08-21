@@ -18,7 +18,8 @@ module.exports = {
       type: 'integer',
       primaryKey: true,
       unique: true,
-      required: true
+      required: true,
+      autoIncrement: true
     },
 
     User_idUser: {
@@ -54,7 +55,7 @@ module.exports = {
       string: 'string',
       required: true
     }
-     
+
   }
 };
 

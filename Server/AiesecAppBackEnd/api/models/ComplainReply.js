@@ -18,10 +18,11 @@ module.exports = {
       type: 'integer',
       primaryKey: true,
       unique: true,
-      required: true
+      required: true,
+      autoIncrement: true
     },
 
-    Complain_idComplain:{
+    Complain_idComplain: {
       model: 'Complain',
       required: true
     },
@@ -31,7 +32,7 @@ module.exports = {
       required: true
     },
 
-    replyText:{
+    replyText: {
       type: 'string',
       required: true
     },
