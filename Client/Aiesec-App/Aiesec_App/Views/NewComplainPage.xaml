@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Aiesec_App.Views.NewComplainPage"
+             xmlns:local="clr-namespace:Aiesec_App.Views;"
 		Title="New Item">
 	<ContentPage.ToolbarItems>
 		<ToolbarItem Text="Save" Clicked="Save_Clicked" />
 	</ContentPage.ToolbarItems>
-	<ContentPage.Content>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:BoolToStringConverter x:Key="convertBoolValue"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
 		<StackLayout Spacing="20" Padding="15">
 			<Label Text="Title" FontSize="Medium" />
 			<Entry Text="{Binding Item.Name}" FontSize="Small" />
             <Label Text="Complain/Request" FontSize="Medium" />
-            <Switch IsToggled="{Binding Item.Done}"  HorizontalOptions="StartAndExpand"></Switch>
-			<Label Text="Description" FontSize="Medium" />
+            <StackLayout Orientation="Horizontal" Spacing="0">
+                <Label Text="{Binding Item.Done, Path=Monitored,Converter={StaticResource convertBoolValue}}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                <Switch IsToggled="{Binding Item.Done, Path=Monitored, Mode=TwoWay}" HorizontalOptions="End" VerticalOptions="Center" />
+            </StackLayout>
+            <Label Text="Description" FontSize="Medium" />
 			<Editor Text="{Binding Item.Notes}" FontSize="Small"  Margin="0" />
 		</StackLayout>
 	</ContentPage.Content>

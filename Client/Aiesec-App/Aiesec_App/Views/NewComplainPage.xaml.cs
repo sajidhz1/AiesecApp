@@ -29,4 +29,20 @@ namespace Aiesec_App.Views
             await Navigation.PopToRootAsync();
         }
     }
+
+    class BoolToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value == null)
+                return "Complain";
+
+            return (bool)value ? "Complain" : "Request";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
