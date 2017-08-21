@@ -81,5 +81,15 @@ namespace Aiesec_App.Views
             pin.IsDraggable = true;
             map.Pins.Add(pin);
         }
+
+        async void OnDoneClicked(object sender, EventArgs e)
+        {
+            MessagingCenter.Send(this, "OnBackPressed", new Item()
+            {
+                Description = pinDisplay.Text
+            });
+            await Navigation.PopAsync();
+        }
+        
     }
 }

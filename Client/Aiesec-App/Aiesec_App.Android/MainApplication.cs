@@ -10,7 +10,7 @@ namespace Aiesec_App.Droid
     //You can specify additional application information in this attribute
     [Application]
     [MetaData("com.google.android.maps.v2.API_KEY",
-        Value = "AIzaSyAVte8w5FPe-BKUE1LX_KnjKLnlXdbVtIo")]
+        Value = "AIzaSyDtMBw9W60B-_qFQFv9vWJ_SyVO6VeGTvc")]
     public class MainApplication : Application, Application.IActivityLifecycleCallbacks
     {
         public MainApplication(IntPtr handle, JniHandleOwnership transer)

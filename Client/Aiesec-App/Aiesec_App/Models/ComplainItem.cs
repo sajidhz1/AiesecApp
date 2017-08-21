@@ -6,6 +6,8 @@
 
         public string Notes { get; set; }
 
-        public bool Done { get; set; }
+        private bool isDone;
+        public bool Done { get { return isDone; }
+            set { isDone = value; OnPropertyChanged(); } }
     }
 }

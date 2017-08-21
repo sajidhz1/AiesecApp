@@ -1,4 +1,5 @@
-﻿using Plugin.Media;
+﻿using Aiesec_App.Models;
+using Plugin.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,11 @@ namespace Aiesec_App.Views
         public NewEventPage()
         {
             InitializeComponent();
+            MessagingCenter.Subscribe<MapPage, Item>(this, "OnBackPressed", (obj, item) =>
+            {              
+                var _item = item as Item;
+                Location.Text = item.Description;
+            });
         }
 
         async void OnAddPhotoClicked(object sender, EventArgs e)

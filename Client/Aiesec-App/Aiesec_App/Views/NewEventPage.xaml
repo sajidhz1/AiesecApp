@@ -2,13 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Aiesec_App.Views.NewEventPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Done"  />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Spacing="20" Padding="15">
                 <Label Text="Title" FontSize="Medium" />
                 <Entry Text="{Binding Item.Name}" FontSize="Small" />
-                <Label Text="Complain/Request" FontSize="Medium" />
-                <Switch IsToggled="{Binding Item.Done}"  HorizontalOptions="StartAndExpand"></Switch>
+                <Label Text="Date" FontSize="Medium" />
+ 
                 <Label Text="Description" FontSize="Medium" />
                 <Editor Text="{Binding Item.Notes}" FontSize="Small"  Margin="0" />
                 <Button Text="Pick Photo" 
@@ -17,7 +20,8 @@
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White" />
                 <Image x:Name="image"/>
-                <Button Text="Select Location" 
+                <Button x:Name="Location"
+                        Text="Select Location" 
                         WidthRequest="100" 
                         Clicked="OnPickLocationClicked" 
                         BackgroundColor="{StaticResource Primary}"
