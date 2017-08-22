@@ -17,7 +17,8 @@ module.exports = {
     idAdminUserRole: {
       type: 'integer',
       primaryKey: true,
-      unique: true
+      unique: true,
+      autoIncrement: true
     },
 
     adminRole: {

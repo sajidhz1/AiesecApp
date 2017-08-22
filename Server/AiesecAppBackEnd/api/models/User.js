@@ -18,7 +18,7 @@ module.exports = {
       type: 'integer',
       primaryKey: true,
       unique: true,
-      autoIncrement: true    
+      autoIncrement: true   
     },
 
     email: {

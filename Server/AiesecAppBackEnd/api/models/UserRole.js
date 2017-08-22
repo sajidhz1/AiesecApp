@@ -7,8 +7,42 @@
 
 module.exports = {
 
-  attributes: {
+  schema: true,
+  autoCreatedAt: false,
+  autoUpdatedAt: false,
+  tableName: 'userrole',
+  identity: 'UserRole',
 
+  attributes: {
+    idUserRole: {
+      type: 'integer',
+      primaryKey: true,
+      unique: true,
+      autoIncrement: true
+    },
+
+    role:{
+      type: 'string',
+      required: true
+    },
+
+    roleDescription:{
+      type: 'string'
+    },
+
+    createdDate: {
+      type: 'datetime'
+    },
+
+    updatedDate: {
+      type: 'datetime'
+    },
+
+    expired: {
+      type: 'boolean',
+      required: true,
+      defaultsTo: false
+    },
   }
 };
 

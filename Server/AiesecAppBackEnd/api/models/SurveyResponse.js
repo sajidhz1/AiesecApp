@@ -7,8 +7,33 @@
 
 module.exports = {
 
-  attributes: {
+  schema: true,
+  autoCreatedAt: false,
+  autoUpdatedAt: false,
+  tableName: 'surveyresponse',
+  identity: 'SurveyResponse',
 
+  attributes: {
+    idSurveyResponse: {
+      type: 'integer',
+      primaryKey: true,
+      unique: true,
+      autoIncrement: true
+    },
+
+    ExchangeParticipant_idExchangeParticipant: {
+      model: 'ExchangeParticipant',
+      primaryKey: true
+    },
+
+    Project_idProject: {
+      model: 'Project',
+      primaryKey: true
+    },
+
+    createdDate: {
+      type: 'datetime'
+    }
   }
 };
 
