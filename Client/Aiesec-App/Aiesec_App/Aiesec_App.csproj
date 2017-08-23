@@ -61,6 +61,8 @@
     <Compile Include="Services\IDataStore.cs" />
     <Compile Include="Services\ComplainDataStore.cs" />
     <Compile Include="Services\INetworkConnection.cs" />
+    <Compile Include="Services\ILocationService.cs" />
+    <Compile Include="Services\ReplyDataStore.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\EventsViewModel.cs" />
