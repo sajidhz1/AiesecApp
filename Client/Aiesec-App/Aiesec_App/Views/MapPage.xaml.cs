@@ -1,4 +1,5 @@
 ﻿using Aiesec_App.Models;
+using Aiesec_App.Services;
 using Aiesec_App.Views.Controls;
 using Plugin.Geolocator;
 using System;
@@ -18,16 +19,38 @@ namespace Aiesec_App.Views
     {
         Geocoder geoCoder;
         Pin pin;
+        ILocationService locationService;
 
         public MapPage()
         {
             InitializeComponent();
             geoCoder = new Geocoder();
+            locationService = DependencyService.Get <ILocationService>();
+
+            pin = new Pin()
+            {
+                Type = PinType.Place,
+                Label = "Tokyo SKYTREE",
+                Address = "Sumida-ku, Tokyo, Japan",
+                Icon = BitmapDescriptorFactory.FromView(new BindingPinView(pinDisplay.Text))
+            };
 
             SetupCameraInitially();
             MessagingCenter.Subscribe<AddressSelectionPage, Item>(this, "SelectedItem", async (obj, item) =>
             {
-                map.Pins.Clear();
+                if(map.Pins.Count > 0)
+                {
+                    map.Pins.Clear();
+                    pin = null;
+
+                    pin = new Pin()
+                    {
+                        Type = PinType.Place,
+                        Label = "Tokyo SKYTREE",
+                        Address = "Sumida-ku, Tokyo, Japan",
+                        Icon = BitmapDescriptorFactory.FromView(new BindingPinView(pinDisplay.Text))
+                    };
+                }                
 
                 var _item = item as Item;
                 pinDisplay.Text = item.Description;
@@ -58,28 +81,29 @@ namespace Aiesec_App.Views
 
         private async void SetupCameraInitially()
         {
-
-            await Task.Delay(1000); // workaround for #30 [Android]Map.Pins.Add doesn't work when page OnAppearing
-
-            var locator = CrossGeolocator.Current;
-            var position = await CrossGeolocator.Current.GetLastKnownLocationAsync();
-            if (position == null)
-                position = await locator.GetPositionAsync(System.TimeSpan.FromMilliseconds(10000));
-
-            var lastKnownLocation = new Position(position.Latitude, position.Longitude);
-            map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(lastKnownLocation, 15d);
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(lastKnownLocation, Distance.FromMiles(1)));
-
-            pin = new Pin()
+            locationService.CheckServiceEnabled();
+            if (locationService.IsEnabled)
             {
-                Type = PinType.Place,
-                Label = "Tokyo SKYTREE",
-                Address = "Sumida-ku, Tokyo, Japan",
-                Position = lastKnownLocation,
-                Icon = BitmapDescriptorFactory.FromView(new BindingPinView(pinDisplay.Text))
-            };
-            pin.IsDraggable = true;
-            map.Pins.Add(pin);
+                await Task.Delay(1000); // workaround for #30 [Android]Map.Pins.Add doesn't work when page OnAppearing
+
+                var locator = CrossGeolocator.Current;
+                var position = await CrossGeolocator.Current.GetLastKnownLocationAsync();
+                if (position == null)
+                    position = await locator.GetPositionAsync(System.TimeSpan.FromMilliseconds(10000));
+
+                var lastKnownLocation = new Position(position.Latitude, position.Longitude);
+
+                pin.Position = lastKnownLocation;
+                map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(lastKnownLocation, 15d);
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(lastKnownLocation, Distance.FromMiles(1)));
+                
+                pin.IsDraggable = true;
+                map.Pins.Add(pin);
+            }
+            else
+            {
+                await DisplayAlert("Enable Location Service", "GPS is disabled in your device, Enable GPS to navigate to the current Location", "Ok");
+            }
         }
 
         async void OnDoneClicked(object sender, EventArgs e)
