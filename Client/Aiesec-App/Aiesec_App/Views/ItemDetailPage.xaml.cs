@@ -21,5 +21,13 @@ namespace Aiesec_App.Views
 
             BindingContext = this.viewModel = viewModel;
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (viewModel.Items.Count == 0)
+                viewModel.LoadItemsCommand.Execute(null);
+        }
     }
 }
