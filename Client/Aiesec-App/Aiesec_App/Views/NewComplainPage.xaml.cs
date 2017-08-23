@@ -13,7 +13,7 @@ namespace Aiesec_App.Views
         public NewComplainPage()
         {
             InitializeComponent();
-
+            Title = "New Complain/Request";
             Item = new ComplainItem
             {
                 Name = "Item name",

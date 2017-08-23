@@ -9,11 +9,29 @@
         <ScrollView>
             <StackLayout Spacing="20" Padding="15">
                 <Label Text="Title" FontSize="Medium" />
-                <Entry Text="{Binding Item.Name}" FontSize="Small" />
+                <Entry Text="{Binding Item.Name}" FontSize="Small" />            
+                
                 <Label Text="Date" FontSize="Medium" />
- 
+                <DatePicker x:Name="StartDatePicker" Format="dd/MM/yyyy" Date="{Binding Item.StartDate}" MinimumDate="{Binding Item.StartDate}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Start Time" FontSize="Medium" Grid.Row="0" Grid.Column="0"/>
+                    <TimePicker x:Name="StartTime" Time="{Binding Item.StartTime}" Grid.Row="1" Grid.Column="0"/>
+
+                    <Label Text="End Time" FontSize="Medium" Grid.Row="0" Grid.Column="1"/>
+                    <TimePicker x:Name="EndTime" Time="{Binding Item.EndTime}" Grid.Row="1" Grid.Column="1"/>
+                </Grid>
+                
                 <Label Text="Description" FontSize="Medium" />
                 <Editor Text="{Binding Item.Notes}" FontSize="Small"  Margin="0" />
+                
                 <Button Text="Pick Photo" 
                         WidthRequest="100" 
                         Clicked="OnAddPhotoClicked" 

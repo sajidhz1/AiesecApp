@@ -17,6 +17,7 @@ namespace Aiesec_App.Views
         public NewEventPage()
         {
             InitializeComponent();
+            Title = "New Event";
             MessagingCenter.Subscribe<MapPage, Item>(this, "OnBackPressed", (obj, item) =>
             {              
                 var _item = item as Item;
