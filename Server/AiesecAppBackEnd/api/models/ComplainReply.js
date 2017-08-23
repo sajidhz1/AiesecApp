@@ -36,18 +36,17 @@ module.exports = {
       required: true
     },
 
+    name: {
+      type: 'string',
+      required: true
+    },
+
     createdDate: {
       type: 'datetime'
     },
 
     updatedDate: {
       type: 'datetime'
-    },
-
-    expired: {
-      type: 'boolean',
-      required: true,
-      defaultsTo: false
     }
   }
 };

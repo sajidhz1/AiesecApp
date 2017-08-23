@@ -47,6 +47,7 @@ module.exports = {
 
       complainStatus: {
         type: 'boolean',
+        required: true,
         defaultsTo: false
       }
     }
