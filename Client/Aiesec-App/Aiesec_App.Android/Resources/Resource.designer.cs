@@ -4586,6 +4586,9 @@ namespace Aiesec_App.Droid
 			// aapt resource value: 0x7f080003
 			public const int CardView_Light = 2131230723;
 			
+			// aapt resource value: 0x7f08018c
+			public const int ListViewStyle_Light = 2131231116;
+			
 			// aapt resource value: 0x7f080189
 			public const int MyTheme = 2131231113;
 			
