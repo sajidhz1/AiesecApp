@@ -21,6 +21,11 @@
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
+            <ViewCell.ContextActions>
+                 <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Edit" />
+                 <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                 <MenuItem Clicked="OnResolve" CommandParameter="{Binding .}" Text="Resolve" />
+            </ViewCell.ContextActions>
               <StackLayout Padding="10">
                 <Label Text="{Binding Name}"
                        LineBreakMode="NoWrap"

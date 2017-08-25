@@ -12,10 +12,15 @@
                 IsPullToRefreshEnabled="true"
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                 CachingStrategy="RecycleElement"
+                ItemSelected="OnItemSelected"
 				>
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate>                    
                     <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Edit" />
+                            <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                        </ViewCell.ContextActions>
                         <StackLayout Padding="10">
                             <Label Text="{Binding Name}"
                        LineBreakMode="NoWrap"
@@ -47,8 +52,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Editor Text="" Grid.Row="0" Grid.Column="0" />
-            <Button Text="Reply" Grid.Row="0" Grid.Column="1" BackgroundColor="{StaticResource Primary}"  TextColor="White" />
+            <Editor Text="" Grid.Row="0" x:Name="Reply" Grid.Column="0" />
+            <Button Text="Reply" Clicked="Send_Button_Clicked" Grid.Row="0" Grid.Column="1" BackgroundColor="{StaticResource Primary}"  TextColor="White" />
             </Grid>
         </StackLayout>
     </StackLayout>
