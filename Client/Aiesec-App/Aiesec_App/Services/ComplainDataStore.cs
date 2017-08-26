@@ -17,24 +17,30 @@ namespace Aiesec_App.Services
 
         public async Task<bool> AddItemAsync(ComplainItem item)
         {
-     
-            //if (App.IsConnected)
-            //{
-            //    bool httpStatus  = await App.ItemsManager.SaveTaskAsync(item, true);
-            //    if (httpStatus)
-            //    {
-                    int insertResult = await App.ItemsDatabase.Insert(item);
-                    if(insertResult == 1)
-                    {
+
+            if (App.IsConnected)
+            {
+                //should use from the app
+                item.ExchangeParticipant_idExchangeParticipant = 1;
+                item.Project_idProject = 1;
+                item.description = " test";
+
+
+                bool httpStatus = await App.ItemsManager.SaveTaskAsync("complain", item, true);
+                if (httpStatus)
+                {
+                    //int insertResult = await App.ItemsDatabase.Insert(item);
+                    //if (insertResult == 1)
+                    //{
                         items.Add(item);
-                    }
-            //    }               
-                
-            //}
-            //else
-            //{
-                
-            //}       
+                   // }
+                }
+
+            }
+            else
+            {
+
+            }
 
             return await Task.FromResult(true);
         }

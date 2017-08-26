@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Aiesec_App.Views.EventDetailPage"
+             Title="EventDetailPage">
+  <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                <StackLayout Orientation="Horizontal">
+                    <Image  HeightRequest="200"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand"
+                      >
+                        <Image.Source>
+                            <UriImageSource Uri="{Binding EventImage}" 
+                                                CacheValidity="3" 
+                                                CachingEnabled="true"/>
+                        </Image.Source>
+                    </Image>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Padding="10">
+                <Label Text="{Binding Item.Title}" FontSize="40"/>
+                <Label Text="{Binding Item.Description}"/>
+                <Label Text="The content of the ContentPage is generally a layout of some sort that can be a parent to multiple children."/>
+                <Label Text="This content page contains a StackLayout, which in turn contains a few Label views (including the large one on the top and an example of handling click commands and data binding to a Label below)."/>
+                <Button Text="Click Me" Command="{Binding IncreaseCountCommand}"/>
+                <Label Text="{Binding CountDisplay}"/>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

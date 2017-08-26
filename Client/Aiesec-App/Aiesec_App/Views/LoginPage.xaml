@@ -21,9 +21,9 @@
             </StackLayout>
             <StackLayout Grid.Row="1" VerticalOptions="StartAndExpand"  Padding="16,40,16,40" >
                 <Label Text="Username" />
-                <Entry x:Name="usernameEntry" Margin="0,0,0,10" Placeholder="username or email" />
+                <Entry x:Name="usernameEntry" Text="thishanpavithra@gmail.com" Margin="0,0,0,10" Placeholder="username or email" />
                 <Label Text="Password" />
-                <Entry x:Name="passwordEntry" Margin="0,0,0,10" IsPassword="true" />
+                <Entry x:Name="passwordEntry" Text="123456" Margin="0,0,0,10" IsPassword="true" />
                 <Button Text="Login" 
                         WidthRequest="100" 
                         Clicked="OnLoginButtonClicked" 

@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Aiesec_App.Data
 {
@@ -33,8 +34,9 @@ namespace Aiesec_App.Data
 
             // RestUrl = http://developer.xamarin.com:8081/api/todoitems{0}
             var request = new RestRequest(apiUrl, Method.GET);
-            request.AddParameter("Authorization", string.Format("Basic " + authHeaderValue), ParameterType.HttpHeader);
-
+            //request.AddParameter("Authorization", string.Format("Basic " + authHeaderValue), ParameterType.HttpHeader);
+            request.AddParameter("Content-Type", "application/json", ParameterType.HttpHeader);
+            request.AddParameter("Authorization", "JWT " + Application.Current.Properties["token"],ParameterType.HttpHeader);
             try
             {
                 IRestResponse response = await client.ExecuteTaskAsync(request);
@@ -49,68 +51,7 @@ namespace Aiesec_App.Data
             }
 
             return Items;
-        }
-
-        public async Task SaveItemAsync(T item, bool isNewItem)
-        {
-            // RestUrl = http://developer.xamarin.com:8081/api/todoitems{0}
-          //  var uri = new Uri(string.Format(Constants.RestUrl, item.ID));
-
-            //try
-            //{
-            //    var json = JsonConvert.SerializeObject(item);
-            //    var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            //    HttpResponseMessage response = null;
-            //    if (isNewItem)
-            //    {
-            //        response = await client.PostAsync(uri, content);
-            //    }
-            //    else
-            //    {
-            //        response = await client.PutAsync(uri, content);
-            //    }
-
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        Debug.WriteLine(@"				TodoItem successfully saved.");
-            //    }
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    Debug.WriteLine(@"				ERROR {0}", ex.Message);
-            //}
-        }
-
-        public async Task SaveItemsAsync(List<T> items)
-        {
-
-
-        }
-
-        public async Task DeleteItemAsync(string id)
-        {
-            // RestUrl = http://developer.xamarin.com:8081/api/todoitems{0}
-            var uri = new Uri(string.Format(Constants.RestUrl, id));
-
-            //try
-            //{
-            //    var response = await client.DeleteAsync(uri);
-
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        Debug.WriteLine(@"				TodoItem successfully deleted.");
-            //    }
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    Debug.WriteLine(@"				ERROR {0}", ex.Message);
-            //}
-        }
-
-
+        } 
 
         public async Task<List<T>> GetLatestAsync(string url)
         {
@@ -136,9 +77,31 @@ namespace Aiesec_App.Data
             return Items;
         }
 
-        Task<bool> IRestService<T>.SaveItemAsync(T item, bool isNewItem)
+        Task<bool> IRestService<T>.SaveItemAsync(string url, T item, bool isNewItem)
         {
-            throw new NotImplementedException();
+            var client = new RestClient("http://192.168.8.104:1337");
+            var request = new RestRequest(url, Method.POST);
+            request.AddHeader("Authorization", "JWT " + Application.Current.Properties["token"]);
+            try
+            {
+                var json = JsonConvert.SerializeObject(item);
+              //  var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                request.AddParameter("application/json; charset=utf-8", json, ParameterType.RequestBody);
+                request.RequestFormat = DataFormat.Json;
+
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    Items = JsonConvert.DeserializeObject<List<T>>(response.Content);
+                }
+               return Task.FromResult(true);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"				ERROR {0}", ex.Message);
+            }
+            return Task.FromResult(false);
         }
 
         Task<bool> IRestService<T>.SaveItemsAsync(List<T> items)

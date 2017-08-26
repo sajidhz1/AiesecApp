@@ -21,7 +21,7 @@ namespace Aiesec_App.Services
 
             items.Add(item);
             await App.EventsDatabase.Insert(item);
-            await App.EventsManager.SaveTaskAsync(item, true);
+            await App.EventsManager.SaveTaskAsync("", item, true);
 
             return await Task.FromResult(true);
         }

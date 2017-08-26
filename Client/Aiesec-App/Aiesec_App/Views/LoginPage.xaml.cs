@@ -51,8 +51,8 @@ namespace Aiesec_App.Views
             {
                 try
                 {
-                    var client = new RestClient("http://10.0.2.2:1337");
-                    var request = new RestRequest("api/authenticate", Method.POST);
+                    var client = new RestClient("http://192.168.8.104:1337");
+                    var request = new RestRequest("auth/signin", Method.POST);
 
 
                     request.AddParameter("email", user.username);

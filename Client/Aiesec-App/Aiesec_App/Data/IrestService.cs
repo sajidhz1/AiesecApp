@@ -9,7 +9,7 @@ namespace Aiesec_App.Data
 
         Task<List<T>> GetLatestAsync(string url);
 
-        Task<bool> SaveItemAsync(T item, bool isNewItem);
+        Task<bool> SaveItemAsync(string url,T item, bool isNewItem);
 
         Task<bool> SaveItemsAsync(List<T> items);
 

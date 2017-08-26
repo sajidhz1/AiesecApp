@@ -21,9 +21,9 @@ namespace Aiesec_App.Data
             return restService.RefreshDataAsync(endPointUrl);
         }
 
-        public Task<bool> SaveTaskAsync(T item, bool isNewItem = false)
+        public Task<bool> SaveTaskAsync(string url, T item, bool isNewItem = false)
         {
-            return restService.SaveItemAsync(item, isNewItem);
+            return restService.SaveItemAsync(url, item, isNewItem);
         }
 
         public Task<bool> UpdateTaskAsync(T item)
