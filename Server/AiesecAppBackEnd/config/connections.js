@@ -34,11 +34,11 @@ module.exports.connections = {
 
   mysqlServer: {
     adapter: 'sails-mysql',
-    host: 'localhost',
+    host: 'us-cdbr-iron-east-05.cleardb.net',
     port: '3306',
-    user: 'root',
-    password: '',
-    database: 'aiesecapp'
+    user: 'bc7e1a914e808a',
+    password: '2b4bdc55',
+    database: 'heroku_ac71d2cf4378cec'
   },
 
   /***************************************************************************
