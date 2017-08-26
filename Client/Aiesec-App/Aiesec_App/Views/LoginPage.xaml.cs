@@ -31,7 +31,7 @@ namespace Aiesec_App.Views
                 password = passwordEntry.Text
             };
 
-            var isValid = true; //Login(user);
+            var isValid = Login(user);
             if (isValid)
             {
                 App.IsUserLoggedIn = true;
@@ -46,40 +46,50 @@ namespace Aiesec_App.Views
 
         public bool Login(User user)
         {
-            // We are using the RestSharp library which provides many useful
-            // methods and helpers when dealing with REST.
-            // We first create the request and add the necessary parameters
-            var client = new RestClient("http://10.0.2.2:1337");
-            var request = new RestRequest("api/authenticate", Method.POST);
-         
-
-            request.AddParameter("email", user.username);
-            request.AddParameter("password", user.password);
-            //request.AddParameter("connection", "{YOUR-CONNECTION-NAME-FOR-USERNAME-PASSWORD-AUTH}");
-            //request.AddParameter("grant_type", "password");
-            //request.AddParameter("scope", "openid");
-
-            // We execute the request and capture the response
-            // in a variable called `response`
-            IRestResponse response = client.Execute(request);
-
-            // Using the Newtonsoft.Json library we deserialaize the string into an object,
-            // we have created a LoginToken class that will capture the keys we need
-            LoginToken token = JsonConvert.DeserializeObject<LoginToken>(response.Content);
-
-            if (token.token != null)
+            var validateFieldsSucceeded = ValidateFields();
+            if (validateFieldsSucceeded)
             {
-                Application.Current.Properties["token"] = token.token;
-              //  Application.Current.Properties["access_token"] = token.access_token;
-               // GetUserData(token.access_token);
+                try
+                {
+                    var client = new RestClient("http://10.0.2.2:1337");
+                    var request = new RestRequest("api/authenticate", Method.POST);
 
-                return true;
+
+                    request.AddParameter("email", user.username);
+                    request.AddParameter("password", user.password);
+                    //request.AddParameter("connection", "{YOUR-CONNECTION-NAME-FOR-USERNAME-PASSWORD-AUTH}");
+                    //request.AddParameter("grant_type", "password");
+                    //request.AddParameter("scope", "openid");
+
+                    // We execute the request and capture the response
+                    // in a variable called `response`
+                    IRestResponse response = client.Execute(request);
+
+                    // Using the Newtonsoft.Json library we deserialaize the string into an object,
+                    // we have created a LoginToken class that will capture the keys we need
+                    LoginToken token = JsonConvert.DeserializeObject<LoginToken>(response.Content);
+
+                    if (token.token != null)
+                    {
+                        Application.Current.Properties["token"] = token.token;
+                        //  Application.Current.Properties["access_token"] = token.access_token;
+                        // GetUserData(token.access_token);
+
+                        return true;
+                    }
+                    else
+                    {
+                        DisplayAlert("Login failed", response.Content, "OK");
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    DisplayAlert("Error", e.Message, "OK");
+                    return false;
+                }
             }
-            else
-            {
-                DisplayAlert("Login failed", response.Content , "OK");
-                return false;
-            };
+            return false;
         }
 
 
@@ -101,6 +111,23 @@ namespace Aiesec_App.Views
 
             //// Finally, we navigate the user the the Orders page
             //Navigation.PushModalAsync(new OrdersPage());
+        }
+
+        private bool ValidateFields()
+        {
+
+            if (string.IsNullOrEmpty(usernameEntry.Text))
+            {
+                DisplayAlert("Incomplete", "Username or Email Required !", "Ok");
+                return false;
+            }
+            if (string.IsNullOrEmpty(passwordEntry.Text))
+            {
+                DisplayAlert("Incomplete", "Password !", "Ok");
+                return false;
+            }
+
+            return true;
         }
 
         public class LoginToken
