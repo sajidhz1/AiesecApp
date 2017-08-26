@@ -1,5 +1,5 @@
 /**
- * LocalCommitte.js
+ * AdminUser.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -10,35 +10,35 @@ module.exports = {
   schema: true,
   autoCreatedAt: false,
   autoUpdatedAt: false,
-  tableName: 'localcommitte',
-  identity: 'LocalCommitte',
+  tableName: 'adminuser',
+  identity: 'AdminUser',
 
   attributes: {
-    idLocalCommitte: {
+    AdminUserRole_idAdminUserRole: {
       type: 'integer',
       primaryKey: true,
       unique: true,
       autoIncrement: true
     },
 
-    lcCode: {
-      type: 'string',
-      unique: true,
+    User_idUser: {
+      model: 'User',
+      primaryKey: true,
       required: true
     },
 
-    officialAddress: {
-      type: 'string',
-      required: true
+    createdDate: {
+      type: 'datetime'
     },
 
-    contactNumber: {
-      type: 'string',
-      required: true
+    updatedDate: {
+      type: 'datetime'
     },
 
-    shortDescription: {
-      type: 'string',
+    expired: {
+      type: 'boolean',
+      required: true,
+      defaultsTo: false
     }
   }
 };

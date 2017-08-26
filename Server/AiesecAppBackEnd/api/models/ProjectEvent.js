@@ -1,5 +1,5 @@
 /**
- * ComplainReply.js
+ * ProjectEvent.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -10,19 +10,19 @@ module.exports = {
   schema: true,
   autoCreatedAt: false,
   autoUpdatedAt: false,
-  tableName: 'complainreply',
-  identity: 'ComplainReply',
+  tableName: 'projectevent',
+  identity: 'ProjectEvent',
 
   attributes: {
-    idComplainReply: {
+    idProjectEvent: {
       type: 'integer',
       primaryKey: true,
       unique: true,
       autoIncrement: true
     },
 
-    Complain_idComplain: {
-      model: 'Complain',
+    Project_idProject: {
+      model: 'Project',
       required: true
     },
 
@@ -31,12 +31,22 @@ module.exports = {
       required: true
     },
 
-    replyText: {
+    venue: {
       type: 'string',
       required: true
     },
 
-    name: {
+    start: {
+      type: 'datetime',
+      required: true
+    },
+
+    end: {
+      type: 'datetime',
+      required: true
+    },
+
+    description: {
       type: 'string',
       required: true
     },
@@ -47,7 +57,14 @@ module.exports = {
 
     updatedDate: {
       type: 'datetime'
+    },
+
+    expired: {
+      type: 'boolean',
+      required: true,
+      defaultsTo: false
     }
+
   }
 };
 
