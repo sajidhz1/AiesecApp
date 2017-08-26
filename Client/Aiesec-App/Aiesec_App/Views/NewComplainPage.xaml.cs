@@ -6,15 +6,15 @@ using Xamarin.Forms;
 
 namespace Aiesec_App.Views
 {
-    public partial class NewItemPage : ContentPage
+    public partial class NewComplainPage : ContentPage
     {
-        public Item Item { get; set; }
+        public ComplainItem Item { get; set; }
 
-        public NewItemPage()
+        public NewComplainPage()
         {
             InitializeComponent();
 
-            Item = new Item
+            Item = new ComplainItem
             {
                 Name = "Item name",
                 Notes = "This is a nice description"

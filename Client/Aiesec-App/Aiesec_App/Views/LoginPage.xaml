@@ -4,15 +4,32 @@
              x:Class="Aiesec_App.Views.LoginPage" Title="Login">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Sign Up" Clicked="OnSignUpButtonClicked" />
+        <ToolbarItem x:Name="About" Text="About" Icon="ic_info_outline_black_24dp.png" Clicked="About_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout VerticalOptions="StartAndExpand">
-            <Label Text="Username" />
-            <Entry x:Name="usernameEntry" Placeholder="username" />
-            <Label Text="Password" />
-            <Entry x:Name="passwordEntry" IsPassword="true" />
-            <Button Text="Login" Clicked="OnLoginButtonClicked" />
-            <Label x:Name="messageLabel" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackLayout BackgroundColor="#eeeeee" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                        <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64"/>
+                    </ContentView>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Grid.Row="1" VerticalOptions="StartAndExpand"  Padding="16,40,16,40" >
+                <Label Text="Username" />
+                <Entry x:Name="usernameEntry" Margin="0,0,0,10" Placeholder="username or email" />
+                <Label Text="Password" />
+                <Entry x:Name="passwordEntry" Margin="0,0,0,10" IsPassword="true" />
+                <Button Text="Login" 
+                        WidthRequest="100" 
+                        Clicked="OnLoginButtonClicked" 
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White" />
+            </StackLayout>
+        </Grid>        
     </ContentPage.Content>
 </ContentPage>

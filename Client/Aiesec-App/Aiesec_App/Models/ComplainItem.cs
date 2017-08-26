@@ -1,12 +1,11 @@
 ﻿namespace Aiesec_App.Models
 {
-    public class Item : BaseDataObject
+    public class ComplainItem : BaseDataObject
     {
         public string Name { get; set; }
 
         public string Notes { get; set; }
 
         public bool Done { get; set; }
-
     }
 }

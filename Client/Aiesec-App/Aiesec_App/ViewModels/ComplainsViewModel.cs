@@ -10,20 +10,20 @@ using Xamarin.Forms;
 
 namespace Aiesec_App.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class ComplainsViewModel : BaseViewModel<ComplainItem>
     {
-        public ObservableRangeCollection<Item> Items { get; set; }
+        public ObservableRangeCollection<ComplainItem> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
-        public ItemsViewModel()
+        public ComplainsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableRangeCollection<Item>();
+            Items = new ObservableRangeCollection<ComplainItem>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
+            MessagingCenter.Subscribe<NewComplainPage, ComplainItem>(this, "AddItem", async (obj, item) =>
             {
-                var _item = item as Item;
+                var _item = item as ComplainItem;
                 Items.Add(_item);
                 await DataStore.AddItemAsync(_item);
             });

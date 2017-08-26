@@ -26,7 +26,7 @@ namespace Aiesec_App.Models
         /// <summary>
         /// Azure UpdateAt timestamp for online/offline sync
         /// </summary>
-        public DateTimeOffset UpdatedAt { get; set; }
+        public DateTimeOffset? UpdatedAt { get; set; }
 
         /// <summary>
         /// Azure version for online/offline sync

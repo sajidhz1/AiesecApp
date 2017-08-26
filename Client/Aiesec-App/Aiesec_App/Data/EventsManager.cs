@@ -7,26 +7,26 @@ using System.Threading.Tasks;
 
 namespace Aiesec_App.Data
 {
-   public class ItemManager
+    class EventsManager
     {
-        IRestService<Item> restService;
+        IRestService<EventItem> restService;
 
-        public ItemManager(IRestService<Item> service)
+        public EventsManager(IRestService<EventItem> service)
         {
             restService = service;
         }
 
-        public Task<List<Item>> GetItemsAsync()
+        public Task<List<EventItem>> GetItemsAsync()
         {
             return restService.RefreshDataAsync();
         }
 
-        public Task SaveTaskAsync(Item item, bool isNewItem = false)
+        public Task SaveTaskAsync(EventItem item, bool isNewItem = false)
         {
             return restService.SaveItemAsync(item, isNewItem);
         }
 
-        public Task DeleteTaskAsync(Item item)
+        public Task DeleteTaskAsync(EventItem item)
         {
             return restService.DeleteItemAsync(item.ID);
         }

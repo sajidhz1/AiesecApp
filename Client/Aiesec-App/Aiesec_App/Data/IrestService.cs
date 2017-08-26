@@ -9,6 +9,8 @@ namespace Aiesec_App.Data
 
         Task SaveItemAsync(T item, bool isNewItem);
 
+        Task SaveItemsAsync(List<T> items);
+
         Task DeleteItemAsync(string id);
     }
 }

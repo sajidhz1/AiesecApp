@@ -1,20 +1,23 @@
-﻿using System;
-
-using Aiesec_App.Models;
+﻿using Aiesec_App.Models;
 using Aiesec_App.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Aiesec_App.Views
 {
-    public partial class ItemsPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class EventsPage : ContentPage
     {
         ComplainsViewModel viewModel;
-
-        public ItemsPage()
+        public EventsPage()
         {
             InitializeComponent();
-
             BindingContext = viewModel = new ComplainsViewModel();
         }
 
@@ -27,7 +30,7 @@ namespace Aiesec_App.Views
             await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
 
             // Manually deselect item
-            ItemsListView.SelectedItem = null;
+            EventsListView.SelectedItem = null;
         }
 
         async void AddItem_Clicked(object sender, EventArgs e)

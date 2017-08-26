@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Aiesec_App.Views.Dialogs.SignUpSelectionDialog">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS="0,40,0,0" />
+    </ContentPage.Padding>
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Label Text="Exchange Partner"/>
+            <Button x:Name="signupEpButton" Text="SignUp" Clicked="OnSignUpAsEpClicked" Margin="0,0,0,20"/>
+            <Label Text="Local Comittee Memember"/>
+            <Button x:Name="signupLcButton" Text="SignUp" Clicked="OnSignUpAsLCClicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

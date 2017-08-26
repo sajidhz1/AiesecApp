@@ -1,13 +1,9 @@
 ﻿using Aiesec_App.Data;
 using Aiesec_App.Models;
+using Aiesec_App.Views.Dialogs;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -23,7 +19,8 @@ namespace Aiesec_App.Views
 
         async void OnSignUpButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SignUpPage());
+            var signUpSelectionPage = new SignUpSelectionDialog();
+            await Navigation.PushModalAsync(signUpSelectionPage);            
         }
 
         async void OnLoginButtonClicked(object sender, EventArgs e)
@@ -34,7 +31,7 @@ namespace Aiesec_App.Views
                 Password = passwordEntry.Text
             };
 
-            var isValid = Login(user);
+            var isValid = true; // Login(user);
             if (isValid)
             {
                 App.IsUserLoggedIn = true;
@@ -43,7 +40,6 @@ namespace Aiesec_App.Views
             }
             else
             {
-                messageLabel.Text = "Login failed";
                 passwordEntry.Text = string.Empty;
             }
         }
@@ -55,8 +51,9 @@ namespace Aiesec_App.Views
             // We first create the request and add the necessary parameters
             var client = new RestClient("http://10.0.2.2:3000");
             var request = new RestRequest("api/authenticate", Method.POST);
-            request.AddParameter("client_id", "{YOUR-AUTH0-CLIENT-ID");
-            request.AddParameter("username", user.Username);
+         
+
+            request.AddParameter("email", user.Username);
             request.AddParameter("password", user.Password);
             //request.AddParameter("connection", "{YOUR-CONNECTION-NAME-FOR-USERNAME-PASSWORD-AUTH}");
             //request.AddParameter("grant_type", "password");
@@ -74,14 +71,13 @@ namespace Aiesec_App.Views
             {
                 Application.Current.Properties["id_token"] = token.id_token;
                 Application.Current.Properties["access_token"] = token.access_token;
-                //GetUserData(token.id_token);
+                GetUserData(token.access_token);
 
                 return true;
             }
             else
             {
-                DisplayAlert("Oh No!", response.Content , "OK");
-
+                DisplayAlert("Login failed", response.Content , "OK");
                 return false;
             };
         }
@@ -89,14 +85,14 @@ namespace Aiesec_App.Views
 
         public void GetUserData(string token)
         {
-            var client = new RestClient("https://{YOUR-AUTH0-DOMAIN}.auth0.com");
-            var request = new RestRequest("tokeninfo", Method.GET);
+            var client = new RestClient("http://10.0.2.2:3000");
+            var request = new RestRequest("api/protected/userdetails", Method.GET);
             request.AddParameter("id_token", token);
-
+            request.AddHeader("Authorization", "Bearer " + token);
 
             IRestResponse response = client.Execute(request);
 
-            User user = JsonConvert.DeserializeObject<User>(response.Content);
+         //   User user = JsonConvert.DeserializeObject<User>(response.Content);
 
             //// Once the call executes, we capture the user data in the
             //// `Application.Current` namespace which is globally available in Xamarin
@@ -114,5 +110,9 @@ namespace Aiesec_App.Views
             public string token_type { get; set; }
         }
 
+        private void About_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new AboutPage());
+        }
     }
 }
