@@ -18,7 +18,7 @@ module.exports = {
       type: 'integer',
       primaryKey: true,
       unique: true,
-      required: true
+      autoIncrement: true
     },
 
     User_idUser: {

@@ -11,7 +11,7 @@ module.exports = {
   autoUpdatedAt: false,
   tableName: 'complain',
   identity: 'Complain',
-  
+
   attributes: {
 
     idComplain: {
@@ -19,7 +19,7 @@ module.exports = {
         type: 'integer',
         primaryKey: true,
         unique: true,
-        required: true
+        autoIncrement: true
       },
 
       ExchangeParticipant_idExchangeParticipant: {
@@ -47,6 +47,7 @@ module.exports = {
 
       complainStatus: {
         type: 'boolean',
+        required: true,
         defaultsTo: false
       }
     }
