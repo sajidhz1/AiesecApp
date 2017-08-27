@@ -30,7 +30,7 @@ module.exports = {
       required: true
     },
 
-    title: {
+    title:{
       type: 'string',
       required: true
     },

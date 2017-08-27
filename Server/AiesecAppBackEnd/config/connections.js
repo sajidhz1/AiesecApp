@@ -32,7 +32,7 @@ module.exports.connections = {
     adapter: 'sails-disk'
   },
 
-  mysqlServer: {
+  mysqlServerProduction: {
     adapter: 'sails-mysql',
     host: 'us-cdbr-iron-east-05.cleardb.net',
     port: '3306',
@@ -40,6 +40,15 @@ module.exports.connections = {
     password: '2b4bdc55',
     database: 'heroku_ac71d2cf4378cec'
   },
+
+  mysqlServerDevelopment: {
+    adapter: 'sails-mysql',
+    host: 'localhost',
+    port: '3306',
+    user: 'root',
+    password: '',
+    database: 'aiesecapp'
+  }
 
   /***************************************************************************
   *                                                                          *
