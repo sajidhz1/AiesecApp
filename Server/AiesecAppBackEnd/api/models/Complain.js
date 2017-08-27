@@ -30,6 +30,11 @@ module.exports = {
       required: true
     },
 
+    title:{
+      type: 'string',
+      required: true
+    },
+
     description: {
       type: 'string',
       required: true
