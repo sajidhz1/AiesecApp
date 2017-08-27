@@ -41,7 +41,7 @@ module.exports.connections = {
     database: 'heroku_ac71d2cf4378cec'
   },
 
-  mysqlServer: {
+  mysqlServerDevelopment: {
     adapter: 'sails-mysql',
     host: 'localhost',
     port: '3306',
