@@ -1,35 +1,41 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Aiesec_App.Views.LoginPage" Title="Login">
+             x:Class="Aiesec_App.Views.LoginPage" Title="{Binding Title, Mode=OneWay}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Sign Up" Clicked="OnSignUpButtonClicked" />
         <ToolbarItem x:Name="About" Text="About" Icon="ic_info_outline_black_24dp.png" Clicked="About_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <StackLayout BackgroundColor="#eeeeee" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                    <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                        <Image Source="besl.png" VerticalOptions="Center" HeightRequest="64"/>
-                    </ContentView>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+         AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackLayout BackgroundColor="#eeeeee" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                        <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                            <Image Source="besl.png" VerticalOptions="Center" HeightRequest="64"/>
+                        </ContentView>
+                    </StackLayout>
                 </StackLayout>
-            </StackLayout>
-            <StackLayout Grid.Row="1" VerticalOptions="StartAndExpand"  Padding="16,40,16,40" >
-                <Label Text="Username" />
-                <Entry x:Name="usernameEntry" Text="thishanpavithra@gmail.com" Margin="0,0,0,10" Placeholder="username or email" />
-                <Label Text="Password" />
-                <Entry x:Name="passwordEntry" Text="123456" Margin="0,0,0,10" IsPassword="true" />
-                <Button Text="Login" 
+                <StackLayout Grid.Row="1" VerticalOptions="StartAndExpand"  Padding="16,40,16,40" >
+                    <Label Text="Username" />
+                    <Entry x:Name="usernameEntry" Text="thishanpavithra@gmail.com" Margin="0,0,0,10" Placeholder="username or email" />
+                    <Label Text="Password" />
+                    <Entry x:Name="passwordEntry" Text="123456" Margin="0,0,0,10" IsPassword="true" />
+                    <Button Text="Login" 
                         WidthRequest="100" 
                         Clicked="OnLoginButtonClicked" 
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White" />
-            </StackLayout>
-        </Grid>        
+                </StackLayout>
+            </Grid>
+            <ContentView x:Name="overlay" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" IsVisible="{Binding IsBusy, Mode=OneWay}" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#C0ffffff" Padding="10, 0">
+                <ActivityIndicator  WidthRequest="110" HeightRequest="70" IsRunning="True"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            </ContentView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

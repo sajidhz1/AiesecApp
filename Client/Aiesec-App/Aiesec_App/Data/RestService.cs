@@ -21,11 +21,9 @@ namespace Aiesec_App.Data
 
         public RestService()
         {
-            var authData = string.Format("{0}:{1}", Constants.Username, Constants.Password);
-            authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authData));
-
-            client = new RestClient(Constants.RestUrl);
-       
+            //var authData = string.Format("{0}:{1}", Constants.Username, Constants.Password);
+            //authHeaderValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(authData));
+            client = new RestClient(Constants.RestUrl);       
         }
 
         public async Task<List<T>> RefreshDataAsync(string apiUrl)
@@ -79,19 +77,17 @@ namespace Aiesec_App.Data
 
         Task<bool> IRestService<T>.SaveItemAsync(string url, T item, bool isNewItem)
         {
-            var client = new RestClient("http://192.168.8.104:1337");
             var request = new RestRequest(url, Method.POST);
             request.AddHeader("Authorization", "JWT " + Application.Current.Properties["token"]);
             try
             {
                 var json = JsonConvert.SerializeObject(item);
-              //  var content = new StringContent(json, Encoding.UTF8, "application/json");
-
+       
                 request.AddParameter("application/json; charset=utf-8", json, ParameterType.RequestBody);
                 request.RequestFormat = DataFormat.Json;
 
                 IRestResponse response = client.Execute(request);
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.StatusCode == System.Net.HttpStatusCode.Created)
                 {
                     Items = JsonConvert.DeserializeObject<List<T>>(response.Content);
                 }

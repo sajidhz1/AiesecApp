@@ -1,9 +1,11 @@
 ﻿using Aiesec_App.Data;
 using Aiesec_App.Models;
+using Aiesec_App.ViewModels;
 using Aiesec_App.Views.Dialogs;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,47 +14,47 @@ namespace Aiesec_App.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        public SignUpViewModel vm;
+
         public LoginPage()
         {
             InitializeComponent();
+            BindingContext = vm = new SignUpViewModel();
+            vm.Title = "lala";
         }
 
         async void OnSignUpButtonClicked(object sender, EventArgs e)
         {
             var signUpSelectionPage = new SignUpSelectionDialog();
-            await Navigation.PushModalAsync(signUpSelectionPage);            
+            await Navigation.PushModalAsync(signUpSelectionPage);
         }
 
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
+
+            await Login();                      
+        }
+
+        async Task Login()
+        {
+            if (vm.IsBusy)
+                return;
+
+            vm.IsBusy = true;
+
             var user = new User
             {
                 username = usernameEntry.Text,
                 password = passwordEntry.Text
             };
 
-            var isValid = Login(user);
-            if (isValid)
-            {
-                App.IsUserLoggedIn = true;
-                Navigation.InsertPageBefore(new MainPage(), this);
-                await Navigation.PopAsync();
-            }
-            else
-            {
-                passwordEntry.Text = string.Empty;
-            }
-        }
-
-        public bool Login(User user)
-        {
             var validateFieldsSucceeded = ValidateFields();
             if (validateFieldsSucceeded)
             {
                 try
                 {
-                    var client = new RestClient("http://192.168.8.104:1337");
-                    var request = new RestRequest("auth/signin", Method.POST);
+                    var client = new RestClient(Constants.RestUrl);
+                    var request = new RestRequest(Constants.URL_SIGNIN, Method.POST);
 
 
                     request.AddParameter("email", user.username);
@@ -63,7 +65,7 @@ namespace Aiesec_App.Views
 
                     // We execute the request and capture the response
                     // in a variable called `response`
-                    IRestResponse response = client.Execute(request);
+                    IRestResponse response = await client.ExecuteTaskAsync(request);
 
                     // Using the Newtonsoft.Json library we deserialaize the string into an object,
                     // we have created a LoginToken class that will capture the keys we need
@@ -75,21 +77,24 @@ namespace Aiesec_App.Views
                         //  Application.Current.Properties["access_token"] = token.access_token;
                         // GetUserData(token.access_token);
 
-                        return true;
+                         App.IsUserLoggedIn = true;
+                         Navigation.InsertPageBefore(new MainPage(), this);
+                         await Navigation.PopAsync();
                     }
                     else
                     {
-                        DisplayAlert("Login failed", response.Content, "OK");
-                        return false;
+                        await DisplayAlert("Login failed", response.Content, "OK");
+                       
                     }
                 }
                 catch (Exception e)
                 {
-                    DisplayAlert("Error", e.Message, "OK");
-                    return false;
+                  await   DisplayAlert("Error", e.Message, "OK");
+          
                 }
             }
-            return false;
+
+            passwordEntry.Text = string.Empty;
         }
 
 
@@ -102,15 +107,6 @@ namespace Aiesec_App.Views
 
             IRestResponse response = client.Execute(request);
 
-         //   User user = JsonConvert.DeserializeObject<User>(response.Content);
-
-            //// Once the call executes, we capture the user data in the
-            //// `Application.Current` namespace which is globally available in Xamarin
-            //Application.Current.Properties["email"] = user.email;
-            //Application.Current.Properties["picture"] = user.picture;
-
-            //// Finally, we navigate the user the the Orders page
-            //Navigation.PushModalAsync(new OrdersPage());
         }
 
         private bool ValidateFields()
@@ -133,17 +129,9 @@ namespace Aiesec_App.Views
         public class LoginToken
         {
             public string token { get; set; }
-            public User user { get; set; }
+            //  public User user { get; set; }
         }
 
-        public class User
-        {
-            public string idUser { get; set; }
-            public string email { get; set; }
-            public string username { get; set; }
-            public string password { get; set; }
-            public int approved { get; set; }
-        }
         private void About_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new AboutPage());

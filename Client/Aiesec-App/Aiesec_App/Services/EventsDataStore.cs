@@ -93,7 +93,7 @@ namespace Aiesec_App.Services
 
             items = new List<EventItem>();
 
-            var _serverItems = await App.EventsManager.GetItemsAsync(Constants.ToDoList);
+            var _serverItems = await App.EventsManager.GetItemsAsync(Constants.URL_COMPLAIN);
             var _localItems = await App.EventsDatabase.Get();
 
             var _insertItems = _serverItems.Except(_localItems, new IdComparer()).ToList();

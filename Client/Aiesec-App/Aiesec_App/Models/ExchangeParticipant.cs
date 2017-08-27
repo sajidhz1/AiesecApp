@@ -8,7 +8,9 @@ namespace Aiesec_App.Models
 {
     public class ExchangeParticipant : BaseDataObject
     {
-       public int User_idUser { get; set; }
+        public int idExchangeParticipant { get; set; }
+
+        public int User_idUser { get; set; }
 
         public int Country_idCountry { get; set; }
 

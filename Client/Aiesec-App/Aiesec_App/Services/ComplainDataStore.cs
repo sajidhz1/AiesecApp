@@ -21,12 +21,12 @@ namespace Aiesec_App.Services
             if (App.IsConnected)
             {
                 //should use from the app
-                item.ExchangeParticipant_idExchangeParticipant = 1;
-                item.Project_idProject = 1;
-                item.description = " test";
-
-
-                bool httpStatus = await App.ItemsManager.SaveTaskAsync("complain", item, true);
+                item.ExchangeParticipant_idExchangeParticipant = new ExchangeParticipant() {
+                    idExchangeParticipant = 1
+                };
+                item.Project_idProject = new Project() { idProject = 1 , LocalCommitte_idLocalCommitte = item.ExchangeParticipant_idExchangeParticipant.idExchangeParticipant };
+                
+                bool httpStatus = await App.ItemsManager.SaveTaskAsync(Constants.URL_COMPLAIN, item, true);
                 if (httpStatus)
                 {
                     //int insertResult = await App.ItemsDatabase.Insert(item);
@@ -107,23 +107,24 @@ namespace Aiesec_App.Services
             return await Task.FromResult(items);
         }
 
-        public Task<bool> PullLatestAsync()
+        public async Task<bool> PullLatestAsync()
         {
-            return Task.FromResult(true);
+            await InitializeAsync();
+            return await Task.FromResult(true);
         }
 
 
         public async Task<IEnumerable<ComplainItem>> SyncAsync()
         {
-            if (items != null)
-            {
-                items.Add(new ComplainItem()
-                {
-                    Name = "Test"
-                    ,
-                    Notes = "Lalaal"
-                });
-            }
+            //if (items != null)
+            //{
+            //    items.Add(new ComplainItem()
+            //    {
+            //        Name = "Test"
+            //        ,
+            //        Notes = "Lalaal"
+            //    });
+            //}
             return await Task.FromResult(items);
         }
 
@@ -134,27 +135,27 @@ namespace Aiesec_App.Services
 
             items = new List<ComplainItem>();
 
-            var _serverItems  = await App.ItemsManager.GetItemsAsync(Constants.ToDoList);
-            var _localItems = await App.ItemsDatabase.Get();
+            var _serverItems  = await App.ItemsManager.GetItemsAsync(Constants.URL_COMPLAIN);
+            //var _localItems = await App.ItemsDatabase.Get();
 
-            var _newItems  = _serverItems.Except(_localItems, new IdComparer()).ToList();
+            //var _newItems  = _serverItems.Except(_localItems, new IdComparer()).ToList();
 
-            foreach (ComplainItem item in _newItems)
-            {
-                if (item.UpdatedAt.HasValue)
-                {
-                    item.UpdatedAt = new DateTimeOffset();
-                    await App.ItemsDatabase.Update(item);
-                }
-                else
-                {
-                    item.UpdatedAt = new DateTimeOffset();
-                    await App.ItemsDatabase.Insert(item);
-                }                
-            }
+            //foreach (ComplainItem item in _serverItems)
+            //{
+            //    if (item.UpdatedAt.HasValue)
+            //    {
+            //        item.UpdatedAt = new DateTimeOffset();
+            //        await App.ItemsDatabase.Update(item);
+            //    }
+            //    else
+            //    {
+            //        item.UpdatedAt = new DateTimeOffset();
+            //        await App.ItemsDatabase.Insert(item);
+            //    }                
+            //}
 
-            _localItems = await App.ItemsDatabase.Get();
-            foreach (ComplainItem item in _localItems)
+            //_localItems = await App.ItemsDatabase.Get();
+            foreach (ComplainItem item in _serverItems)
             {
                 items.Add(item);
             }

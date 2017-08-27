@@ -6,18 +6,12 @@ using System.Threading.Tasks;
 
 namespace Aiesec_App.ViewModels
 {
-    class SignUpViewModel : BaseViewModel
+    public class SignUpViewModel : BaseViewModel
     {
         public SignUpViewModel()
         {
             Title = "SignUp";           
         }
 
-        bool isLoading;
-        public bool IsLoading
-        {
-            get { return isLoading; }
-            set { SetProperty(ref isLoading, value); }
-        }
     }
 }

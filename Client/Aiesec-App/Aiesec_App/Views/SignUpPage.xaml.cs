@@ -29,7 +29,7 @@ namespace Aiesec_App.Views
 
         bool AreDetailsValid(User user)
         {
-            return (!string.IsNullOrWhiteSpace(user.Username) && !string.IsNullOrWhiteSpace(user.Password) && !string.IsNullOrWhiteSpace(user.Email) && user.Email.Contains("@"));
+            return (!string.IsNullOrWhiteSpace(user.username) && !string.IsNullOrWhiteSpace(user.password) && !string.IsNullOrWhiteSpace(user.email) && user.email.Contains("@"));
         }
 
         async Task SignUpAsync()
@@ -41,9 +41,14 @@ namespace Aiesec_App.Views
 
             var user = new User()
             {
-                Username = usernameEntry.Text,
-                Password = passwordEntry.Text,
-                Email = emailEntry.Text
+                username = usernameEntry.Text,
+                password = passwordEntry.Text,
+                email = emailEntry.Text,
+                userType = 1,
+                LocalCommitte_idLocalCommitte = new LocalCommittee()
+                {
+                    idLocalCommitte = 1
+                }
             };
 
             var validateFieldsSucceeded = ValidateFields();
@@ -53,13 +58,18 @@ namespace Aiesec_App.Views
                 {
 
                     //Sign up logic goes here should be moved 
-                    var client = new RestClient("http://10.0.2.2:1337");
-                    var request = new RestRequest("auth/signup", Method.POST);
-                    request.AddParameter("email", user.Email);
-                    request.AddParameter("username", user.Username);
-                    request.AddParameter("password", user.Password);
-                    request.AddParameter("userType", 1);
-                    request.AddParameter("LocalCommitte_idLocalCommitte", 1);
+                    var client = new RestClient(Constants.RestUrl);
+                    var request = new RestRequest(Constants.URL_SIGNUP, Method.POST);
+                    var json = JsonConvert.SerializeObject(user);
+
+                    request.AddParameter("application/json; charset=utf-8", json, ParameterType.RequestBody);
+                    request.RequestFormat = DataFormat.Json;
+
+                    //request.AddParameter("email", user.Email);
+                    //request.AddParameter("username", user.Username);
+                    //request.AddParameter("password", user.Password);
+                    //request.AddParameter("userType", 1);
+                    //request.AddParameter("LocalCommitte_idLocalCommitte", 1);
 
                     IRestResponse response = await client.ExecuteTaskAsync(request);
                     UserSignup userSignUp = JsonConvert.DeserializeObject<UserSignup>(response.Content);

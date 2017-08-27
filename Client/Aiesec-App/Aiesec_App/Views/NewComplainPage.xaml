@@ -11,16 +11,22 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-		<StackLayout Spacing="20" Padding="15">
-			<Label Text="Title" FontSize="Medium" />
-			<Entry Text="{Binding Item.Name}" FontSize="Small" />
-            <Label Text="Complain/Request" FontSize="Medium" />
-            <StackLayout Orientation="Horizontal" Spacing="0">
-                <Label Text="{Binding Item.Done, Path=Monitored,Converter={StaticResource convertBoolValue}}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                <Switch IsToggled="{Binding Item.Done, Path=Monitored, Mode=TwoWay}" HorizontalOptions="End" VerticalOptions="Center" />
+        <AbsoluteLayout>
+            <StackLayout Spacing="20" Padding="15" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+         AbsoluteLayout.LayoutFlags="All">
+                <Label Text="Title" FontSize="Medium" />
+                <Entry Text="{Binding Item.title}" FontSize="Small" />
+                <Label Text="Complain/Request" FontSize="Medium" />
+                <StackLayout Orientation="Horizontal" Spacing="0">
+                    <Label Text="{Binding Item.Done, Path=Monitored,Converter={StaticResource convertBoolValue}}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                    <Switch IsToggled="{Binding Item.Done, Path=Monitored, Mode=TwoWay}" HorizontalOptions="End" VerticalOptions="Center" />
+                </StackLayout>
+                <Label Text="Description" FontSize="Medium" />
+                <Editor Text="{Binding Item.description}" FontSize="Small"  Margin="0" />
             </StackLayout>
-            <Label Text="Description" FontSize="Medium" />
-			<Editor Text="{Binding Item.Notes}" FontSize="Small"  Margin="0" />
-		</StackLayout>
-	</ContentPage.Content>
+            <ContentView x:Name="overlay" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" IsVisible="{Binding IsBusy, Mode=OneWay}" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#C0ffffff" Padding="10, 0">
+                <ActivityIndicator  WidthRequest="110" HeightRequest="70" IsRunning="True"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            </ContentView>
+        </AbsoluteLayout>
+    </ContentPage.Content>
 </ContentPage>

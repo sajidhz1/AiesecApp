@@ -15,7 +15,7 @@ namespace Aiesec_App.ViewModels
 
         public ComplainItemDetailViewModel(ComplainItem item = null)
         {
-            Title = item.Name;
+            Title = item.title;
             Item = item;
 
             Items = new ObservableRangeCollection<ReplyItem>();
