@@ -34,7 +34,13 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
+
+  //Custom Routes for ComplainController
+
+  'GET /complain/getcomplainsbyepid/:id' : 'ComplainController.getComplainsByEpId',
+  // 'GET /complain/getcomplainsbyprojectid' : 'ComplainController.getComplainsByProjectId',
+  // 'GET /complain/getcomplainsbylcid' : 'ComplainController.getComplainsByLcId'
 
   /***************************************************************************
   *                                                                          *
