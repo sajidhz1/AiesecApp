@@ -31,7 +31,11 @@ module.exports.policies = {
 
   AuthController: {
     '*': true
-  }
+  },
+
+  CountryController: {
+    '*': true
+  }  
 
   /***************************************************************************
   *                                                                          *

@@ -35,7 +35,6 @@ module.exports = {
             .then(function (user) {
                 return {
                     // TODO: replace with new type of cipher service
-                    token: CipherService.createToken(user),
                     user: user
                 };
             })

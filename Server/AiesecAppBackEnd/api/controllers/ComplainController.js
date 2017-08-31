@@ -6,6 +6,9 @@
  */
 
 module.exports = {
-	
+    
+    getComplainsByEpId : function(req,res){
+        //Complain.find
+    }
 };
 
