@@ -32,6 +32,18 @@ namespace Aiesec_App.Views
             return (!string.IsNullOrWhiteSpace(user.username) && !string.IsNullOrWhiteSpace(user.password) && !string.IsNullOrWhiteSpace(user.email) && user.email.Contains("@"));
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (vm.Countries.Count == 0 || vm.Projects.Count == 0)
+            {
+                vm.LoadItemsCommand.Execute(null);
+                countryEntry.ItemsSource = vm.Countries;
+                projectEntry.ItemsSource = vm.Projects;
+            }
+        }
+
         async Task SignUpAsync()
         {
             if (vm.IsBusy)
@@ -45,10 +57,7 @@ namespace Aiesec_App.Views
                 password = passwordEntry.Text,
                 email = emailEntry.Text,
                 userType = 1,
-                LocalCommitte_idLocalCommitte = new LocalCommittee()
-                {
-                    idLocalCommitte = 1
-                }
+                LocalCommitte_idLocalCommitte = 1
             };
 
             var validateFieldsSucceeded = ValidateFields();
@@ -74,17 +83,17 @@ namespace Aiesec_App.Views
                     IRestResponse response = await client.ExecuteTaskAsync(request);
                     UserSignup userSignUp = JsonConvert.DeserializeObject<UserSignup>(response.Content);
 
-                        if (!string.IsNullOrEmpty(userSignUp.user_id))
+                    if (!string.IsNullOrEmpty(userSignUp.user_id))
+                    {
+                        var rootPage = Navigation.NavigationStack.FirstOrDefault();
+                        if (rootPage != null)
                         {
-                            var rootPage = Navigation.NavigationStack.FirstOrDefault();
-                            if (rootPage != null)
-                            {
-                                App.IsUserLoggedIn = true;
-                                Navigation.InsertPageBefore(new LoginPage(), Navigation.NavigationStack.First());
-                                await Navigation.PopToRootAsync();
-                            }
+                            App.IsUserLoggedIn = true;
+                            Navigation.InsertPageBefore(new LoginPage(), Navigation.NavigationStack.First());
+                            await Navigation.PopToRootAsync();
                         }
-                    
+                    }
+
                     else
                     {
                         await DisplayAlert("Error", response.Content, "OK");
@@ -106,19 +115,21 @@ namespace Aiesec_App.Views
 
         protected override bool OnBackButtonPressed()
         {
-            Device.BeginInvokeOnMainThread(async () => {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
                 var result = await DisplayActionSheet("Action", "Cancel", "Discard", "Do you want to Leave this Form ?");
                 if (result.Equals("Discard"))
                 {
                     await this.Navigation.PopModalAsync();
                 }
-               
-             });
+
+            });
 
             return true;
         }
 
-        private bool ValidateFields() {
+        private bool ValidateFields()
+        {
 
             if (string.IsNullOrEmpty(firstnameEntry.Text))
             {

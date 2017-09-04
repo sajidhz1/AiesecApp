@@ -4,21 +4,28 @@
              x:Class="Aiesec_App.Views.SignUpPage"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <ScrollView>
-            <AbsoluteLayout>
-                <StackLayout VerticalOptions="StartAndExpand" Padding="16,10,16,40" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-         AbsoluteLayout.LayoutFlags="All" >
+        <AbsoluteLayout>
+            <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1"    AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="StartAndExpand" Padding="16,10,16,40"  >
                     <Label HorizontalTextAlignment="Center" TextColor="Red" FontSize="Small" Margin="0,0,0,15" Text="All Fields are Mandatory" />
                     <Label Text="First Name" />
                     <Entry x:Name="firstnameEntry" Placeholder="first name"  Margin="0,0,0,10"/>
                     <Label Text="Last Name" />
                     <Entry x:Name="lastnameEntry" Placeholder="last name"  Margin="0,0,0,10"/>
                     <Label Text="Country" />
-                    <Picker x:Name="countryEntry" Margin="0,0,0,10" SelectedIndex="{Binding Industry}" HorizontalOptions="FillAndExpand">
-                        <Picker.Items>
-                            <x:String>1</x:String>
-                            <x:String>2</x:String>
-                        </Picker.Items>
+                    <Picker x:Name="countryEntry" Margin="0,0,0,10"
+                            ItemsSource="{Binding Countries}" 
+                            ItemDisplayBinding="{Binding name}"
+                            SelectedIndex="{Binding idCountry}"
+                            HorizontalOptions="FillAndExpand">
+                    </Picker>
+                    <Label Text="Project" />
+                    <Picker x:Name="projectEntry" 
+                            Margin="0,0,0,10" 
+                            ItemsSource="{Binding Projects}" 
+                            ItemDisplayBinding="{Binding projectName}"
+                            SelectedIndex="{Binding idProject}" 
+                            HorizontalOptions="FillAndExpand">
                     </Picker>
                     <Label Text="Email address" />
                     <Entry x:Name="emailEntry" Margin="0,0,0,10" />
@@ -31,10 +38,10 @@
                     <Button Text="Sign Up" Clicked="OnSignUpButtonClicked" />
                     <Label x:Name="messageLabel" />
                 </StackLayout>
-                <ContentView x:Name="overlay" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" IsVisible="{Binding IsBusy, Mode=OneWay}" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#C0ffffff" Padding="10, 0">
-                    <ActivityIndicator  WidthRequest="110" HeightRequest="70" IsRunning="True"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                </ContentView>
-            </AbsoluteLayout>
-        </ScrollView>      
+            </ScrollView>
+            <ContentView x:Name="overlay" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" IsVisible="{Binding IsBusy, Mode=OneWay}" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#C0ffffff" Padding="10, 0">
+                <ActivityIndicator  WidthRequest="110" HeightRequest="70" IsRunning="True"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            </ContentView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

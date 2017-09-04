@@ -1,5 +1,6 @@
 ﻿using Aiesec_App.Helpers;
 using Aiesec_App.Models;
+using Aiesec_App.Services;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -7,26 +8,19 @@ using Xamarin.Forms;
 
 namespace Aiesec_App.ViewModels
 {
-    public class ComplainItemDetailViewModel : BaseViewModel<ReplyItem>
+    public class ComplainReplyViewModel : BaseViewModel<ComplainReply>
     {
         public ComplainItem Item { get; set; }
-        public ObservableRangeCollection<ReplyItem> Items { get; set; }
+        public ObservableRangeCollection<ComplainReply> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
-        public ComplainItemDetailViewModel(ComplainItem item = null)
+        public ComplainReplyViewModel(ComplainItem item = null)
         {
             Title = item.title;
             Item = item;
 
-            Items = new ObservableRangeCollection<ReplyItem>();
+            Items = new ObservableRangeCollection<ComplainReply>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-        }
-
-        int quantity = 1;
-        public int Quantity
-        {
-            get { return quantity; }
-            set { SetProperty(ref quantity, value); }
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -39,6 +33,10 @@ namespace Aiesec_App.ViewModels
             try
             {
                 Items.Clear();
+
+                ReplyDataStore rd = (ReplyDataStore)DataStore;
+                rd.ComplainItem = Item;
+
                 var items = await DataStore.GetItemsAsync(true);
                 Items.ReplaceRange(items);
             }

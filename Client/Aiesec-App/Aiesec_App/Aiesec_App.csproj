@@ -50,6 +50,8 @@
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="Helpers\ObservableRangeCollection.cs" />
     <Compile Include="Models\BaseDataObject.cs" />
+    <Compile Include="Models\ComplainReply.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\EventItem.cs" />
     <Compile Include="Models\ExchangeParticipant.cs" />
     <Compile Include="Models\IdComparer.cs" />
@@ -70,7 +72,7 @@
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\EventsViewModel.cs" />
-    <Compile Include="ViewModels\ComplainItemDetailViewModel.cs" />
+    <Compile Include="ViewModels\ComplainReplyViewModel.cs" />
     <Compile Include="ViewModels\ComplainsViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />

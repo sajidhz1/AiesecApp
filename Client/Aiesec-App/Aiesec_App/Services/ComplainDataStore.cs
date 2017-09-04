@@ -21,11 +21,8 @@ namespace Aiesec_App.Services
             if (App.IsConnected)
             {
                 //should use from the app
-                item.ExchangeParticipant_idExchangeParticipant = new ExchangeParticipant() {
-                    idExchangeParticipant = 1
-                };
-                item.Project_idProject = new Project() { idProject = 1 , LocalCommitte_idLocalCommitte = item.ExchangeParticipant_idExchangeParticipant.idExchangeParticipant };
-                
+                item.ExchangeParticipant_idExchangeParticipant = 1;
+                item.Project_idProject = 1;                
                 bool httpStatus = await App.ItemsManager.SaveTaskAsync(Constants.URL_COMPLAIN, item, true);
                 if (httpStatus)
                 {

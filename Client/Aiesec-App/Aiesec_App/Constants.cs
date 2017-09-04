@@ -10,6 +10,10 @@ namespace Aiesec_App
 
         public static string URL_COMPLAIN = "complain";
         public static string URL_SIGNIN = "auth/signin";
+        public static string URL_USER = "user";
         public static string URL_SIGNUP = "auth/signup";
+        public static string URL_COUNTRIES = "country";
+        public static string URL_PROJECTS = "project";
+        public static string URL_REPLY = "complainreply";
     }
 }

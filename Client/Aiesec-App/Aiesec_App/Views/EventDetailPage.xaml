@@ -24,12 +24,25 @@
                 </StackLayout>
             </StackLayout>
             <StackLayout Grid.Row="1" Padding="10">
-                <Label Text="{Binding Item.Title}" FontSize="40"/>
-                <Label Text="{Binding Item.Description}"/>
-                <Label Text="The content of the ContentPage is generally a layout of some sort that can be a parent to multiple children."/>
-                <Label Text="This content page contains a StackLayout, which in turn contains a few Label views (including the large one on the top and an example of handling click commands and data binding to a Label below)."/>
-                <Button Text="Click Me" Command="{Binding IncreaseCountCommand}"/>
-                <Label Text="{Binding CountDisplay}"/>
+                <Label Text="{Binding Item.Name}" FontSize="30"/>
+                <Label Text="{Binding Item.Notes}"/>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Starting Time" FontSize="Medium" Grid.Row="0" Grid.Column="0"/>
+                    <Label x:Name="StartTime" Text="lol" Grid.Row="1" Grid.Column="0"/>
+
+                    <Label Text="End Time" FontSize="Medium" Grid.Row="0" Grid.Column="1"/>
+                    <Label x:Name="EndTime" Text="lol" Grid.Row="1" Grid.Column="1"/>
+                </Grid>
+                <Button Text="Location" Clicked="OnNavigateToLocationClicked"/>
             </StackLayout>
         </Grid>
     </ScrollView>

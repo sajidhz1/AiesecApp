@@ -25,19 +25,24 @@ namespace Aiesec_App.Views
 
             BindingContext = this.viewModel = viewModel;
         }
+        void OnNavigateToLocationClicked(object sender, EventArgs e)
+        {
+            var uri = new Uri("http://maps.google.com/maps?saddr=Google+Inc,+8th+Avenue,+New+York,+NY&daddr=John+F.+Kennedy+International+Airport,+Van+Wyck+Expressway,+Jamaica,+New+York&directionsmode=transit");
+            Device.OpenUri(uri);
+        }
     }
 
     public class EventDetailPageViewModel : BaseViewModel<EventItem>
     {
         public Uri EventImage { get; private set; }
 
-        private EventItem Item { get; set; }
+        public EventItem Item { get; set; }
 
         public EventDetailPageViewModel(EventItem item)
         {
-            this.Item = item;
-
+            Item = item;
             EventImage = new Uri(item.EventImage);
         }
     }
+
 }

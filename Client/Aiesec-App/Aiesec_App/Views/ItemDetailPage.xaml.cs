@@ -8,7 +8,7 @@ namespace Aiesec_App.Views
 {
     public partial class ItemDetailPage : ContentPage
     {
-        ComplainItemDetailViewModel viewModel;
+        ComplainReplyViewModel viewModel;
 
         // Note - The Xamarin.Forms Previewer requires a default, parameterless constructor to render a page.
         public ItemDetailPage()
@@ -23,7 +23,7 @@ namespace Aiesec_App.Views
             ItemsListView.SelectedItem = null;
         }
 
-        public ItemDetailPage(ComplainItemDetailViewModel viewModel)
+        public ItemDetailPage(ComplainReplyViewModel viewModel)
         {
             InitializeComponent();
 
@@ -40,15 +40,18 @@ namespace Aiesec_App.Views
 
         private async void Send_Button_Clicked(object sender, System.EventArgs e)
         {
-            ReplyItem ri = new ReplyItem()
+            ComplainReply ri = new ComplainReply()
             {
-                Notes = Reply.Text
+                replyText = Reply.Text,
+                Complain_idComplain = viewModel.Item.idComplain,
+                User_idUser = 11,
+                name = "thishan"
             };
 
             if(await viewModel.DataStore.AddItemAsync(ri))
             {
-                MessagingCenter.Send(this, "AddItem", ri);
-                await Navigation.PopToRootAsync();
+                viewModel.Items.Add(ri);
+                Reply.Text = "";
             }
             else
             {

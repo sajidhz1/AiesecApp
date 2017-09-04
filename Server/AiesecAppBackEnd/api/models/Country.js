@@ -36,11 +36,12 @@ module.exports = {
 
     description: {
       type: 'string',
-    },
-
-    locationCoordinates: {
-      type: 'string',
     }
+    // ,
+
+    // locationCoordinates: {
+    //   type: 'string',
+    // }
   }
 };
 

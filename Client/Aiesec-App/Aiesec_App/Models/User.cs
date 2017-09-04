@@ -21,6 +21,6 @@ namespace Aiesec_App.Models
 
         public bool expired { get; set; }
 
-        public LocalCommittee LocalCommitte_idLocalCommitte { get; set; }
+        public int LocalCommitte_idLocalCommitte { get; set; }
     }
 }

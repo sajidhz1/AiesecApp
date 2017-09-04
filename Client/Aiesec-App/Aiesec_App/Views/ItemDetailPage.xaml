@@ -3,8 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Aiesec_App.Views.ItemDetailPage"
              Title="{Binding Title}">
-    <StackLayout>
-        <ListView x:Name="ItemsListView"
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Resolve"  Order="Secondary"/>
+        <ToolbarItem Text="Delete"  Order="Secondary"/>
+        <ToolbarItem Text="Edit"  Order="Secondary"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="{Binding Item.description}"
+                       Style="{DynamicResource ListItemTextStyle}"
+                       FontSize="16"/>
+            <ListView x:Name="ItemsListView"
 				ItemsSource="{Binding Items}"
                 VerticalOptions="FillAndExpand"
                 HasUnevenRows="true"
@@ -14,47 +23,48 @@
                 CachingStrategy="RecycleElement"
                 ItemSelected="OnItemSelected"
 				>
-            <ListView.ItemTemplate>
-                <DataTemplate>                    
-                    <ViewCell>
-                        <ViewCell.ContextActions>
-                            <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Edit" />
-                            <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
-                        </ViewCell.ContextActions>
-                        <StackLayout Padding="10">
-                            <Label Text="{Binding Name}"
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Edit" />
+                                <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                            </ViewCell.ContextActions>
+                            <StackLayout Padding="10">
+                                <Label Text="{Binding name}"
                        LineBreakMode="NoWrap"
                        Style="{DynamicResource ListItemTextStyle}"
                        FontSize="16"/>
-                            <Label Text="{Binding Notes}"
+                                <Label Text="{Binding replyText}"
                        LineBreakMode="NoWrap"
                        Style="{DynamicResource ListItemDetailTextStyle}"
                        FontSize="13"/>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <!--<ScrollView VerticalOptions="CenterAndExpand">
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <!--<ScrollView VerticalOptions="CenterAndExpand">
             <StackLayout Spacing="20" Padding="15">
                 <Label Text="{Binding Item.Name}" FontSize="Medium"/>
                 <Label Text="{Binding Item.Notes}" FontSize="Small"/>
             </StackLayout>
         </ScrollView>-->
-        <StackLayout Orientation="Horizontal" VerticalOptions="End">
-            <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+            <StackLayout Orientation="Horizontal" VerticalOptions="End">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-            <Editor Text="" Grid.Row="0" x:Name="Reply" Grid.Column="0" />
-            <Button Text="Reply" Clicked="Send_Button_Clicked" Grid.Row="0" Grid.Column="1" BackgroundColor="{StaticResource Primary}"  TextColor="White" />
-            </Grid>
+                    <Editor Text="" Grid.Row="0" x:Name="Reply" Grid.Column="0" />
+                    <Button Text="Reply" Clicked="Send_Button_Clicked" Grid.Row="0" Grid.Column="1" BackgroundColor="{StaticResource Primary}"  TextColor="White" />
+                </Grid>
+            </StackLayout>
         </StackLayout>
-    </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

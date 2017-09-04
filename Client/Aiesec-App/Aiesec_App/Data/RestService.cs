@@ -89,9 +89,10 @@ namespace Aiesec_App.Data
                 IRestResponse response = client.Execute(request);
                 if (response.StatusCode == System.Net.HttpStatusCode.Created)
                 {
-                    Items = JsonConvert.DeserializeObject<List<T>>(response.Content);
+                    return Task.FromResult(true);
+                    // Items = JsonConvert.DeserializeObject<List<T>>(response.Content);
                 }
-               return Task.FromResult(true);
+                return Task.FromResult(false);
             }
             catch (Exception ex)
             {

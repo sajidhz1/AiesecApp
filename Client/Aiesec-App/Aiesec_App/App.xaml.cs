@@ -18,7 +18,7 @@ namespace Aiesec_App
 
         public static Manager<ComplainItem> ItemsManager { get; private set; }
         public static Manager<EventItem> EventsManager { get; private set; }
-        public static Manager<ReplyItem> ReplyManager { get; private set; }
+        public static Manager<ComplainReply> ReplyManager { get; private set; }
 
         public static bool IsUserLoggedIn { get; set; }
 
@@ -31,7 +31,7 @@ namespace Aiesec_App
             networkConnection = DependencyService.Get<INetworkConnection>();
             ItemsManager = new Manager<ComplainItem>(new RestService<ComplainItem>());
             EventsManager = new Manager<EventItem>(new RestService<EventItem>());
-            ReplyManager = new Manager<ReplyItem>(new RestService<ReplyItem>());
+            ReplyManager = new Manager<ComplainReply>(new RestService<ComplainReply>());
 
             SetMainPage();
         }

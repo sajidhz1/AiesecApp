@@ -7,6 +7,7 @@ using Aiesec_App.Models;
 using Aiesec_App.Views;
 
 using Xamarin.Forms;
+using Aiesec_App.Services;
 
 namespace Aiesec_App.ViewModels
 {
@@ -38,7 +39,7 @@ namespace Aiesec_App.ViewModels
 
             try
             {
-                Items.Clear();
+                Items.Clear();                
                 var items = await DataStore.GetItemsAsync(true);
                 Items.ReplaceRange(items);
             }
