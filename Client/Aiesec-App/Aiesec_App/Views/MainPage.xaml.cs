@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,6 +11,17 @@ namespace Aiesec_App.Views
         {
             InitializeComponent();
             SetMainPage();
+
+            ToolbarItems.Add(new ToolbarItem("Sign Out" , null, async () =>
+            {
+                Application.Current.Properties["token"] = null;
+                Application.Current.Properties["user"] = null;
+
+                App.IsUserLoggedIn = false;
+                App.Current.MainPage = new NavigationPage(new LoginPage());
+                await Navigation.PopAsync();
+
+            }, ToolbarItemOrder.Secondary));
         }
 
         public void SetMainPage()

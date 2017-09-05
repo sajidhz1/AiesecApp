@@ -59,9 +59,6 @@ namespace Aiesec_App.Views
 
                     request.AddParameter("email", user.username);
                     request.AddParameter("password", user.password);
-                    //request.AddParameter("connection", "{YOUR-CONNECTION-NAME-FOR-USERNAME-PASSWORD-AUTH}");
-                    //request.AddParameter("grant_type", "password");
-                    //request.AddParameter("scope", "openid");
 
                     // We execute the request and capture the response
                     // in a variable called `response`

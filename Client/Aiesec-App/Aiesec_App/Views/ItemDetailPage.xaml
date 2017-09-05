@@ -62,7 +62,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Editor Text="" Grid.Row="0" x:Name="Reply" Grid.Column="0" />
-                    <Button Text="Reply" Clicked="Send_Button_Clicked" Grid.Row="0" Grid.Column="1" BackgroundColor="{StaticResource Primary}"  TextColor="White" />
+                    <Button Image="ic_send_black_24dp.png" Clicked="Send_Button_Clicked" Grid.Row="0" Grid.Column="1" BackgroundColor="{StaticResource Primary}"  TextColor="White" />
                 </Grid>
             </StackLayout>
         </StackLayout>
