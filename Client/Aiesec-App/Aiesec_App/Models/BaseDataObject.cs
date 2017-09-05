@@ -1,6 +1,5 @@
 ﻿using System;
 using Aiesec_App.Helpers;
-using SQLite;
 
 namespace Aiesec_App.Models
 {
@@ -15,7 +14,7 @@ namespace Aiesec_App.Models
         /// Id for item
         /// </summary>
         /// 
-        [PrimaryKey]
+        //[PrimaryKey]
         public string ID { get; set; }
 
         /// <summary>

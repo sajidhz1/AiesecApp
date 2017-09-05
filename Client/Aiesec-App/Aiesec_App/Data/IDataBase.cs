@@ -1,5 +1,4 @@
-﻿using SQLite;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -16,7 +15,7 @@ namespace Aiesec_App.Data
 
         Task<T> Get(Expression<Func<T, bool>> predicate);
 
-        AsyncTableQuery<T> AsQueryable();
+       // AsyncTableQuery<T> AsQueryable();
 
         Task<int> Insert(T entity);
 

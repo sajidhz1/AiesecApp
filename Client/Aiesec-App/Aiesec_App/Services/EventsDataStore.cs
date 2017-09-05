@@ -20,7 +20,6 @@ namespace Aiesec_App.Services
             await SyncAsync();
 
             items.Add(item);
-            await App.EventsDatabase.Insert(item);
             await App.EventsManager.SaveTaskAsync("", item, true);
 
             return await Task.FromResult(true);
@@ -58,19 +57,19 @@ namespace Aiesec_App.Services
         public async Task<IEnumerable<EventItem>> SyncAsync()
         {
             items = new List<EventItem>();
-            var _localItems = await App.EventsDatabase.Get();
+            //var _localItems = await App.EventsDatabase.Get();
 
-            if (_localItems.Count <= 0)
-            {
-                await InitializeAsync();
-                _localItems = await App.EventsDatabase.Get();
-            }            
+            //if (_localItems.Count <= 0)
+            //{
+            //    await InitializeAsync();
+            //    _localItems = await App.EventsDatabase.Get();
+            //}            
 
-            foreach (EventItem item in _localItems)
-            {
-                item.EventImage = "http://lorempixel.com/400/200/";
-                items.Add(item);
-            }
+            //foreach (EventItem item in _localItems)
+            //{
+            //    item.EventImage = "http://lorempixel.com/400/200/";
+            //    items.Add(item);
+            //}
             return await Task.FromResult(items);
         }
     
@@ -93,41 +92,13 @@ namespace Aiesec_App.Services
 
             items = new List<EventItem>();
 
-            var _serverItems = await App.EventsManager.GetItemsAsync(Constants.URL_COMPLAIN);
-            var _localItems = await App.EventsDatabase.Get();
+            var _serverItems = await App.EventsManager.GetItemsAsync(Constants.URL_COMPLAIN);        
+    
 
-            var _insertItems = _serverItems.Except(_localItems, new IdComparer()).ToList();
-            foreach (EventItem item in _insertItems)
-            {
-                await App.EventsDatabase.Insert(item);
-            }
-
-            var _updateItems = _serverItems.Except(_insertItems, new IdComparer()).ToList();
-            foreach (EventItem item in _updateItems)
-            {
-                await App.EventsDatabase.Update(item);
-            }
-
-            _localItems = await App.EventsDatabase.Get();
-
-            foreach (EventItem item in _localItems)
+            foreach (EventItem item in _serverItems)
             {                
                 items.Add(item);
             }
-
-            items.Add(new EventItem() {
-
-                Name = "lalalal"
-                ,Notes = "Testing"
-            });
-
-            items.Add(new EventItem()
-            {
-
-                Name = "lalalal"
-                ,
-                Notes = "Testing2"
-            });
 
             isInitialized = true;
         }

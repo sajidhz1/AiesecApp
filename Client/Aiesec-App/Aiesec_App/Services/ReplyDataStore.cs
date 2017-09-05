@@ -56,9 +56,10 @@ namespace Aiesec_App.Services
             items = new List<ComplainReply>();
 
             var _serverItems = await App.ReplyManager.GetItemsAsync(Constants.URL_REPLY+ "?" + nameof(ComplainReply.Complain_idComplain) +"="+ComplainItem.idComplain);
-            var _localItems = await App.EventsDatabase.Get();
 
-            var _insertItems = _serverItems.Except(_localItems, new IdComparer()).ToList();
+            //var _localItems = await App.EventsDatabase.Get();
+
+            //var _insertItems = _serverItems.Except(_localItems, new IdComparer()).ToList();
             //foreach (ReplyItem item in _insertItems)
             //{
             //    await App.EventsDatabase.Insert(item);

@@ -22,15 +22,15 @@ namespace Aiesec_App.Services
             {
                 //should use from the app
                 item.ExchangeParticipant_idExchangeParticipant = 1;
-                item.Project_idProject = 1;                
+                item.Project_idProject = 1;
                 bool httpStatus = await App.ItemsManager.SaveTaskAsync(Constants.URL_COMPLAIN, item, true);
                 if (httpStatus)
                 {
                     //int insertResult = await App.ItemsDatabase.Insert(item);
                     //if (insertResult == 1)
                     //{
-                        items.Add(item);
-                   // }
+                    items.Add(item);
+                    // }
                 }
 
             }
@@ -50,13 +50,10 @@ namespace Aiesec_App.Services
                 bool httpStatus = await App.ItemsManager.UpdateTaskAsync(item);
                 if (httpStatus)
                 {
-                    int insertResult = await App.ItemsDatabase.Update(item);
-                    if (insertResult == 1)
-                    {
-                        var _item = items.Where((ComplainItem arg) => arg.ID == item.ID).FirstOrDefault();
-                        items.Remove(_item);
-                        items.Add(item);
-                    }
+
+                    var _item = items.Where((ComplainItem arg) => arg.ID == item.ID).FirstOrDefault();
+                    items.Remove(_item);
+                    items.Add(item);
                 }
 
             }
@@ -69,18 +66,15 @@ namespace Aiesec_App.Services
 
         public async Task<bool> DeleteItemAsync(ComplainItem item)
         {
-  
+
             if (App.IsConnected)
             {
                 bool httpStatus = await App.ItemsManager.DeleteTaskAsync(item.ID);
                 if (httpStatus)
                 {
-                    int insertResult = await App.ItemsDatabase.Delete(item);
-                    if (insertResult == 1)
-                    {
-                        var _item = items.Where((ComplainItem arg) => arg.ID == item.ID).FirstOrDefault();
-                        items.Remove(_item);
-                    }
+                    var _item = items.Where((ComplainItem arg) => arg.ID == item.ID).FirstOrDefault();
+                    items.Remove(_item);
+
                 }
 
             }
@@ -132,7 +126,7 @@ namespace Aiesec_App.Services
 
             items = new List<ComplainItem>();
 
-            var _serverItems  = await App.ItemsManager.GetItemsAsync(Constants.URL_COMPLAIN);
+            var _serverItems = await App.ItemsManager.GetItemsAsync(Constants.URL_COMPLAIN);
             //var _localItems = await App.ItemsDatabase.Get();
 
             //var _newItems  = _serverItems.Except(_localItems, new IdComparer()).ToList();
@@ -156,7 +150,7 @@ namespace Aiesec_App.Services
             {
                 items.Add(item);
             }
-            
+
 
             isInitialized = true;
         }
