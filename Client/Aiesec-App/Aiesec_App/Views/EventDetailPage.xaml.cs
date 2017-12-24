@@ -27,7 +27,7 @@ namespace Aiesec_App.Views
         }
         void OnNavigateToLocationClicked(object sender, EventArgs e)
         {
-            var uri = new Uri("http://maps.google.com/maps?saddr=Google+Inc,+8th+Avenue,+New+York,+NY&daddr=John+F.+Kennedy+International+Airport,+Van+Wyck+Expressway,+Jamaica,+New+York&directionsmode=transit");
+            var uri = new Uri("http://maps.google.com/maps?saddr=" + viewModel.Item.venue.Replace(" ", "+"));
             Device.OpenUri(uri);
         }
     }

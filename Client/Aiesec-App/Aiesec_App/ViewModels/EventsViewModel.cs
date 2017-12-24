@@ -1,5 +1,6 @@
 ﻿using Aiesec_App.Helpers;
 using Aiesec_App.Models;
+using Aiesec_App.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,18 +16,18 @@ namespace Aiesec_App.ViewModels
         public ObservableRangeCollection<EventItem> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
-        public UriImageSource EventImage { get; private set; }
-
         public EventsViewModel()
         {
             Title = "Events";
             Items = new ObservableRangeCollection<EventItem>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadCommandAsync());
             
-            EventImage = new UriImageSource
+            MessagingCenter.Subscribe<NewEventPage, EventItem>(this, "AddItem", async (obj, item) =>
             {
-                Uri = new Uri("https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg")
-            };
+                var _item = item as EventItem;
+                Items.Add(_item);
+                await DataStore.AddItemAsync(_item);
+            });
         }
 
         private async Task ExecuteLoadCommandAsync()

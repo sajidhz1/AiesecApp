@@ -53,44 +53,51 @@ namespace Aiesec_App.Views
             var validateFieldsSucceeded = ValidateFields();
             if (validateFieldsSucceeded)
             {
-                try
-                {
-                    var request = new RestRequest(Constants.URL_SIGNIN, Method.POST);
-
-                    request.AddParameter("email", user.username);
-                    request.AddParameter("password", user.password);
-                    //request.AddParameter("connection", "{YOUR-CONNECTION-NAME-FOR-USERNAME-PASSWORD-AUTH}");
-                    //request.AddParameter("grant_type", "password");
-                    //request.AddParameter("scope", "openid");
-
-                    // We execute the request and capture the response
-                    // in a variable called `response`
-                    IRestResponse response = await client.ExecuteTaskAsync(request);
-
-                    // Using the Newtonsoft.Json library we deserialaize the string into an object,
-                    // we have created a LoginToken class that will capture the keys we need
-                    LoginToken login = JsonConvert.DeserializeObject<LoginToken>(response.Content);
-
-                    if (login.token != null)
+                if (App.IsConnected) {
+                    try
                     {
-                        Application.Current.Properties["token"] = login.token;
-                        Application.Current.Properties["user"] = login.user;
+                        var request = new RestRequest(Constants.URL_SIGNIN, Method.POST);
 
-                        App.IsUserLoggedIn = true;
-                        Navigation.InsertPageBefore(new MainPage(), this);
-                        await Navigation.PopAsync();
+                        request.AddParameter("email", user.username);
+                        request.AddParameter("password", user.password);
+                        //request.AddParameter("connection", "{YOUR-CONNECTION-NAME-FOR-USERNAME-PASSWORD-AUTH}");
+                        //request.AddParameter("grant_type", "password");
+                        //request.AddParameter("scope", "openid");
+
+                        // We execute the request and capture the response
+                        // in a variable called `response`
+                        IRestResponse response = await client.ExecuteTaskAsync(request);
+
+                        // Using the Newtonsoft.Json library we deserialaize the string into an object,
+                        // we have created a LoginToken class that will capture the keys we need
+                        LoginToken login = JsonConvert.DeserializeObject<LoginToken>(response.Content);
+
+                        if (login.token != null)
+                        {
+                            Application.Current.Properties["token"] = login.token;
+                            Application.Current.Properties["user"] = login.user;
+
+                            App.IsUserLoggedIn = true;
+                            Navigation.InsertPageBefore(new MainPage(), this);
+                            await Navigation.PopAsync();
+                        }
+                        else
+                        {
+                            vm.IsBusy = false;
+                            await DisplayAlert("Login failed", response.Content, "OK");
+                        }
                     }
-                    else
+                    catch (Exception e)
                     {
                         vm.IsBusy = false;
-                        await DisplayAlert("Login failed", response.Content, "OK");
+                        await DisplayAlert("Error", e.Message, "OK");
                     }
                 }
-                catch (Exception e)
-                {
-                    vm.IsBusy = false;
-                    await DisplayAlert("Error", e.Message, "OK");
-                }
+            }
+            else
+            {
+                vm.IsBusy = false;
+                await DisplayAlert("Error", "Please Check your network Connection !", "OK");
             }
 
             passwordEntry.Text = string.Empty;

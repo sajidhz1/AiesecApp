@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Aiesec_App.Views.SurveryForm">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1"    AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="StartAndExpand" Padding="16,10,16,40"  >
+                    <Label Text="Did you get the Documents required to get your visa or work permit ?" FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" Spacing="0">
+                        <Label Text="{Binding q1, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                        <Switch IsToggled="{Binding q1, Path=Monitored, Mode=TwoWay}" HorizontalOptions="End" VerticalOptions="Center" />
+                    </StackLayout>
+                    <Label Text="Did youset personal goals at the beginning of your experience ?" FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" Spacing="0">
+                        <Label Text="{Binding q2, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                        <Switch IsToggled="{Binding q2, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <Label Text="Did AIESEC in ABC invite you to a preparation before you wen aborad ? " FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" Spacing="0">
+                        <Label Text="{Binding q3, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                        <Switch IsToggled="{Binding q3, Path=Monitored, Mode=TwoWay}"   HorizontalOptions="End" VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <Label Text="Did AIESEC in RMIT Sri Lanka prepare you for the destination you were headed ?" FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" Spacing="0">
+                        <Label Text="{Binding q4, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                        <Switch IsToggled="{Binding q4, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <Label Text="Was pickup arrangement communicated befroe arrival and fulfilled ?" FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" Spacing="0">
+                        <Label Text="{Binding q5, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                        <Switch IsToggled="{Binding q5, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <Label Text="Did an AIESEC representaticwe assist you on your first day of work ? " FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" Spacing="0">
+                        <Label Text="{Binding q6, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                        <Switch IsToggled="{Binding q6, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <Label Text="Did you work at least 25 hours/ week ?" FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" Spacing="0">
+                        <Label Text="{Binding q7, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                        <Switch IsToggled="{Binding q7, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <Label Text="Have you purchased insurance for the period of your stay ?" FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" Spacing="0">
+                        <Label Text="{Binding q8, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                        <Switch IsToggled="{Binding q8, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <Label Text="Was the accomodation according to the expectation set with you by AIESEC ?" FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" Spacing="0">
+                        <Label Text="{Binding q9, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                        <Switch IsToggled="{Binding q9, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <Label Text="Were you informed about any compensation( subsidy or meals) and was it fulfiled ?" FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" Spacing="0">
+                        <Label Text="{Binding q10, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                        <Switch IsToggled="{Binding q10, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <Label Text="Did the AIESEC RMIT provide your space to align your job descriptionwith personal goals at the beginning and end of your experience ?" FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" Spacing="0">
+                        <Label Text="{Binding q11, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                        <Switch IsToggled="{Binding q11, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <Label Text="Were your explained the legal procedure how to leave the country ?" FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" Spacing="0">
+                        <Label Text="{Binding q12, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                        <Switch IsToggled="{Binding q12, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <Label Text="Did AIESEC Sri Lanka contacted you at the end of you experience ?" FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" Spacing="0">
+                        <Label Text="{Binding q13, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                        <Switch IsToggled="{Binding q13, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
+                    </StackLayout>
+
+                </StackLayout>
+            </ScrollView>
+            <ContentView x:Name="overlay" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" IsVisible="{Binding IsBusy, Mode=OneWay}" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#C0ffffff" Padding="10, 0">
+                <ActivityIndicator  WidthRequest="110" HeightRequest="70" IsRunning="True"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            </ContentView>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -28,8 +28,8 @@
                     </Image.Source>
                 </Image>
                 <StackLayout HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0" Spacing="0" StyleId="SponsorCell">
-                    <Label Text="{Binding Name}" Style="{DynamicResource EvolveListItemTextStyle}" StyleId="SponsorName"/>
-                    <Label Text="{Binding Notes, StringFormat='{0} Sponsor'}"   StyleId="SponsorLevel"/>
+                    <Label Text="{Binding description}" Style="{DynamicResource EvolveListItemTextStyle}" StyleId="SponsorName"/>
+                    <Label Text="{Binding description, StringFormat='{0} Sponsor'}"   StyleId="SponsorLevel"/>
                 </StackLayout>
 
             </Grid>

@@ -20,7 +20,7 @@ namespace Aiesec_App.Services
             await SyncAsync();
 
             items.Add(item);
-            await App.EventsManager.SaveTaskAsync("", item, true);
+            await App.EventsManager.SaveTaskAsync(Constants.URL_EVENTS, item, true);
 
             return await Task.FromResult(true);
         }
@@ -70,6 +70,7 @@ namespace Aiesec_App.Services
             //    item.EventImage = "http://lorempixel.com/400/200/";
             //    items.Add(item);
             //}
+            await InitializeAsync();
             return await Task.FromResult(items);
         }
     
@@ -87,16 +88,16 @@ namespace Aiesec_App.Services
 
         public async Task InitializeAsync()
         {
-            if (isInitialized)
-                return;
+            //if (isInitialized)
+            //    return;
 
             items = new List<EventItem>();
 
-            var _serverItems = await App.EventsManager.GetItemsAsync(Constants.URL_COMPLAIN);        
+            var _serverItems = await App.EventsManager.GetItemsAsync(Constants.URL_EVENTS);        
     
 
             foreach (EventItem item in _serverItems)
-            {                
+            {              
                 items.Add(item);
             }
 

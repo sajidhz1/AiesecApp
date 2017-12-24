@@ -30,7 +30,7 @@ namespace Aiesec_App.Views
                 Title = "Event Schedule",
                 Icon = Device.OnPlatform("tab_about.png", null, null)
             });
-            Children.Add(new AboutPage()
+            Children.Add(new SurveryForm()
             {
                 Title = "Survey",
                 Icon = Device.OnPlatform("tab_about.png", null, null)

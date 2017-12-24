@@ -13,7 +13,9 @@ namespace Aiesec_App
         public static string URL_USER = "user";
         public static string URL_SIGNUP = "auth/signup";
         public static string URL_COUNTRIES = "country";
+        public static string URL_EVENTS = "projectevent";
         public static string URL_PROJECTS = "project";
         public static string URL_REPLY = "complainreply";
+        public static string CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/huufvofso/image/upload";
     }
 }

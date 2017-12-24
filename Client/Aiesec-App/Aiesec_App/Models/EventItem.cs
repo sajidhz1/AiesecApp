@@ -4,22 +4,20 @@ namespace Aiesec_App.Models
 {
     public class EventItem : BaseDataObject
     {
-        public string Description { get; set; }
+        public string description { get; set; }
 
-        public string Venue { get; set; }
+        public string venue { get; set; }
 
-        public string ProjectID { get; set; }
+        public int Project_idProject { get; set; }
 
-        public string Start { get; set; }
+        public int User_idUser { get; set; }
 
-        public string End { get; set; }
+        public string start { get; set; }
+
+        public string end { get; set; }
 
         public string EventImage { get; set; }
 
-        public bool Expired { get; set; }
-
-        public string Name { get; set; }
-
-        public string Notes { get; set; }
+        public bool expired { get; set; }
     }
 }
