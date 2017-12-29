@@ -31,6 +31,11 @@ module.exports = {
       required: true
     },
 
+    title: {
+      type: 'string',
+      required: true
+    },
+
     venue: {
       type: 'string',
       required: true
@@ -49,6 +54,11 @@ module.exports = {
     description: {
       type: 'string',
       required: true
+    },
+
+    eventImage: {
+      type: 'string',
+      required: false
     },
 
     createdDate: {
