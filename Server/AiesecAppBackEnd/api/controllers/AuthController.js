@@ -16,11 +16,24 @@ function _onPassportAuth(req, res, error, user, info) {
     if (error) return res.serverError(error);
     if (!user) return res.unauthorized(null, info && info.code, info && info.message);
 
-    return res.ok({
-        // TODO: replace with new type of cipher service
-        token: CipherService.createToken(user),
-        user: user
-    });
+    if (user.userType == 1) {
+        return res.ok({
+            // TODO: replace with new type of cipher service
+            token: CipherService.createToken(user),
+            user: user,
+            project: {}
+        });
+    } else {
+        UserService.getUserProject(user).then(function (userProject) {
+            return res.ok({
+                // TODO: replace with new type of cipher service
+                token: CipherService.createToken(user),
+                user: user,
+                project: userProject[0]
+            });
+        });
+    }
+
 }
 
 module.exports = {

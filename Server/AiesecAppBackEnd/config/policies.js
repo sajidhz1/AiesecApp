@@ -35,7 +35,11 @@ module.exports.policies = {
 
   CountryController: {
     '*': true
-  }  
+  },
+  
+  ProjectController:{
+    '*': true
+  }
 
   /***************************************************************************
   *                                                                          *
