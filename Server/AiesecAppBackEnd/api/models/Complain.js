@@ -52,6 +52,12 @@ module.exports = {
       type: 'boolean',
       required: true,
       defaultsTo: false
+    },
+
+    expired: {
+      type: 'boolean',
+      required: true,
+      defaultsTo: false
     }
   }
 };
