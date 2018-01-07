@@ -48,7 +48,13 @@ module.exports = {
       type: 'datetime'
     },
 
-    complainStatus: {
+    epResolveStatus: {
+      type: 'boolean',
+      required: true,
+      defaultsTo: false
+    },
+
+    tlResolveStatus: {
       type: 'boolean',
       required: true,
       defaultsTo: false

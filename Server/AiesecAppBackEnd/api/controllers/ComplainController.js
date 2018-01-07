@@ -23,7 +23,7 @@ module.exports = {
         });
     },
 
-    getComplainsByProjectId: function(req, res){
+    getComplainsByProjectId: function (req, res) {
         var projectId = req.param('id');
         Complain.find({
             where: { Project_idProject: projectId },
@@ -37,6 +37,33 @@ module.exports = {
         }).catch(function (error) {
             return res.json({ "status": res.statusCode, "message": error })
         });
+    },
+
+    epComplainResolve: function (req, res) {
+        var complainId = req.param('id');
+        Complain.update({ where: { idComplain: complainId } }, req.body).exec(function afterwards(error, updated) {
+            if (error) {
+                return res.json({ "status": res.statusCode, "message": error });
+            }
+            return res.json({
+                "status": res.statusCode,
+                "complain": updated[0]
+            });
+        });
+    },
+
+    tlComplainResolve: function (req, res) {
+        var complainId = req.param('id');
+        Complain.update({ where: { idComplain: complainId } }, req.body).exec(function afterwards(error, updated) {
+            if (error) {
+                return res.json({ "status": res.statusCode, "message": error });
+            }
+            return res.json({
+                "status": res.statusCode,
+                "complain": updated[0]
+            });
+        });
     }
+
 };
 

@@ -38,10 +38,11 @@ module.exports.routes = {
 
   //Custom Routes for ComplainController
 
-  'GET /complain/getcomplainsbyepid/:id' : 'ComplainController.getComplainsByEpId',
-  'GET /complain/getcomplainsbyprojectid/:id' : 'ComplainController.getComplainsByProjectId',
+  'GET /complain/getcomplainsbyepid/:id': 'ComplainController.getComplainsByEpId',
+  'GET /complain/getcomplainsbyprojectid/:id': 'ComplainController.getComplainsByProjectId',
   // 'GET /complain/getcomplainsbylcid' : 'ComplainController.getComplainsByLcId'
-
+  'PUT /complain/epcomplainresolve/:id': 'ComplainController.epComplainResolve',
+  'PUT /complain/tlcomplainresolve/:id': 'ComplainController.tlComplainResolve'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
