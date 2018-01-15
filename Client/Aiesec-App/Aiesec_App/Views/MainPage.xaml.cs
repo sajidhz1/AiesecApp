@@ -32,7 +32,7 @@ namespace Aiesec_App.Views
             });
             Children.Add(new SurveryForm()
             {
-                Title = "Survey",
+                Title = "Be SriLankan",
                 Icon = Device.OnPlatform("tab_about.png", null, null)
             });
         }

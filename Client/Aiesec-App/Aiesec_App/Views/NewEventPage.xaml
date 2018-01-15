@@ -10,7 +10,7 @@
             <ScrollView  AbsoluteLayout.LayoutBounds="0, 0, 1, 1"    AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="StartAndExpand" Padding="16,10,16,40"  >
                     <Label Text="Title" FontSize="Medium" />
-                    <Entry Text="{Binding Item.Name}" FontSize="Small" />
+                    <Entry x:Name="titleText" FontSize="Small" />
 
                     <Label Text="Date" FontSize="Medium" />
                     <DatePicker x:Name="StartDatePicker" Format="dd/MM/yyyy" Date="{Binding Item.StartDate}" MinimumDate="{Binding Item.StartDate}" />
@@ -31,7 +31,7 @@
                     </Grid>
 
                     <Label Text="Description" FontSize="Medium" />
-                    <Editor Text="{Binding Item.Notes}" FontSize="Small"  Margin="0" />
+                    <Editor x:Name="Description" Text="{Binding Item.Notes}" FontSize="Small"  Margin="0" />
 
                     <Button Text="Pick Photo" 
                         WidthRequest="100" 

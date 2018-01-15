@@ -18,10 +18,12 @@ namespace Aiesec_App.Services
         public async Task<bool> AddItemAsync(EventItem item)
         {
             await SyncAsync();
-
-            items.Add(item);
-            await App.EventsManager.SaveTaskAsync(Constants.URL_EVENTS, item, true);
-
+            
+            bool httpStatus = await App.EventsManager.SaveTaskAsync(Constants.URL_EVENTS, item, true);
+            if (httpStatus)
+            {
+                items.Add(item);
+            }
             return await Task.FromResult(true);
         }
 

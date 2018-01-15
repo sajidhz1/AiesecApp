@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Aiesec_App.Views.SignUpPage"
-             Title="{Binding Title}">
+             x:Class="Aiesec_App.Views.LCSignupPage">
     <ContentPage.Content>
         <AbsoluteLayout>
             <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1"    AbsoluteLayout.LayoutFlags="All">
@@ -12,12 +11,11 @@
                     <Entry x:Name="firstnameEntry" Placeholder="first name"  Margin="0,0,0,10"/>
                     <Label Text="Last Name" />
                     <Entry x:Name="lastnameEntry" Placeholder="last name"  Margin="0,0,0,10"/>
-                    <Label Text="Country" />
-                    <Entry x:Name="countryEntry2" Margin="0,0,0,10" />
-                    <Picker x:Name="countryEntry" Margin="0,0,0,10"
-                            ItemsSource="{Binding Countries}" 
-                            ItemDisplayBinding="{Binding name}"
-                            SelectedIndex="{Binding idCountry}"
+                    <Label Text="UserType" />
+                    <Picker x:Name="userTypeEntry" Margin="0,0,0,10"
+                            ItemDisplayBinding="{Binding Value}"
+                            ItemsSource="{Binding UserTypesList}"
+                            SelectedItem="{Binding SelectedItem}"
                             HorizontalOptions="FillAndExpand">
                     </Picker>
                     <Label Text="Project" />
@@ -43,6 +41,6 @@
             <ContentView x:Name="overlay" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" IsVisible="{Binding IsBusy, Mode=OneWay}" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#C0ffffff" Padding="10, 0">
                 <ActivityIndicator  WidthRequest="110" HeightRequest="70" IsRunning="True"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
             </ContentView>
-        </AbsoluteLayout>
+            </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -16,8 +16,8 @@ namespace Aiesec_App.Views
             Title = "New Complain/Request";
             Item = new ComplainItem
             {
-                title = "Item name",
-                description = "This is a nice description"
+                title = "",
+                description = ""
             };
 
             BindingContext = this;

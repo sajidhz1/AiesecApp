@@ -28,7 +28,6 @@ namespace Aiesec_App.Views
             });
 
             BindingContext = this;
-            IsBusy = false;
         }
 
         async void OnAddPhotoClicked(object sender, EventArgs e)
@@ -64,14 +63,26 @@ namespace Aiesec_App.Views
 
         private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
+            await AddNewEvent();
+        }
+
+        async Task AddNewEvent()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
             EventItem ri = new EventItem()
-            {
+            {   
+                title = titleText.Text,
                 venue = Location.Text,
-                start = StartTime.Time.ToString(),
-                end = EndTime.Time.ToString(),
+                start = DateTime.Now + StartTime.Time,
+                end = DateTime.Now + EndTime.Time ,
+                description = Description.Text,
                 expired = false,
-                User_idUser = 11,
-                Project_idProject = 1
+                User_idUser = ((User)Application.Current.Properties["user"]).idUser,
+                Project_idProject = ((Project)Application.Current.Properties["project"]).idProject
             };
 
 
@@ -89,19 +100,21 @@ namespace Aiesec_App.Views
                 IRestResponse response = client.Execute(request);
                 IsBusy = true;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                {                  
-                    CloudinaryResponse  obj = JsonConvert.DeserializeObject<CloudinaryResponse>(response.Content);
-                    ri.EventImage = obj.url;
-
-                    MessagingCenter.Send(this, "AddItem", ri);
-                    await Navigation.PopToRootAsync();
+                {
+                    CloudinaryResponse obj = JsonConvert.DeserializeObject<CloudinaryResponse>(response.Content);
+                    ri.eventImage = obj.url;                   
                 }
-           
+
             }
             catch (Exception ex)
+            {               
+                Debug.WriteLine(@"				ERROR {0}", ex.Message);
+            }
+            finally
             {
                 IsBusy = false;
-                Debug.WriteLine(@"				ERROR {0}", ex.Message);
+                MessagingCenter.Send(this, "AddItem", ri);
+                await Navigation.PopToRootAsync();                
             }
         }
 
@@ -114,6 +127,7 @@ namespace Aiesec_App.Views
                 return memoryStream.ToArray();
             }
         }
+
     }
 
     class CloudinaryResponse

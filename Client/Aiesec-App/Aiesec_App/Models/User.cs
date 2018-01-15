@@ -8,6 +8,7 @@ namespace Aiesec_App.Models
 {
     public class User : BaseDataObject
     {
+        public int idUser { get; set; }
 
         public string email { get; set; }
 

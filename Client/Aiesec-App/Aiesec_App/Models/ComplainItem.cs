@@ -12,8 +12,8 @@
 
         public int Project_idProject {get; set;}
 
-        private bool isDone;
-        public bool Done { get { return isDone; }
-            set { isDone = value; OnPropertyChanged(); } }
+        public string complainStatus { get; set; }
+
+        public int expired { get; set; }
     }
 }

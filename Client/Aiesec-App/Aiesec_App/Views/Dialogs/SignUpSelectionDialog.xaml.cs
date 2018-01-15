@@ -22,9 +22,9 @@ namespace Aiesec_App.Views.Dialogs
              await Navigation.PushModalAsync(new NavigationPage(new SignUpPage()));
         }
 
-        private void OnSignUpAsLCClicked(object sender, EventArgs e)
+        async void OnSignUpAsLCClicked(object sender, EventArgs e)
         {
-
+            await Navigation.PushModalAsync(new NavigationPage(new LCSignupPage()));
         }
     }
 }

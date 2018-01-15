@@ -4,9 +4,9 @@
              x:Class="Aiesec_App.Views.ItemDetailPage"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Resolve"  Order="Secondary"/>
+        <!--<ToolbarItem Text="Resolve"  Order="Secondary"/>
         <ToolbarItem Text="Delete"  Order="Secondary"/>
-        <ToolbarItem Text="Edit"  Order="Secondary"/>
+        <ToolbarItem Text="Edit"  Order="Secondary"/>-->
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
@@ -27,8 +27,9 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
-                                <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Edit" />
+                                <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Resolve" />
                                 <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                                <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Edit" />
                             </ViewCell.ContextActions>
                             <StackLayout Padding="10">
                                 <Label Text="{Binding name}"

@@ -25,7 +25,6 @@ namespace Aiesec_App.ViewModels
             MessagingCenter.Subscribe<NewEventPage, EventItem>(this, "AddItem", async (obj, item) =>
             {
                 var _item = item as EventItem;
-                Items.Add(_item);
                 await DataStore.AddItemAsync(_item);
             });
         }

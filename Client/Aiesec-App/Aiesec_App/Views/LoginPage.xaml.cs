@@ -76,6 +76,7 @@ namespace Aiesec_App.Views
                         {
                             Application.Current.Properties["token"] = login.token;
                             Application.Current.Properties["user"] = login.user;
+                            Application.Current.Properties["project"] = login.project;
 
                             App.IsUserLoggedIn = true;
                             Navigation.InsertPageBefore(new MainPage(), this);
@@ -126,6 +127,8 @@ namespace Aiesec_App.Views
             public string token { get; set; }
 
             public User user { get; set; }
+
+            public Project project { get; set; }
         }
 
         private void About_Clicked(object sender, EventArgs e)

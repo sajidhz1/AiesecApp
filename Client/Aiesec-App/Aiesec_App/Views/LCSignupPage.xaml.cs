@@ -1,25 +1,28 @@
 ﻿using Aiesec_App.Models;
-using System;
-using System.Linq;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Aiesec_App.ViewModels;
 using Newtonsoft.Json;
 using RestSharp;
-using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
-using Aiesec_App.ViewModels;
+using System.Threading.Tasks;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Aiesec_App.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SignUpPage : ContentPage
+    public partial class LCSignupPage : ContentPage
     {
-        private SignUpViewModel vm { get; }
+        private LcSignUpViewModel vm { get; }
 
-        public SignUpPage()
+        public LCSignupPage()
         {
             InitializeComponent();
-            BindingContext = vm = new SignUpViewModel();
+            BindingContext = vm = new LcSignUpViewModel();
         }
 
         async void OnSignUpButtonClicked(object sender, EventArgs e)
@@ -36,10 +39,10 @@ namespace Aiesec_App.Views
         {
             base.OnAppearing();
 
-            if (vm.Countries.Count == 0 || vm.Projects.Count == 0)
+            if(vm.Projects.Count == 0)
             {
                 vm.LoadItemsCommand.Execute(null);
-                countryEntry.ItemsSource = vm.Countries;
+                userTypeEntry.ItemsSource = vm.UserTypesList;
                 projectEntry.ItemsSource = vm.Projects;
             }
         }
@@ -56,7 +59,7 @@ namespace Aiesec_App.Views
                 username = usernameEntry.Text,
                 password = passwordEntry.Text,
                 email = emailEntry.Text,
-                userType = 3,
+                userType = vm.SelectedItem.Key,
                 LocalCommitte_idLocalCommitte = 1
             };
 
@@ -191,8 +194,4 @@ namespace Aiesec_App.Views
         }
     }
 
-    public class UserSignup
-    {
-        public string user_id { get; set; }
-    }
 }

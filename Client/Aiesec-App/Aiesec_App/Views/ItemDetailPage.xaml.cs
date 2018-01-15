@@ -44,8 +44,8 @@ namespace Aiesec_App.Views
             {
                 replyText = Reply.Text,
                 Complain_idComplain = viewModel.Item.idComplain,
-                User_idUser = 11,
-                name = "thishan"
+                User_idUser = ((User)Application.Current.Properties["user"]).idUser,
+                name = ((User)Application.Current.Properties["user"]).username
             };
 
             if(await viewModel.DataStore.AddItemAsync(ri))
@@ -62,7 +62,30 @@ namespace Aiesec_App.Views
         public void OnEdit(object sender, EventArgs e)
         {
             var mi = ((MenuItem)sender);
-            DisplayAlert("More Context Action", mi.CommandParameter + " more context action", "OK");
+            DisplayAlert("Edit Context Action", mi.CommandParameter + " more context action", "OK");
+        }
+
+        public void OnResolve(object sender, EventArgs e)
+        {
+            var mi = ((MenuItem)sender);
+            DisplayAlert("Resolve Context Action", mi.CommandParameter + " delete context action", "OK");
+            //ComplainReply ri = new ComplainReply()
+            //{
+            //    replyText = Reply.Text,
+            //    Complain_idComplain = viewModel.Item.idComplain,
+            //    User_idUser = ((User)Application.Current.Properties["user"]).idUser,
+            //    name = ((User)Application.Current.Properties["user"]).username
+            //};
+
+            //if (await viewModel.DataStore.AddItemAsync(ri))
+            //{
+            //    viewModel.Items.Add(ri);
+            //    Reply.Text = "";
+            //}
+            //else
+            //{
+
+            //}
         }
 
         public void OnDelete(object sender, EventArgs e)

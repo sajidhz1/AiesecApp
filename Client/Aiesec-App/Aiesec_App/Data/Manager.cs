@@ -16,9 +16,9 @@ namespace Aiesec_App.Data
             restService = service;
         }
 
-        public Task<List<T>> GetItemsAsync(string endPointUrl)
+        public Task<List<T>> GetItemsAsync(string endPointUrl, bool authorized = true)
         {
-            return restService.RefreshDataAsync(endPointUrl);
+            return restService.RefreshDataAsync(endPointUrl, authorized);
         }
 
         public Task<bool> SaveTaskAsync(string url, T item, bool isNewItem = false)
@@ -26,15 +26,15 @@ namespace Aiesec_App.Data
             return restService.SaveItemAsync(url, item, isNewItem);
         }
 
-        public Task<bool> UpdateTaskAsync(T item)
+        public Task<bool> UpdateTaskAsync(string url, string id, T item)
         {
-            return restService.UpdateItemAsync(item);
+            return restService.UpdateItemAsync(url,  id,  item);
         }
 
         //id = Item.ID
-        public Task<bool> DeleteTaskAsync(string id)
+        public Task<bool> DeleteTaskAsync(string url, string id)
         {
-            return restService.DeleteItemAsync(id);
+            return restService.DeleteItemAsync(url, id);
         }
     }
 }

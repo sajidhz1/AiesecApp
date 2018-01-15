@@ -11,24 +11,35 @@ using Xamarin.Forms;
 
 namespace Aiesec_App.ViewModels
 {
-    public class SignUpViewModel : BaseViewModel
+    public class LcSignUpViewModel : BaseViewModel
     {
         public ObservableRangeCollection<Project> Projects { get; set; }
-        public ObservableRangeCollection<Country> Countries { get; set; }
 
-        public static Manager<Country> CountriesManager { get; private set; }
+        public static Dictionary<int, string> UserTypes =
+            new Dictionary<int, string>() { { 1, "Team Lead" }, { 2, "Member" } };
+
         public static Manager<Project> ProjectsManager { get; private set; }
 
         public Command LoadItemsCommand { get; set; }
 
-        public SignUpViewModel()
+
+        public List<KeyValuePair<int, string>> UserTypesList
         {
-            Title = "SignUp";
+            get => UserTypes.ToList();
+        }
 
-            Countries = new ObservableRangeCollection<Country>();
+        private KeyValuePair<int, string> _selectedItem;
+        public KeyValuePair<int, string> SelectedItem
+        {
+            get => _selectedItem;
+            set => _selectedItem = value;
+        }
+
+        public LcSignUpViewModel()
+        {
+            Title = "Member SignUp";
+
             Projects = new ObservableRangeCollection<Project>();
-
-            CountriesManager = new Manager<Country>(new RestService<Country>());
             ProjectsManager = new Manager<Project>(new RestService<Project>());
 
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
@@ -43,10 +54,6 @@ namespace Aiesec_App.ViewModels
 
             try
             {
-                Countries.Clear();
-                var countries = await CountriesManager.GetItemsAsync(Constants.URL_COUNTRIES, false);
-                Countries.ReplaceRange(countries);
-
                 Projects.Clear();
                 var projects = await ProjectsManager.GetItemsAsync(Constants.URL_PROJECTS, false);
 

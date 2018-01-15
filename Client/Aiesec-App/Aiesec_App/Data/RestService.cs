@@ -26,7 +26,7 @@ namespace Aiesec_App.Data
             client = new RestClient(Constants.RestUrl);       
         }
 
-        public async Task<List<T>> RefreshDataAsync(string apiUrl)
+        public async Task<List<T>> RefreshDataAsync(string apiUrl, bool authorized = true)
         {
             Items = new List<T>();
 
@@ -34,7 +34,11 @@ namespace Aiesec_App.Data
             var request = new RestRequest(apiUrl, Method.GET);
             //request.AddParameter("Authorization", string.Format("Basic " + authHeaderValue), ParameterType.HttpHeader);
             request.AddParameter("Content-Type", "application/json", ParameterType.HttpHeader);
-            request.AddParameter("Authorization", "JWT " + Application.Current.Properties["token"],ParameterType.HttpHeader);
+
+            if (authorized)
+            {
+                request.AddParameter("Authorization", "JWT " + Application.Current.Properties["token"], ParameterType.HttpHeader);
+            }           
             try
             {
                 IRestResponse response = await client.ExecuteTaskAsync(request);
@@ -106,14 +110,49 @@ namespace Aiesec_App.Data
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateItemAsync(T item)
+        public Task<bool> UpdateItemAsync(string url, string id, T item)
         {
-            throw new NotImplementedException();
+            var request = new RestRequest(url+"/"+id, Method.PUT);
+            request.AddHeader("Authorization", "JWT " + Application.Current.Properties["token"]);
+            try
+            {
+                var json = JsonConvert.SerializeObject(item);
+
+                request.AddParameter("application/json; charset=utf-8", json, ParameterType.RequestBody);
+                request.RequestFormat = DataFormat.Json;
+
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode == System.Net.HttpStatusCode.Created)
+                {
+                    return Task.FromResult(true);
+                }
+                return Task.FromResult(false);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"				ERROR {0}", ex.Message);
+            }
+            return Task.FromResult(false);
         }
 
-        Task<bool> IRestService<T>.DeleteItemAsync(string id)
+        Task<bool> IRestService<T>.DeleteItemAsync(string url, string id)
         {
-            throw new NotImplementedException();
+            var request = new RestRequest(url + "/" + id, Method.DELETE);
+            request.AddHeader("Authorization", "JWT " + Application.Current.Properties["token"]);
+            try
+            {
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode == System.Net.HttpStatusCode.Created)
+                {
+                    return Task.FromResult(true);
+                }
+                return Task.FromResult(false);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"				ERROR {0}", ex.Message);
+            }
+            return Task.FromResult(false);
         }
     }
 }

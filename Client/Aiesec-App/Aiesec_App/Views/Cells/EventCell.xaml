@@ -22,14 +22,14 @@
                     StyleId="SponsorImage"
                     Aspect="AspectFit">
                     <Image.Source>
-                        <UriImageSource Uri="{Binding EventImage}" 
+                        <UriImageSource Uri="{Binding eventImage}" 
                             CacheValidity="3" 
                             CachingEnabled="true"/>
                     </Image.Source>
                 </Image>
                 <StackLayout HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0" Spacing="0" StyleId="SponsorCell">
-                    <Label Text="{Binding description}" Style="{DynamicResource EvolveListItemTextStyle}" StyleId="SponsorName"/>
-                    <Label Text="{Binding description, StringFormat='{0} Sponsor'}"   StyleId="SponsorLevel"/>
+                    <Label Text="{Binding title}" FontSize="30" Style="{DynamicResource EvolveListItemTextStyle}" StyleId="SponsorName"/>
+                    <!--<Label Text="{Binding description, StringFormat='{0} Sponsor'}"   StyleId="SponsorLevel"/>-->
                 </StackLayout>
 
             </Grid>

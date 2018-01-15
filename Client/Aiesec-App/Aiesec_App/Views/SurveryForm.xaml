@@ -1,93 +1,149 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Aiesec_App.Views.Controls"
+             xmlns:vm="clr-namespace:Aiesec_App.ViewModels;"
              x:Class="Aiesec_App.Views.SurveryForm">
+    <ContentPage.ToolbarItems>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <AbsoluteLayout>
-            <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1"    AbsoluteLayout.LayoutFlags="All">
-                <StackLayout VerticalOptions="StartAndExpand" Padding="16,10,16,40"  >
-                    <Label Text="Did you get the Documents required to get your visa or work permit ?" FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        <Label Text="{Binding q1, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                        <Switch IsToggled="{Binding q1, Path=Monitored, Mode=TwoWay}" HorizontalOptions="End" VerticalOptions="Center" />
-                    </StackLayout>
-                    <Label Text="Did youset personal goals at the beginning of your experience ?" FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        <Label Text="{Binding q2, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                        <Switch IsToggled="{Binding q2, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
-                    </StackLayout>
-
-                    <Label Text="Did AIESEC in ABC invite you to a preparation before you wen aborad ? " FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        <Label Text="{Binding q3, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                        <Switch IsToggled="{Binding q3, Path=Monitored, Mode=TwoWay}"   HorizontalOptions="End" VerticalOptions="Center" />
-                    </StackLayout>
-
-                    <Label Text="Did AIESEC in RMIT Sri Lanka prepare you for the destination you were headed ?" FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        <Label Text="{Binding q4, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                        <Switch IsToggled="{Binding q4, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
-                    </StackLayout>
-
-                    <Label Text="Was pickup arrangement communicated befroe arrival and fulfilled ?" FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        <Label Text="{Binding q5, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                        <Switch IsToggled="{Binding q5, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
-                    </StackLayout>
-
-                    <Label Text="Did an AIESEC representaticwe assist you on your first day of work ? " FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        <Label Text="{Binding q6, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                        <Switch IsToggled="{Binding q6, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
-                    </StackLayout>
-
-                    <Label Text="Did you work at least 25 hours/ week ?" FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        <Label Text="{Binding q7, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                        <Switch IsToggled="{Binding q7, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
-                    </StackLayout>
-
-                    <Label Text="Have you purchased insurance for the period of your stay ?" FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        <Label Text="{Binding q8, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                        <Switch IsToggled="{Binding q8, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
-                    </StackLayout>
-
-                    <Label Text="Was the accomodation according to the expectation set with you by AIESEC ?" FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        <Label Text="{Binding q9, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                        <Switch IsToggled="{Binding q9, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
-                    </StackLayout>
-
-                    <Label Text="Were you informed about any compensation( subsidy or meals) and was it fulfiled ?" FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        <Label Text="{Binding q10, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                        <Switch IsToggled="{Binding q10, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
-                    </StackLayout>
-
-                    <Label Text="Did the AIESEC RMIT provide your space to align your job descriptionwith personal goals at the beginning and end of your experience ?" FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        <Label Text="{Binding q11, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                        <Switch IsToggled="{Binding q11, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
-                    </StackLayout>
-
-                    <Label Text="Were your explained the legal procedure how to leave the country ?" FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        <Label Text="{Binding q12, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                        <Switch IsToggled="{Binding q12, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
-                    </StackLayout>
-
-                    <Label Text="Did AIESEC Sri Lanka contacted you at the end of you experience ?" FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        <Label Text="{Binding q13, Path=Monitored}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                        <Switch IsToggled="{Binding q13, Path=Monitored, Mode=TwoWay}"  HorizontalOptions="End" VerticalOptions="Center" />
-                    </StackLayout>
-
+        <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1"    AbsoluteLayout.LayoutFlags="All">
+            <Grid Padding="16" ColumnSpacing="16" BackgroundColor="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Row="0" Grid.Column="0" >
+                    <StackLayout.Padding>
+                        <OnPlatform x:TypeArguments="Thickness" iOS="0" Android="0,4" WinPhone="0"/>
+                    </StackLayout.Padding>
+                    <local:CardView>
+                        <Grid Padding="16" ColumnSpacing="16" BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Row="0" Grid.Column="0"
+                                   Source="static_food.png"
+                                   HeightRequest="100"
+                                   HorizontalOptions="FillAndExpand"
+                                   Aspect="AspectFit"/>
+                            <StackLayout HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0" Spacing="0" StyleId="SponsorCell">
+                                <Label Text="FOOD" FontSize="30" Style="{DynamicResource EvolveListItemTextStyle}" StyleId="SponsorName"/>
+                                <Label Text="Sri Lankan food is unique with a variety of dishes/ curries known for their flavours, ranging from mild to spicy and fiery hot. Different regions of the country specialize in different types of mouthwatering dishes. In fact Sri Lankan cuisine is a beautiful blend of colours, flavours and nutritional value."   StyleId="SponsorLevel"/>
+                            </StackLayout>
+                        </Grid>
+                    </local:CardView>
                 </StackLayout>
-            </ScrollView>
-            <ContentView x:Name="overlay" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" IsVisible="{Binding IsBusy, Mode=OneWay}" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#C0ffffff" Padding="10, 0">
-                <ActivityIndicator  WidthRequest="110" HeightRequest="70" IsRunning="True"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-            </ContentView>
-        </AbsoluteLayout>
+                <StackLayout Grid.Row="1" Grid.Column="0" >
+                    <StackLayout.Padding>
+                        <OnPlatform x:TypeArguments="Thickness" iOS="0" Android="0,4" WinPhone="0"/>
+                    </StackLayout.Padding>
+                    <local:CardView>
+                        <Grid Padding="16" ColumnSpacing="16" BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Row="0" Grid.Column="0"
+                                   Source="static_religon.png"
+                                   HeightRequest="100"
+                                   HorizontalOptions="FillAndExpand"
+                                   Aspect="AspectFit"/>
+                            <StackLayout HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0" Spacing="0" StyleId="SponsorCell">
+                                <Label Text="RELIGIONS" FontSize="30" Style="{DynamicResource EvolveListItemTextStyle}" StyleId="SponsorName"/>
+                                <Label Text="Sri Lanka possesses a multi-religious society. The primary religion of its population is Buddhism. Christianity, Hinduism and Islam are other religions that are being followed by Sri Lankans. The diversity in religions and prominent religious festivals lead to ethnic unity and harmony in the country."   StyleId="SponsorLevel"/>
+                            </StackLayout>
+                        </Grid>
+                    </local:CardView>
+                </StackLayout>
+                <StackLayout Grid.Row="2" Grid.Column="0" >
+                    <StackLayout.Padding>
+                        <OnPlatform x:TypeArguments="Thickness" iOS="0" Android="0,4" WinPhone="0"/>
+                    </StackLayout.Padding>
+                    <local:CardView>
+                        <Grid Padding="16" ColumnSpacing="16" BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Row="0" Grid.Column="0"
+                                   Source="static_culture.png"
+                                   HeightRequest="100"
+                                   HorizontalOptions="FillAndExpand"
+                                   Aspect="AspectFit"/>
+                            <StackLayout HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0" Spacing="0" StyleId="SponsorCell">
+                                <Label Text="Culture" FontSize="30" Style="{DynamicResource EvolveListItemTextStyle}" StyleId="SponsorName"/>
+                                <Label Text="Sri Lanka is home to many distinct customs and rituals that are symbolic of its rich cultural diversity. Sri Lankan culture is often characterized by art, architecture, sculptures, food, and people. Religion has a significant impact on the Sri Lankan culture and its festivities."   StyleId="SponsorLevel"/>
+                            </StackLayout>
+                        </Grid>
+                    </local:CardView>
+                </StackLayout>
+                <StackLayout Grid.Row="3" Grid.Column="0" >
+                    <StackLayout.Padding>
+                        <OnPlatform x:TypeArguments="Thickness" iOS="0" Android="0,4" WinPhone="0"/>
+                    </StackLayout.Padding>
+                    <local:CardView>
+                        <Grid Padding="16" ColumnSpacing="16" BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Row="0" Grid.Column="0"
+                                   Source="static_nature.png"
+                                   HeightRequest="100"
+                                   HorizontalOptions="FillAndExpand"
+                                   Aspect="AspectFit"/>
+                            <StackLayout HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0" Spacing="0" StyleId="SponsorCell">
+                                <Label Text="Nature" FontSize="30" Style="{DynamicResource EvolveListItemTextStyle}" StyleId="SponsorName"/>
+                                <Label Text="Sri Lanka is truly a paradise with myriads of not-to-be-missed spectacles that mesmerize nature enthusiasts from all over the world. It is known to many as the Pearl of the Indian Ocean for its exotic beauty and awe-inspiring terrains. This tiny island, with a tropical climate, provides a vast array of spellbinding sights from sun-kissed beaches to misty mountains."   StyleId="SponsorLevel"/>
+                            </StackLayout>
+                        </Grid>
+                    </local:CardView>
+                </StackLayout>
+                <StackLayout Grid.Row="4" Grid.Column="0" >
+                    <StackLayout.Padding>
+                        <OnPlatform x:TypeArguments="Thickness" iOS="0" Android="0,4" WinPhone="0"/>
+                    </StackLayout.Padding>
+                    <local:CardView>
+                        <Grid Padding="16" ColumnSpacing="16" BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Row="0" Grid.Column="0"
+                                   Source="static_wild.png"
+                                   HeightRequest="100"
+                                   HorizontalOptions="FillAndExpand"
+                                   Aspect="AspectFit"/>
+                            <StackLayout HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0" Spacing="0" StyleId="SponsorCell">
+                                <Label Text="Wild Life" FontSize="30" Style="{DynamicResource EvolveListItemTextStyle}" StyleId="SponsorName"/>
+                                <Label Text="The island is rich in biodiversity, from flora to fauna, with a large number of national parks, virgin forest reserves, sanctuaries and jungle corridors. One should not forget to take a journey through Sri Lanka's diverse landscapes and its natural wilderness, in search of endemic as well as migrant bird species, numerous species of reptiles, amphibians, and mammals."   StyleId="SponsorLevel"/>
+                            </StackLayout>
+                        </Grid>
+                    </local:CardView>
+                </StackLayout>
+                <StackLayout Grid.Row="5" Grid.Column="0" >
+                    <StackLayout.Padding>
+                        <OnPlatform x:TypeArguments="Thickness" iOS="0" Android="0,4" WinPhone="0"/>
+                    </StackLayout.Padding>
+                    <local:CardView>
+                        <Grid Padding="16" ColumnSpacing="16" BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Row="0" Grid.Column="0"
+                                   Source="static_city.png"
+                                   HeightRequest="100"
+                                   HorizontalOptions="FillAndExpand"
+                                   Aspect="AspectFit"/>
+                            <StackLayout HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0" Spacing="0" StyleId="SponsorCell">
+                                <Label Text="City Life" FontSize="30" Style="{DynamicResource EvolveListItemTextStyle}" StyleId="SponsorName"/>
+                                <Label Text="The multifaceted city life in Sri Lanka diversifies one's experiences by offering fine dining options, shopping malls and street markets. What would be more fantabulous than enjoying street food while witnessing the magnificent sunset at Galle Face Green, an evening walk around Kandy Lake, visiting World Heritage Sites and an exciting tuk tuk ride around a city?"   StyleId="SponsorLevel"/>
+                            </StackLayout>
+                        </Grid>
+                    </local:CardView>
+                </StackLayout>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

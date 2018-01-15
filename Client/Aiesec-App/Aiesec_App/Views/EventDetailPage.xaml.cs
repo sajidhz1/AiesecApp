@@ -32,6 +32,7 @@ namespace Aiesec_App.Views
         }
     }
 
+    //TODO : show a default image if eventImage is missing 
     public class EventDetailPageViewModel : BaseViewModel<EventItem>
     {
         public Uri EventImage { get; private set; }
@@ -41,7 +42,7 @@ namespace Aiesec_App.Views
         public EventDetailPageViewModel(EventItem item)
         {
             Item = item;
-            EventImage = new Uri(item.EventImage);
+            EventImage = item.eventImage != null ?  new Uri(item.eventImage): new Uri("http://lorempixel.com/400/200");
         }
     }
 

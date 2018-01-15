@@ -22,7 +22,7 @@ namespace Aiesec_App.Services
             {
                 //should use from the app
                 item.ExchangeParticipant_idExchangeParticipant = 1;
-                item.Project_idProject = 1;
+                item.Project_idProject = ((Project)Application.Current.Properties["project"]).idProject;
                 bool httpStatus = await App.ItemsManager.SaveTaskAsync(Constants.URL_COMPLAIN, item, true);
                 if (httpStatus)
                 {
@@ -47,7 +47,7 @@ namespace Aiesec_App.Services
 
             if (App.IsConnected)
             {
-                bool httpStatus = await App.ItemsManager.UpdateTaskAsync(item);
+                bool httpStatus = await App.ItemsManager.UpdateTaskAsync(Constants.URL_COMPLAIN, item.ID, item);
                 if (httpStatus)
                 {
 
@@ -55,7 +55,6 @@ namespace Aiesec_App.Services
                     items.Remove(_item);
                     items.Add(item);
                 }
-
             }
             else
             {
@@ -69,14 +68,12 @@ namespace Aiesec_App.Services
 
             if (App.IsConnected)
             {
-                bool httpStatus = await App.ItemsManager.DeleteTaskAsync(item.ID);
+                bool httpStatus = await App.ItemsManager.DeleteTaskAsync(Constants.URL_COMPLAIN, item.ID);
                 if (httpStatus)
                 {
                     var _item = items.Where((ComplainItem arg) => arg.ID == item.ID).FirstOrDefault();
                     items.Remove(_item);
-
                 }
-
             }
             else
             {
@@ -148,6 +145,7 @@ namespace Aiesec_App.Services
             //_localItems = await App.ItemsDatabase.Get();
             foreach (ComplainItem item in _serverItems)
             {
+                if(item.expired == 0)
                 items.Add(item);
             }
 

@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Aiesec_App.Views.EventDetailPage"
-             Title="EventDetailPage">
+             Title="{Binding Item.title}">
   <ScrollView>
         <Grid>
             <Grid.RowDefinitions>
@@ -24,8 +24,8 @@
                 </StackLayout>
             </StackLayout>
             <StackLayout Grid.Row="1" Padding="10">
-                <Label Text="{Binding Item.Name}" FontSize="30"/>
-                <Label Text="{Binding Item.Notes}"/>
+                <Label Text="{Binding Item.title}" FontSize="30"/>
+                <Label Text="{Binding Item.description}"/>
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -37,10 +37,10 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Text="Starting Time" FontSize="Medium" Grid.Row="0" Grid.Column="0"/>
-                    <Label x:Name="StartTime" Text="lol" Grid.Row="1" Grid.Column="0"/>
+                    <Label x:Name="StartTime" Text="{Binding Item.start}" Grid.Row="1" Grid.Column="0"/>
 
                     <Label Text="End Time" FontSize="Medium" Grid.Row="0" Grid.Column="1"/>
-                    <Label x:Name="EndTime" Text="lol" Grid.Row="1" Grid.Column="1"/>
+                    <Label x:Name="EndTime" Text="{Binding Item.end}" Grid.Row="1" Grid.Column="1"/>
                 </Grid>
                 <Button Text="Location" Clicked="OnNavigateToLocationClicked"/>
             </StackLayout>

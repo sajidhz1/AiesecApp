@@ -2,14 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Aiesec_App.Views.ItemsPage"
+             xmlns:local="clr-namespace:Aiesec_App.Views"
               Title="{Binding Title}"
              x:Name="BrowseItemsPage">
-  <ContentPage.ToolbarItems>
-  	<ToolbarItem Text="+" Clicked="AddItem_Clicked" />
-  </ContentPage.ToolbarItems>
-  <ContentPage.Content>
-    <StackLayout>
-      <ListView x:Name="ItemsListView"
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ComplainStatustoColor x:Key="convertComplainStatus"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="ItemsListView"
 				ItemsSource="{Binding Items}"
                 VerticalOptions="FillAndExpand"
                 HasUnevenRows="true"
@@ -18,28 +24,28 @@
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                 CachingStrategy="RecycleElement"
 				ItemSelected="OnItemSelected">
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <ViewCell>
-            <ViewCell.ContextActions>
-                 <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Edit" />
-                 <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
-                 <MenuItem Clicked="OnResolve" CommandParameter="{Binding .}" Text="Resolve" />
-            </ViewCell.ContextActions>
-              <StackLayout Padding="10">
-                <Label Text="{Binding title}"
-                       LineBreakMode="NoWrap"
-                       Style="{DynamicResource ListItemTextStyle}"
-                       FontSize="16"/>
-                <Label Text="{Binding description}"
-                       LineBreakMode="NoWrap"
-                       Style="{DynamicResource ListItemDetailTextStyle}"
-                       FontSize="13"/>
-              </StackLayout>
-            </ViewCell>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-      </ListView>
-    </StackLayout> 
-  </ContentPage.Content>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Edit" />
+                                <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                                <MenuItem Clicked="OnResolve" CommandParameter="{Binding .}" Text="Resolve" />
+                            </ViewCell.ContextActions>
+                            <StackLayout Padding="10">
+                                <Label Text="{Binding title}" TextColor="{Binding complainStatus, Converter={StaticResource convertComplainStatus}}"
+                                   LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListItemTextStyle}"
+                                   FontSize="16"/>
+                                <Label Text="{Binding description}"
+                                   LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                   FontSize="13"/>      
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
