@@ -21,12 +21,8 @@ module.exports = {
 
         Country.find({
             where: searchObject
-        }).then(function (countrys) {
-            return res.json({
-                "status": res.statusCode,
-                "complainsCount": countrys.length,
-                "countrys": countrys
-            });
+        }).then(function (countries) {
+            return res.json(countries);
         }).catch(function (error) {
             return res.json({ "status": res.statusCode, "message": error })
         });

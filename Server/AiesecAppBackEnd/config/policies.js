@@ -34,7 +34,7 @@ module.exports.policies = {
   },
 
   CountryController: {
-    '*': true
+    'searchCountry': true
   },
   
   ProjectController:{
