@@ -32,6 +32,10 @@ module.exports.policies = {
   AuthController: {
     '*': true
   },
+  
+  ExchangeParticipantController:{
+    '*': true
+  },
 
   CountryController: {
     'searchCountry': true
