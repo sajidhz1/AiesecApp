@@ -46,10 +46,7 @@ module.exports = {
         User
             .create(_.omit(req.allParams(), 'id'))
             .then(function (user) {
-                return {
-                    // TODO: replace with new type of cipher service
-                    user: user
-                };
+                return user;
             })
             .then(res.created)
             .catch(res.serverError);

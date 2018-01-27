@@ -46,6 +46,9 @@ module.exports.routes = {
 
   //Custom Routes for CountryController
   'GET /country/searchcountry/:query': 'CountryController.searchCountry',
+
+  //Custom Routes for CountryController
+  'GET /project/searchproject/:query': 'ProjectController.searchProject',
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
